@@ -1,8 +1,8 @@
 import { State } from '../classes/state.class';
-import { GenericManager } from './generic.manager';
+import { GenericManager } from '../../../managers/generic.manager';
 import fs from 'fs';
 import { Jomini } from 'jomini';
-import { x } from './sprite.manager';
+import { x } from '../../../managers/sprite.manager';
 import { plainToClassFromExist } from 'class-transformer';
 
 export class StateManager extends GenericManager<State> {

@@ -1,6 +1,6 @@
 import { CommonManager } from '../managers/common.manager';
 import { EventManager } from '../managers/event.manager';
-import { HistoryManager } from '../managers/history.manager';
+import { HistoryManager } from '../history/states/managers/history.manager';
 import { InterfaceManager } from '../managers/interface.manager';
 import { MapManager } from '../managers/map.manager';
 

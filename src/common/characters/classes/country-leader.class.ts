@@ -1,4 +1,4 @@
-import { Product } from './product.class';
+import { Product } from '../../../classes/product.class';
 import { Expose, Transform } from 'class-transformer';
 
 export class CountryLeader {

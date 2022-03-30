@@ -1,4 +1,4 @@
-import { Province } from '../../src/classes/province.class';
+import { Province } from '../../src/map/classes/province.class';
 import { Mod } from '../../src/classes/mod.class';
 import Color from 'color';
 

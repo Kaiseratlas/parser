@@ -1,5 +1,5 @@
 import { Province } from '../classes/province.class';
-import { GenericManager } from './generic.manager';
+import { GenericManager } from '../../managers/generic.manager';
 import fs from 'fs';
 import csv from 'csv-parser';
 import { plainToClassFromExist } from 'class-transformer';

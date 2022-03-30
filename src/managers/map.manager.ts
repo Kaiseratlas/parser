@@ -1,5 +1,5 @@
 import { Product } from '../classes/product.class';
-import { ProvinceManager } from './province.manager';
+import { ProvinceManager } from '../map/managers/province.manager';
 
 export class MapManager {
   private readonly product: Product;

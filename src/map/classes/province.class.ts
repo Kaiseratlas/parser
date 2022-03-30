@@ -1,4 +1,4 @@
-import { ProductEntity } from './product-entity.class';
+import { ProductEntity } from '../../classes/product-entity.class';
 import { Expose, Transform } from 'class-transformer';
 import Color from 'color';
 

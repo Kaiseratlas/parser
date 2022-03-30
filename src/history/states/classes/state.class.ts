@@ -1,7 +1,7 @@
-import { ProductEntity } from './product-entity.class';
+import { ProductEntity } from '../../../classes/product-entity.class';
 import { Expose, Transform } from 'class-transformer';
-import { Province } from './province.class';
-import { x } from '../managers/sprite.manager';
+import { Province } from '../../../map';
+import { x } from '../../../managers/sprite.manager';
 
 export class State extends ProductEntity {
   @Expose()

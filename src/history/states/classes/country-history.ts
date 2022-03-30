@@ -1,8 +1,8 @@
-import { ProductEntity } from './product-entity.class';
+import { ProductEntity } from '../../../classes/product-entity.class';
 import { Expose } from 'class-transformer';
 import { State } from './state.class';
 import { CountryPolitics } from './country-politics.class';
-import { Character } from './character.class';
+import { Character } from '../../../common/characters/classes/character.class';
 
 export class CountryHistory extends ProductEntity {
   @Expose({ name: 'capital' })

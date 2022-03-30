@@ -1,5 +1,5 @@
-import { GenericManager } from './generic.manager';
-import { CountryHistory } from '../classes/country-history';
+import { GenericManager } from '../../../managers/generic.manager';
+import { CountryHistory } from '../classes';
 import fs from 'fs';
 import { Jomini } from 'jomini';
 import { plainToClassFromExist, plainToInstance } from 'class-transformer';

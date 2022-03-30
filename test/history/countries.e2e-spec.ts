@@ -1,8 +1,8 @@
 import { Mod } from '../../src/classes/mod.class';
-import { CountryHistory } from '../../src/classes/country-history';
-import { State } from '../../src/classes/state.class';
-import { CountryPolitics } from '../../src/classes/country-politics.class';
-import { Character } from '../../src/classes/character.class';
+import { CountryHistory } from '../../src/history/states/classes/country-history';
+import { State } from '../../src/history/states/classes/state.class';
+import { CountryPolitics } from '../../src/history/states/classes/country-politics.class';
+import { Character } from '../../src/common/characters/classes/character.class';
 
 describe('KR Country History (e2e)', () => {
   let kr: Mod;

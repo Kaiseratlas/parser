@@ -1,6 +1,6 @@
 import { Mod } from '../../src/classes/mod.class';
-import { Character } from '../../src/classes/character.class';
-import { CountryLeader } from '../../src/classes/country-leader.class';
+import { Character } from '../../src/common/characters/classes/character.class';
+import { CountryLeader } from '../../src/common/characters/classes/country-leader.class';
 
 describe('KR Characters (e2e)', () => {
   let kr: Mod;

@@ -2,7 +2,7 @@ import { GoalsManager } from './goals.manager';
 import { IdeaManager } from './idea.manager';
 import { IdeologyManager } from './ideology.manager';
 import { IntelligenceAgencyManager } from './intelligence-agency.manager';
-import { CharacterManager } from './character.manager';
+import { CharacterManager } from '../common/characters/managers/character.manager';
 import { AbilityManager } from './ability.manager';
 import { AutonomyStateManager } from './autonomy-state.manager';
 import { Product } from '../classes/product.class';

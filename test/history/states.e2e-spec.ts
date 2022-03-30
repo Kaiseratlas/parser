@@ -1,6 +1,6 @@
 import { Mod } from '../../src/classes/mod.class';
-import { State } from '../../src/classes/state.class';
-import { Province } from '../../src/classes/province.class';
+import { State } from '../../src/history/states/classes/state.class';
+import { Province } from '../../src/map/classes/province.class';
 
 describe('KR Country History (e2e)', () => {
   let kr: Mod;

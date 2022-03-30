@@ -1,6 +1,6 @@
 import { CountryHistoryManager } from './country-history.manager';
 import { StateManager } from './state.manager';
-import { Product } from '../classes/product.class';
+import { Product } from '../../../classes/product.class';
 
 export class HistoryManager {
   private readonly product: Product;

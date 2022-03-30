@@ -1,11 +1,15 @@
-import { GenericManager } from './generic.manager';
-import { Character, CorpsCommander, FieldMarshal } from "../classes/character.class";
+import { GenericManager } from '../../../managers/generic.manager';
+import {
+  Character,
+  CorpsCommander,
+  FieldMarshal,
+  CountryLeader,
+} from '../classes';
 import { Jomini } from 'jomini';
 import fs from 'fs';
 import type { Entry } from 'fast-glob';
 import { plainToClassFromExist } from 'class-transformer';
-import { x } from './sprite.manager';
-import { CountryLeader } from '../classes/country-leader.class';
+import { x } from '../../../managers/sprite.manager';
 
 export class CharacterManager extends GenericManager<Character> {
   protected readonly wildcards = ['common/characters/**/*.txt'];
