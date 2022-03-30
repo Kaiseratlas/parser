@@ -1,4 +1,4 @@
-import { Mod } from '../src/classes/mod.class';
+import { Mod } from '../src/shared/classes/mod.class';
 
 describe('', () => {
   let kr: Mod;

@@ -1,4 +1,4 @@
-import { ProductEntity } from '../../../classes/product-entity.class';
+import { ProductEntity } from '@shared/';
 import { Expose } from 'class-transformer';
 
 export class FieldMarshal extends ProductEntity {

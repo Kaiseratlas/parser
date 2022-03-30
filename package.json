@@ -32,6 +32,9 @@
     "reflect-metadata": "^0.1.13"
   },
   "jest": {
+    "moduleNameMapper": {
+      "@shared": "<rootDir>/src/shared"
+    },
     "moduleFileExtensions": [
       "js",
       "json",

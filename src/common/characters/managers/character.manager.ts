@@ -1,4 +1,4 @@
-import { GenericManager } from '../../../managers/generic.manager';
+import { GenericManager } from '@shared/';
 import {
   Character,
   CorpsCommander,
@@ -9,7 +9,7 @@ import { Jomini } from 'jomini';
 import fs from 'fs';
 import type { Entry } from 'fast-glob';
 import { plainToClassFromExist } from 'class-transformer';
-import { x } from '../../../managers/sprite.manager';
+import { x } from '../../../interface';
 
 export class CharacterManager extends GenericManager<Character> {
   protected readonly wildcards = ['common/characters/**/*.txt'];

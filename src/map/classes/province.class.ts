@@ -1,12 +1,7 @@
-import { ProductEntity } from '../../classes/product-entity.class';
+import { ProductEntity } from '@shared/';
 import { Expose, Transform } from 'class-transformer';
 import Color from 'color';
-
-enum ProvinceType {
-  LAND = 'land',
-  SEA = 'sea',
-  LAKE = 'lake',
-}
+import { ProvinceType } from '../enums';
 
 export class Province extends ProductEntity {
   static readonly Type = ProvinceType;

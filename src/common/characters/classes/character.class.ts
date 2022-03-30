@@ -1,5 +1,5 @@
 import { Expose } from 'class-transformer';
-import { ProductEntity } from '../../../classes/product-entity.class';
+import { ProductEntity } from '@shared/';
 
 import type { CountryLeader } from './country-leader.class';
 import type { Advisor } from './advisor.class';

@@ -1,5 +1,5 @@
-import { Province } from '../../src/map/classes/province.class';
-import { Mod } from '../../src/classes/mod.class';
+import { Province } from '../../src/map';
+import { Mod } from '../../src/shared/classes/mod.class';
 import Color from 'color';
 
 describe('KR Provinces (e2e)', () => {

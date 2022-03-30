@@ -1,4 +1,4 @@
-import { Product } from '../../../classes/product.class';
+import { Product } from '@shared/';
 import { Expose, Transform } from 'class-transformer';
 
 export class CountryLeader {

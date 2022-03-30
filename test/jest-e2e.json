@@ -1,4 +1,7 @@
 {
+  "moduleNameMapper": {
+    "@shared": "<rootDir>/../src/shared"
+  },
   "moduleFileExtensions": ["js", "json", "ts"],
   "rootDir": ".",
   "testEnvironment": "node",
