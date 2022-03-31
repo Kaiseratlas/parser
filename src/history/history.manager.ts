@@ -1,13 +1,7 @@
 import { CountryHistoryManager, StateManager } from './states';
-import { Product } from '@shared/';
+import { ProductEntity } from '@shared/';
 
-export class HistoryManager {
-  private readonly product: Product;
-
-  constructor(product: Product) {
-    this.product = product;
-  }
-
+export class HistoryManager extends ProductEntity {
   get countries() {
     return new CountryHistoryManager(this.product);
   }

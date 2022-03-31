@@ -1,15 +1,9 @@
 import { Expose, Transform } from 'class-transformer';
-import { Product } from '@shared/';
+import { ProductEntity } from '@shared/';
 import fs from 'fs';
 import path from 'path';
 
-export class Sprite {
-  protected readonly product: Product;
-
-  constructor(product: Product) {
-    this.product = product;
-  }
-
+export class Sprite extends ProductEntity {
   @Expose()
   name: string;
   @Expose({ name: 'texturefile' })

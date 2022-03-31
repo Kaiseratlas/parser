@@ -1,13 +1,7 @@
-import { Product } from '@shared/';
+import { ProductEntity } from '@shared/';
 import { Expose, Transform } from 'class-transformer';
 
-export class CountryLeader {
-  protected readonly product: Product;
-
-  constructor(product: Product) {
-    this.product = product;
-  }
-
+export class CountryLeader extends ProductEntity {
   @Expose()
   readonly ideology: string;
 

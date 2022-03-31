@@ -1,13 +1,7 @@
 import { SpriteManager } from './managers';
-import { Product } from '../shared/classes/product.class';
+import { ProductEntity } from '@shared/';
 
-export class InterfaceManager {
-  private readonly product: Product;
-
-  constructor(product: Product) {
-    this.product = product;
-  }
-
+export class InterfaceManager extends ProductEntity {
   get sprites() {
     return new SpriteManager(this.product);
   }

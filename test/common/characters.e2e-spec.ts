@@ -1,4 +1,4 @@
-import { Mod } from '../../src/shared/classes/mod.class';
+import { Mod } from '../../src/core/classes/mod.class';
 import { Character, CountryLeader } from '../../src/common';
 
 describe('KR Characters (e2e)', () => {

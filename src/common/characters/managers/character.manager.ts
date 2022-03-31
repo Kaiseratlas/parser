@@ -9,7 +9,18 @@ import { Jomini } from 'jomini';
 import fs from 'fs';
 import type { Entry } from 'fast-glob';
 import { plainToClassFromExist } from 'class-transformer';
-import { x } from '../../../interface';
+
+function x(x) {
+  if (!x) {
+    return [];
+  }
+
+  if (!Array.isArray(x)) {
+    return [x];
+  }
+
+  return x;
+}
 
 export class CharacterManager extends GenericManager<Character> {
   protected readonly wildcards = ['common/characters/**/*.txt'];

@@ -1,4 +1,4 @@
-import { Mod } from '../../src/shared/classes/mod.class';
+import { Mod } from '../../src/core/classes/mod.class';
 import { State } from '../../src/history';
 import { Province } from '../../src/map';
 

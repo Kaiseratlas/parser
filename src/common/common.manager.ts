@@ -5,18 +5,12 @@ import { IntelligenceAgencyManager } from './intelligence-agencies';
 import { CharacterManager } from './characters';
 import { AbilityManager } from './abilities';
 import { AutonomyStateManager } from './autonomous-states';
-import { Product } from '@shared/';
+import { ProductEntity } from '@shared/';
 import { IdeaCategoryManager } from './ideas/managers/idea-category.manager';
 
 import 'dotenv/config'; // TODO: move to index
 
-export class CommonManager {
-  private readonly product: Product;
-
-  constructor(product: Product) {
-    this.product = product;
-  }
-
+export class CommonManager extends ProductEntity {
   get abilities() {
     return new AbilityManager(this.product);
   }

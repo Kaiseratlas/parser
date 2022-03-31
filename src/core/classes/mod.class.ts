@@ -1,22 +1,12 @@
-import { CommonManager } from '../../common/common.manager';
-import { EventManager } from '../../events';
+import { Product } from './product.class';
+import { CommonManager } from '../../common';
 import { HistoryManager } from '../../history';
 import { InterfaceManager } from '../../interface';
 import { MapManager } from '../../map';
 
-export class Product {
-  constructor(absolutePath: string) {
-    this.absolutePath = absolutePath;
-  }
-
-  readonly absolutePath: string;
-
+export class Mod extends Product {
   get common() {
     return new CommonManager(this);
-  }
-
-  get events() {
-    return new EventManager(this);
   }
 
   get history() {

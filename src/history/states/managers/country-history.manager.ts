@@ -1,9 +1,8 @@
-import { GenericManager } from '../../../shared/managers/generic.manager';
+import { GenericManager } from '@shared/';
 import { CountryHistory } from '../classes';
 import fs from 'fs';
 import { Jomini } from 'jomini';
-import { plainToClassFromExist, plainToInstance } from 'class-transformer';
-import { CountryPolitics } from '../classes/country-politics.class';
+import { plainToClassFromExist } from 'class-transformer';
 
 export class CountryHistoryManager extends GenericManager<CountryHistory> {
   protected readonly wildcards = ['history/countries/**/*.txt'];
@@ -27,8 +26,8 @@ export class CountryHistoryManager extends GenericManager<CountryHistory> {
         excludeExtraneousValues: true,
       },
     );
-    const countryPolitics = plainToInstance(
-      CountryPolitics,
+    const countryPolitics = plainToClassFromExist(
+      countryHistory.makePolitics(),
       data['set_politics'],
       {
         excludeExtraneousValues: true,

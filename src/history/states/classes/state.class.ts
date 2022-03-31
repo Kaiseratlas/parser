@@ -1,6 +1,6 @@
 import { ProductEntity } from '@shared/';
 import { Expose, Transform } from 'class-transformer';
-import { Province } from '../../../map';
+import type { Province } from '../../../map';
 import { x } from '../../../interface';
 
 export class State extends ProductEntity {
