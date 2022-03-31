@@ -7,6 +7,7 @@ import { AbilityManager } from './abilities';
 import { AutonomyStateManager } from './autonomous-states';
 import { ProductEntity } from '@shared/';
 import { IdeaCategoryManager } from './ideas/managers/idea-category.manager';
+import { StateCategoryManager } from './state-categories';
 
 import 'dotenv/config'; // TODO: move to index
 
@@ -53,5 +54,9 @@ export class CommonManager extends ProductEntity {
 
   get intelligenceAgencies() {
     return new IntelligenceAgencyManager(this.product);
+  }
+
+  get stateCategories() {
+    return new StateCategoryManager(this.product);
   }
 }

@@ -6,5 +6,6 @@ export * from './characters';
 export * from './ideas';
 export * from './ideologies';
 export * from './intelligence-agencies';
+export * from './state-categories';
 // shared managers
 export * from './common.manager';

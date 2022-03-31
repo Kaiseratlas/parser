@@ -2,7 +2,7 @@ import { GenericManager } from '@shared/';
 import { AutonomyState } from '../classes';
 import fs from 'fs';
 import { Jomini } from 'jomini';
-import { plainToInstance } from 'class-transformer';
+import { plainToClassFromExist } from 'class-transformer';
 
 export class AutonomyStateManager extends GenericManager<AutonomyState> {
   protected readonly wildcards = ['common/autonomous_states/**/*.txt'];
@@ -17,9 +17,14 @@ export class AutonomyStateManager extends GenericManager<AutonomyState> {
     const parser = await Jomini.initialize();
     const data = parser.parseText(out);
     return [
-      plainToInstance(AutonomyState, data['autonomy_state'], {
-        excludeExtraneousValues: true,
-      }),
+      plainToClassFromExist(
+        new AutonomyState(this.product),
+        data['autonomy_state'],
+        {
+          excludeExtraneousValues: true,
+          exposeDefaultValues: true,
+        },
+      ),
     ];
   }
 }

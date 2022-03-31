@@ -1,3 +1,1 @@
-export class CountryEvent {
-
-}
+export class CountryEvent {}

@@ -1,4 +1,5 @@
-import { Mod } from '../../src/core/classes/mod.class';
+import { Mod } from '../../src/core';
+import { AutonomyState } from '../../src/common';
 
 describe('KR Autonomous States (e2e)', () => {
   let kr: Mod;
@@ -7,12 +8,60 @@ describe('KR Autonomous States (e2e)', () => {
     kr = new Mod(process.env.MOD_PATH);
   });
 
-  it('load all autonomous states', async () => {
-    await kr.common.AS.load();
+  describe('load all autonomous states', () => {
+    let AS: AutonomyState[];
+
+    beforeAll(async () => {
+      AS = await kr.common.AS.load();
+    });
+
+    it("autonomous state array shouldn't be empty", () => {
+      expect(AS.length).toBeTruthy();
+    });
+
+    it('every item of the autonomous state array should be an instance of autonomous state category class', () => {
+      expect(AS.every((as) => as instanceof AutonomyState)).toBe(true);
+    });
+
+    it('every autonomous state id should be unique', () => {
+      expect(new Set(AS.map((as) => as.id)).size).toBe(AS.length);
+    });
   });
 
-  it('get an autonomous state by id', async () => {
-    const AS = await kr.common.AS.get('kr_colonial_government');
-    expect(AS.id).toBe('kr_colonial_government');
+  describe('get an autonomous state by id', () => {
+    let AS: AutonomyState;
+
+    beforeAll(async () => {
+      AS = await kr.common.AS.get('kr_colonial_government');
+      console.log('AS', AS)
+    });
+
+    it('autonomous state should be an instance of the same class', () => {
+      expect(AS instanceof AutonomyState).toBe(true);
+    });
+
+    it('autonomous state id should be matched with requested', () => {
+      expect(AS.id).toBe('kr_colonial_government');
+    });
+
+    it('default value type should be boolean', () => {
+      expect(typeof AS.default === 'boolean').toBe(true);
+    });
+
+    it('is puppet value type should be boolean', () => {
+      expect(typeof AS.isPuppet === 'boolean').toBe(true);
+    });
+
+    it('use overlord color value type should be boolean', () => {
+      expect(typeof AS.useOverlordColor === 'boolean').toBe(true);
+    });
+
+    it('min freedom level value type should be numeric', () => {
+      expect(typeof AS.minFreedomLevel === 'number').toBe(true);
+    });
+
+    it('manpower influence level value type should be numeric', () => {
+      expect(typeof AS.manpowerInfluence === 'number').toBe(true);
+    });
   });
 });
