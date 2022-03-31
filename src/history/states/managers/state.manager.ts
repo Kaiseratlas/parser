@@ -4,6 +4,7 @@ import fs from 'fs';
 import { Jomini } from 'jomini';
 import { x } from '../../../interface';
 import { plainToClassFromExist } from 'class-transformer';
+import { StateHistory } from '../classes/state-history.class';
 
 export class StateManager extends GenericManager<State> {
   protected readonly wildcards = ['history/states/**/*.txt'];
@@ -18,8 +19,20 @@ export class StateManager extends GenericManager<State> {
     const parser = await Jomini.initialize();
     const data = parser.parseText(out);
     return x(data['state']).map((s) => {
-      const state = new State(this.product);
-      return plainToClassFromExist(state, s, { excludeExtraneousValues: true });
+      const history = plainToClassFromExist(
+        new StateHistory(this.product),
+        s['history'],
+        {
+          excludeExtraneousValues: true,
+          exposeDefaultValues: true,
+        },
+      );
+      const state = plainToClassFromExist(new State(this.product, history), s, {
+        excludeExtraneousValues: true,
+        exposeDefaultValues: true,
+      });
+
+      return state;
     });
   }
 }

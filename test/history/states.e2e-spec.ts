@@ -1,4 +1,4 @@
-import { Mod } from '../../src/core/classes/mod.class';
+import { Mod } from '../../src/core';
 import { State } from '../../src/history';
 import { Province } from '../../src/map';
 
@@ -42,6 +42,10 @@ describe('KR Country History (e2e)', () => {
 
     it('state manpower variable type should be numeric', () => {
       expect(typeof state.manpower === 'number').toBe(true);
+    });
+
+    it('victory points should be a map', () => {
+      expect(state.history.victoryPoints instanceof Map).toBe(true);
     });
 
     describe('load a state provinces', () => {
