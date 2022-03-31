@@ -1,4 +1,4 @@
-import type { Product } from '../../core/classes/product.class';
+import type { Product } from '../../core';
 
 export class ProductEntity {
   protected readonly product: Product;

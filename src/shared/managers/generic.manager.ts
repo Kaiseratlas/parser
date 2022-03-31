@@ -1,5 +1,5 @@
 import fg, { Entry } from 'fast-glob';
-import type { Product } from '../classes';
+import type { Product } from '../../core';
 
 interface LoadEntitiesOptions {
   wildcards?: string[];
