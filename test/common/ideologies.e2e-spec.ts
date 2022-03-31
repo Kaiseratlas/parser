@@ -69,7 +69,7 @@ describe('KR Ideologies (e2e)', () => {
       let icon: Sprite;
 
       beforeAll(async () => {
-        icon = await ideology.getSprite();
+        icon = await ideology.getIcon();
       });
 
       it('icon type should be a instance of sprite class', () => {

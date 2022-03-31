@@ -1,5 +1,5 @@
-import { Mod } from '../../src/core/classes/mod.class';
-import { Character, CountryLeader } from '../../src/common';
+import { Mod } from '../../src/core';
+import { Character, CountryLeader, Ideology } from '../../src/common';
 
 describe('KR Characters (e2e)', () => {
   let kr: Mod;
@@ -13,7 +13,6 @@ describe('KR Characters (e2e)', () => {
 
     beforeAll(async () => {
       characters = await kr.common.characters.load();
-      console.log('characters', characters);
     });
 
     it("characters array shouldn't be empty", () => {
@@ -22,6 +21,12 @@ describe('KR Characters (e2e)', () => {
 
     it('every character should be an instance of character class', () => {
       expect(characters.every((ch) => ch instanceof Character)).toBe(true);
+    });
+
+    it('every character id should be unique', () => {
+      expect(new Set(characters.map((ch) => ch.id)).size).toBe(
+        characters.length,
+      );
     });
   });
 
@@ -34,16 +39,30 @@ describe('KR Characters (e2e)', () => {
       console.log('character', character);
     });
 
-    it('', () => {
+    it('character id should be matched with requested', () => {
       expect(character.id).toBe(charId);
     });
 
-    it('', () => {
+    it('character roles should be an array', () => {
       expect(Array.isArray(character.roles)).toBe(true);
     });
 
-    it('', () => {
+    it('a first role of the character should be a county leader', () => {
       expect(character.roles[0] instanceof CountryLeader).toBe(true);
+    });
+
+    describe('load country leader ideology', () => {
+      let ideology: Ideology;
+      let role: CountryLeader;
+
+      beforeAll(async () => {
+        role = character.roles[0] as CountryLeader;
+        ideology = await role.getIdeology();
+      });
+
+      it('ideology should be an instance of the same class', () => {
+        expect(ideology instanceof Ideology).toBe(true);
+      });
     });
   });
 });
