@@ -13,6 +13,7 @@ import { NameManager } from './names';
 import { ResourceManager } from './resources';
 import { TechnologyManager } from './technologies';
 import { CountryManager } from './countries';
+import { LeaderTraitManager } from './leader-traits';
 
 import 'dotenv/config'; // TODO: move to index
 
@@ -26,6 +27,7 @@ export class CommonManager extends ProductEntity {
   readonly ideaCategories = new IdeaCategoryManager(this.product);
   readonly ideologies = new IdeologyManager(this.product);
   readonly intelligenceAgencies = new IntelligenceAgencyManager(this.product);
+  readonly leaderTraits = new LeaderTraitManager(this.product);
   readonly names = new NameManager(this.product);
   readonly opinionModifiers = new OpinionModifierManager(this.product);
   readonly resources = new ResourceManager(this.product);
