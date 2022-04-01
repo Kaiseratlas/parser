@@ -2,10 +2,9 @@ import { Expose, Transform } from 'class-transformer';
 import { ProductEntity } from '@shared/';
 import { x } from '../../../interface';
 import { IdeaSlot } from './idea-slot.class';
+import { Idea } from './idea.class';
 
 export class IdeaCategory extends ProductEntity {
-  static Slot = IdeaSlot;
-
   @Expose()
   readonly id: string;
   @Expose()
@@ -17,7 +16,7 @@ export class IdeaCategory extends ProductEntity {
   protected readonly _slots: string[];
 
   protected makeSlot(id: IdeaSlot['id']) {
-    return new IdeaCategory.Slot(this.product, id);
+    return new Idea.Slot(this.product, id);
   }
 
   get slots(): IdeaSlot[] {

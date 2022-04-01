@@ -1,5 +1,6 @@
 import { Mod } from '../../src/core';
 import { AutonomyState } from '../../src/common';
+import { Sprite } from '../../src/interface';
 
 describe('KR Autonomous States (e2e)', () => {
   let kr: Mod;
@@ -33,7 +34,7 @@ describe('KR Autonomous States (e2e)', () => {
 
     beforeAll(async () => {
       AS = await kr.common.AS.get('kr_colonial_government');
-      console.log('AS', AS)
+      console.log('AS', AS);
     });
 
     it('autonomous state should be an instance of the same class', () => {
@@ -62,6 +63,22 @@ describe('KR Autonomous States (e2e)', () => {
 
     it('manpower influence level value type should be numeric', () => {
       expect(typeof AS.manpowerInfluence === 'number').toBe(true);
+    });
+
+    describe('load an autonomous state icon', () => {
+      let icon: Sprite;
+
+      beforeAll(async () => {
+        icon = await AS.getIcon();
+      });
+
+      it('icon should be an instance of the sprite class', () => {
+        expect(icon instanceof Sprite).toBe(true);
+      });
+
+      it('icon should contain the autonomous state id', () => {
+        expect(icon.name.includes(AS.id)).toBe(true);
+      });
     });
   });
 });
