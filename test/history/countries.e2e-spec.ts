@@ -1,4 +1,4 @@
-import { Mod } from '../../src/core/classes/mod.class';
+import { Mod } from '../../src/core';
 import { CountryHistory, State, CountryPolitics } from '../../src/history';
 import { Character } from '../../src/common';
 

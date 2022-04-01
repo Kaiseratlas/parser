@@ -1,5 +1,5 @@
 import { Mod } from '../../src/core';
-import { OpinionModifier } from '../../src/common/opinion-modifiers';
+import { OpinionModifier } from '../../src/common';
 
 describe('KR Opinion Modifiers (e2e)', () => {
   let kr: Mod;

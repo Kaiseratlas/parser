@@ -9,6 +9,7 @@ import { ProductEntity } from '@shared/';
 import { IdeaCategoryManager } from './ideas/managers/idea-category.manager';
 import { StateCategoryManager } from './state-categories';
 import { OpinionModifierManager } from './opinion-modifiers';
+import { NameManager } from './names';
 
 import 'dotenv/config'; // TODO: move to index
 
@@ -55,6 +56,10 @@ export class CommonManager extends ProductEntity {
 
   get intelligenceAgencies() {
     return new IntelligenceAgencyManager(this.product);
+  }
+
+  get names() {
+    return new NameManager(this.product);
   }
 
   get opinionModifiers() {

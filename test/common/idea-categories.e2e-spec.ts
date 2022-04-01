@@ -1,6 +1,7 @@
 import { Mod } from '../../src/core';
 import { IdeaCategory } from '../../src/common/ideas/classes/idea-category.class';
 import { Sprite } from '../../src/interface';
+import { Idea } from '../../src/common';
 
 describe('KR Idea Categories (e2e)', () => {
   let kr: Mod;
@@ -53,7 +54,7 @@ describe('KR Idea Categories (e2e)', () => {
     describe('idea category slots', () => {
       it('every slot item should be an instance of the same class', () => {
         expect(
-          ideaCategory.slots.every((slot) => slot instanceof IdeaCategory.Slot),
+          ideaCategory.slots.every((slot) => slot instanceof Idea.Slot),
         ).toBe(true);
       });
 
