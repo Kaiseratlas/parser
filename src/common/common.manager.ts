@@ -12,7 +12,7 @@ import { OpinionModifierManager } from './opinion-modifiers';
 import { NameManager } from './names';
 import { ResourceManager } from './resources';
 import { TechnologyManager } from './technologies';
-import { CountryManager } from './countries/managers/country.manager';
+import { CountryManager } from './countries';
 
 import 'dotenv/config'; // TODO: move to index
 

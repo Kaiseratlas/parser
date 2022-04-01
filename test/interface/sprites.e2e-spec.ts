@@ -1,5 +1,5 @@
-import { Mod } from '../../src/core/classes/mod.class';
-import { Sprite } from '../../src/interface/classes/sprite.class';
+import { Mod } from '../../src/core';
+import { Sprite } from '../../src/interface';
 
 describe('KR Sprites (e2e)', () => {
   let kr: Mod;
@@ -15,15 +15,21 @@ describe('KR Sprites (e2e)', () => {
       sprites = await kr.interface.sprites.load();
     });
 
-    it('every sprite should be an instance of sprite class', () => {
+    it('every item should be an instance of the sprite class', () => {
       expect(sprites.every((sprite) => sprite instanceof Sprite)).toBe(true);
     });
 
-    it('every sprite has a name', () => {
+    it('every sprite should have a name', () => {
       expect(sprites.every((sprite) => typeof sprite.name === 'string')).toBe(
         true,
       );
     });
+    // TODO: !
+    // it('every sprite should have a unique name', () => {
+    //   expect(new Set(sprites.map((sprite) => sprite.name)).size).toBe(
+    //     sprites.length,
+    //   );
+    // });
 
     it('every sprite has a texture file path', () => {
       expect(
