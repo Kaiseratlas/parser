@@ -1,7 +1,7 @@
 import { ProductEntity } from '@shared/';
 import { Expose } from 'class-transformer';
 import type { Country } from '../../../common/countries';
-import { OpinionModifier } from '../../../common';
+import type { OpinionModifier } from '../../../common';
 
 export class DiplomaticRelation extends ProductEntity {
   @Expose({ name: 'country' })
@@ -11,11 +11,11 @@ export class DiplomaticRelation extends ProductEntity {
   @Expose({ name: 'active' })
   protected readonly isActive = true;
 
-  getCountry() {
+  getCountry(): Promise<Country> {
     return this.product.common.countries.get(this.countryTag);
   }
 
-  getRelation() {
+  getRelation(): Promise<OpinionModifier> {
     return this.product.common.opinionModifiers.get(this.relation);
   }
 }

@@ -1,5 +1,5 @@
 import { GenericManager } from '@shared/';
-import { CountryHistory, DiplomaticRelation } from '../classes';
+import { Autonomy, CountryHistory, DiplomaticRelation } from '../classes';
 import fs from 'fs';
 import { Jomini } from 'jomini';
 import { plainToClassFromExist } from 'class-transformer';
@@ -43,6 +43,13 @@ export class CountryHistoryManager extends GenericManager<CountryHistory> {
       }),
     );
     countryHistory.addDiplomaticRelation(...diplomaticRelations);
+    const autonomies = x(data['set_autonomy']).map((data) =>
+      plainToClassFromExist(new Autonomy(this.product, countryHistory), data, {
+        excludeExtraneousValues: true,
+        exposeDefaultValues: true,
+      }),
+    );
+    countryHistory.addAutonomy(...autonomies);
     return [countryHistory];
   }
 }

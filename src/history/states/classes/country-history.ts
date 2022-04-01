@@ -8,10 +8,23 @@ import type { Ideology } from '../../../common';
 import { PoliticalParty } from './political-party.class';
 import type { Idea } from '../../../common';
 import { x } from '../../../interface';
+import type { Technology } from '../../../common/technologies';
+import type { Autonomy } from './autonomy.class';
+import { Faction } from './faction.class';
+import { Country } from '../../../common/countries';
 
 export class CountryHistory extends ProductEntity {
   @Expose({ name: 'capital' })
   protected readonly capitalId: number;
+
+  @Expose({ name: 'oob' })
+  readonly OOB: string;
+
+  @Expose({ name: 'starting_train_buffer' })
+  readonly startingTrainBuffer: number | null = null; // TODO: maybe 0?
+
+  @Expose({ name: 'set_cosmetic_tag' })
+  readonly cosmeticTag: string | null = null;
 
   @Expose({ name: 'set_research_slots' })
   readonly researchSlots = 0;
@@ -19,14 +32,40 @@ export class CountryHistory extends ProductEntity {
   @Expose({ name: 'set_stability' })
   readonly stability = 0;
 
+  @Expose({ name: 'set_convoys' })
+  readonly convoys = 0;
+
   @Expose({ name: 'set_war_support' })
   readonly warSupport = 0;
 
+  @Expose({ name: 'set_naval_oob' })
+  readonly navalOOB: string | null = null;
+
+  // Faction
+  @Expose({ name: 'create_faction' })
+  protected readonly factionId: string | null = null;
+  @Expose({ name: 'remove_from_faction' })
+  protected readonly excludedFromFaction: string[] = [];
+  get faction(): Faction | null {
+    if (!this.factionId) {
+      return null;
+    }
+    return new Faction(this.product, this.factionId);
+  }
+  async getAlies(): Promise<Country[]> {
+    const countries = await this.product.common.countries.load();
+    const countryTags = this.autonomies
+      .map((autonomy) => autonomy.target)
+      .filter((countryTag) => this.excludedFromFaction.includes(countryTag));
+    return countries.filter((country) => countryTags.includes(country.tag));
+  }
+
   politics: CountryPolitics;
   readonly diplomaticRelations: DiplomaticRelation[] = [];
+  readonly autonomies: Autonomy[] = [];
 
   makePolitics(): CountryPolitics {
-    return new CountryPolitics(this.product);
+    return new CountryPolitics(this.product, this);
   }
 
   setPolitics(politics: CountryPolitics): CountryPolitics {
@@ -35,6 +74,10 @@ export class CountryHistory extends ProductEntity {
 
   addDiplomaticRelation(...relations: DiplomaticRelation[]) {
     return this.diplomaticRelations.push(...relations);
+  }
+
+  addAutonomy(...autonomies: Autonomy[]) {
+    return this.autonomies.push(...autonomies);
   }
 
   @Expose({ name: 'recruit_character' })
@@ -51,6 +94,8 @@ export class CountryHistory extends ProductEntity {
     return this.product.history.states.get(this.capitalId);
   }
 
+  // Political parties
+
   @Expose({ name: 'set_popularities' })
   @Transform(({ value }) => {
     const ratings = new Map();
@@ -65,9 +110,13 @@ export class CountryHistory extends ProductEntity {
     return this.ratings.get(ideologyId);
   }
 
-  get parties() {
-    return Array.from(this.ratings).map(
-      ([ideologyId]) => new PoliticalParty(this.product, this, ideologyId),
+  getPoliticalParty(ideologyId: Ideology['id']): PoliticalParty {
+    return new PoliticalParty(this.product, this, ideologyId);
+  }
+
+  get parties(): PoliticalParty[] {
+    return Array.from(this.ratings).map(([ideologyId]) =>
+      this.getPoliticalParty(ideologyId),
     );
   }
 
@@ -78,5 +127,21 @@ export class CountryHistory extends ProductEntity {
   async getIdeas(): Promise<Idea[]> {
     const ideas = await this.product.common.ideas.load();
     return ideas.filter((idea) => this.ideas.includes(idea.id));
+  }
+
+  // Technologies
+  @Expose({ name: 'set_technology' })
+  @Transform(({ value }) =>
+    Object.entries(value)
+      .filter(([, done]) => !!done)
+      .map(([technologyId]) => technologyId),
+  )
+  protected readonly technologies: Technology['id'][];
+
+  async getTechnologies(): Promise<Technology[]> {
+    const technologies = await this.product.common.technologies.load();
+    return technologies.filter((technology) =>
+      this.technologies.includes(technology.id),
+    );
   }
 }

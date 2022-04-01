@@ -5,6 +5,7 @@ import { PoliticalParty } from '../../src/history/states/classes/political-party
 
 describe('KR Country History (e2e)', () => {
   let kr: Mod;
+  const ideologyId = 'paternal_autocrat';
 
   beforeAll(() => {
     kr = new Mod(process.env.MOD_PATH);
@@ -37,20 +38,24 @@ describe('KR Country History (e2e)', () => {
       history = await kr.history.countries.get('AFG');
     });
 
-    it('country history an instance of the same class', async () => {
+    it('country history an instance of the same class', () => {
       expect(history instanceof CountryHistory).toBe(true);
     });
 
-    it('country research slots count should be a number', async () => {
+    it('research slots count should be a number', () => {
       expect(typeof history.researchSlots === 'number').toBe(true);
     });
 
-    it('country stability level should be a number', async () => {
+    it('stability level should be a number', () => {
       expect(typeof history.stability === 'number').toBe(true);
     });
 
-    it('country war support level should be a number', async () => {
+    it('war support level should be a number', () => {
       expect(typeof history.warSupport === 'number').toBe(true);
+    });
+
+    it('convoys count should be a number', () => {
+      expect(typeof history.convoys === 'number').toBe(true);
     });
 
     describe('load a country capital data', () => {
@@ -91,6 +96,10 @@ describe('KR Country History (e2e)', () => {
       it('elections allowed variable type should be a boolean', () => {
         expect(typeof politics.electionsAllowed === 'boolean').toBe(true);
       });
+
+      it('ruling party should be matched with expected', () => {
+        expect(history.politics.rulingParty.ideologyId).toBe(ideologyId);
+      });
     });
 
     describe('political parties', () => {
@@ -122,6 +131,18 @@ describe('KR Country History (e2e)', () => {
             0,
           ),
         ).toBe(100);
+      });
+
+      it('every political parties ideology should be unique', () => {
+        expect(
+          new Set(parties.map((politicalParty) => politicalParty.ideologyId))
+            .size,
+        ).toBe(parties.length);
+      });
+      it('political party id should be matched with requested', () => {
+        expect(history.getPoliticalParty(ideologyId).ideologyId).toBe(
+          ideologyId,
+        );
       });
     });
 

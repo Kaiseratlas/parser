@@ -1,13 +1,18 @@
-import { ProductEntity } from '@shared/';
 import { Expose } from 'class-transformer';
+import type { PoliticalParty } from './political-party.class';
+import { CountryHistoryEntity } from './country-history-entity.class';
 
-export class CountryPolitics extends ProductEntity {
+export class CountryPolitics extends CountryHistoryEntity {
   @Expose({ name: 'ruling_party' })
-  rulingParty = 'paternal_autocrat';
+  protected readonly rulingPartyIdeologyId = 'paternal_autocrat';
   @Expose({ name: 'last_election' })
-  lastElection: Date;
+  readonly lastElection: Date;
   @Expose({ name: 'election_frequency' })
-  electionFrequency: number;
+  readonly electionFrequency: number;
   @Expose({ name: 'elections_allowed' })
-  electionsAllowed: boolean;
+  readonly electionsAllowed: boolean;
+
+  get rulingParty(): PoliticalParty {
+    return this.history.getPoliticalParty(this.rulingPartyIdeologyId);
+  }
 }
