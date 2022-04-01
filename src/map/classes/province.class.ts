@@ -2,6 +2,7 @@ import { ProductEntity } from '@shared/';
 import { Expose, Transform } from 'class-transformer';
 import Color from 'color';
 import { ProvinceType } from '../enums';
+import type { Continent } from './continent.class';
 
 export class Province extends ProductEntity {
   static readonly Type = ProvinceType;
@@ -21,4 +22,8 @@ export class Province extends ProductEntity {
   readonly terrain: string;
   @Expose({ name: '7' })
   protected readonly continentId: number;
+
+  getContinent(): Promise<Continent> {
+    return this.product.map.continents.get(this.continentId);
+  }
 }

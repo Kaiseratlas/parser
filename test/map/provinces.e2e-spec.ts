@@ -1,5 +1,5 @@
-import { Province } from '../../src/map';
-import { Mod } from '../../src/core/classes/mod.class';
+import { Continent, Province } from '../../src/map';
+import { Mod } from '../../src/core';
 import Color from 'color';
 
 describe('KR Provinces (e2e)', () => {
@@ -72,6 +72,22 @@ describe('KR Provinces (e2e)', () => {
 
     it('province is coastal variable type should be string', () => {
       expect(typeof province.terrain === 'string').toBe(true);
+    });
+
+    describe('load a continent', () => {
+      let continent: Continent;
+
+      beforeAll(async () => {
+        continent = await province.getContinent();
+      });
+
+      it('continent should be an instance of the same class', () => {
+        expect(continent instanceof Continent).toBe(true);
+      });
+
+      it('continent id should be matched with continent id from the province', () => {
+        expect(continent.id).toBe(province['continentId']);
+      });
     });
   });
 });
