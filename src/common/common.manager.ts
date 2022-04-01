@@ -8,6 +8,7 @@ import { AutonomyStateManager } from './autonomous-states';
 import { ProductEntity } from '@shared/';
 import { IdeaCategoryManager } from './ideas/managers/idea-category.manager';
 import { StateCategoryManager } from './state-categories';
+import { OpinionModifierManager } from './opinion-modifiers';
 
 import 'dotenv/config'; // TODO: move to index
 
@@ -54,6 +55,10 @@ export class CommonManager extends ProductEntity {
 
   get intelligenceAgencies() {
     return new IntelligenceAgencyManager(this.product);
+  }
+
+  get opinionModifiers() {
+    return new OpinionModifierManager(this.product);
   }
 
   get stateCategories() {
