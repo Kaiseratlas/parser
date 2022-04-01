@@ -8,5 +8,6 @@ export * from './ideologies';
 export * from './intelligence-agencies';
 export * from './state-categories';
 export * from './opinion-modifiers';
+export * from './resources';
 // shared managers
 export * from './common.manager';

@@ -10,63 +10,35 @@ import { IdeaCategoryManager } from './ideas/managers/idea-category.manager';
 import { StateCategoryManager } from './state-categories';
 import { OpinionModifierManager } from './opinion-modifiers';
 import { NameManager } from './names';
+import { ResourceManager } from './resources';
+import { TechnologyManager } from './technologies';
 
 import 'dotenv/config'; // TODO: move to index
 
 export class CommonManager extends ProductEntity {
-  get abilities() {
-    return new AbilityManager(this.product);
-  }
+  readonly abilities = new AbilityManager(this.product);
+  readonly autonomousStates = new AutonomyStateManager(this.product);
+  readonly characters = new CharacterManager(this.product);
+  readonly goals = new GoalsManager(this.product);
+  readonly ideas = new IdeaManager(this.product);
+  readonly ideaCategories = new IdeaCategoryManager(this.product);
+  readonly ideologies = new IdeologyManager(this.product);
+  readonly intelligenceAgencies = new IntelligenceAgencyManager(this.product);
+  readonly names = new NameManager(this.product);
+  readonly opinionModifiers = new OpinionModifierManager(this.product);
+  readonly resources = new ResourceManager(this.product);
+  readonly stateCategories = new StateCategoryManager(this.product);
+  readonly technologies = new TechnologyManager(this.product);
 
   get AS() {
     return this.autonomousStates;
-  }
-
-  get autonomousStates() {
-    return new AutonomyStateManager(this.product);
-  }
-
-  get characters() {
-    return new CharacterManager(this.product);
   }
 
   get focuses() {
     return this.goals;
   }
 
-  get goals() {
-    return new GoalsManager(this.product);
-  }
-
-  get ideas() {
-    return new IdeaManager(this.product);
-  }
-
-  get ideaCategories() {
-    return new IdeaCategoryManager(this.product);
-  }
-
-  get ideologies() {
-    return new IdeologyManager(this.product);
-  }
-
   get IA() {
     return this.intelligenceAgencies;
-  }
-
-  get intelligenceAgencies() {
-    return new IntelligenceAgencyManager(this.product);
-  }
-
-  get names() {
-    return new NameManager(this.product);
-  }
-
-  get opinionModifiers() {
-    return new OpinionModifierManager(this.product);
-  }
-
-  get stateCategories() {
-    return new StateCategoryManager(this.product);
   }
 }
