@@ -12,6 +12,7 @@ import { OpinionModifierManager } from './opinion-modifiers';
 import { NameManager } from './names';
 import { ResourceManager } from './resources';
 import { TechnologyManager } from './technologies';
+import { CountryManager } from './countries/managers/country.manager';
 
 import 'dotenv/config'; // TODO: move to index
 
@@ -19,6 +20,7 @@ export class CommonManager extends ProductEntity {
   readonly abilities = new AbilityManager(this.product);
   readonly autonomousStates = new AutonomyStateManager(this.product);
   readonly characters = new CharacterManager(this.product);
+  readonly countries = new CountryManager(this.product);
   readonly goals = new GoalsManager(this.product);
   readonly ideas = new IdeaManager(this.product);
   readonly ideaCategories = new IdeaCategoryManager(this.product);

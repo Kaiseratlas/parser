@@ -1,13 +1,13 @@
-import {GenericManager} from "@shared/";
-import {Technology} from "../classes";
-import fs from "fs";
-import {Jomini} from "jomini/dist/cjs";
-import {plainToClassFromExist} from "class-transformer";
+import { GenericManager } from '@shared/';
+import { Technology } from '../classes';
+import fs from 'fs';
+import { Jomini } from 'jomini';
+import { plainToClassFromExist } from 'class-transformer';
 
 export class TechnologyManager extends GenericManager<Technology> {
   protected readonly wildcards = ['common/technologies/**/*.txt'];
 
-  protected async processFile({path}): Promise<Technology[]> {
+  protected async processFile({ path }): Promise<Technology[]> {
     const out = await fs.promises.readFile(path);
     const parser = await Jomini.initialize();
     const data = parser.parseText(out);

@@ -1,8 +1,9 @@
 import { GenericManager } from '@shared/';
-import { CountryHistory } from '../classes';
+import { CountryHistory, DiplomaticRelation } from '../classes';
 import fs from 'fs';
 import { Jomini } from 'jomini';
 import { plainToClassFromExist } from 'class-transformer';
+import { x } from '../../../interface';
 
 export class CountryHistoryManager extends GenericManager<CountryHistory> {
   protected readonly wildcards = ['history/countries/**/*.txt'];
@@ -15,7 +16,6 @@ export class CountryHistoryManager extends GenericManager<CountryHistory> {
   }
 
   protected async processFile({ path }): Promise<CountryHistory[]> {
-    //console.log('path', path);
     const out = await fs.promises.readFile(path);
     const parser = await Jomini.initialize();
     const data = parser.parseText(out);
@@ -24,6 +24,7 @@ export class CountryHistoryManager extends GenericManager<CountryHistory> {
       data,
       {
         excludeExtraneousValues: true,
+        exposeDefaultValues: true,
       },
     );
     const countryPolitics = plainToClassFromExist(
@@ -31,9 +32,17 @@ export class CountryHistoryManager extends GenericManager<CountryHistory> {
       data['set_politics'],
       {
         excludeExtraneousValues: true,
+        exposeDefaultValues: true,
       },
     );
     countryHistory.setPolitics(countryPolitics);
+    const diplomaticRelations = x(data['diplomatic_relation']).map((data) =>
+      plainToClassFromExist(new DiplomaticRelation(this.product), data, {
+        excludeExtraneousValues: true,
+        exposeDefaultValues: true,
+      }),
+    );
+    countryHistory.addDiplomaticRelation(...diplomaticRelations);
     return [countryHistory];
   }
 }

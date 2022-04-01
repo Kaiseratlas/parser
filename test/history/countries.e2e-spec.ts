@@ -1,6 +1,7 @@
 import { Mod } from '../../src/core';
 import { CountryHistory, State, CountryPolitics } from '../../src/history';
-import { Character } from '../../src/common';
+import { Character, Idea, Ideology } from '../../src/common';
+import { PoliticalParty } from '../../src/history/states/classes/political-party.class';
 
 describe('KR Country History (e2e)', () => {
   let kr: Mod;
@@ -18,6 +19,14 @@ describe('KR Country History (e2e)', () => {
 
     it("history array shouldn't be empty", () => {
       expect(history.length).toBeTruthy();
+    });
+
+    it('every item should be an instance of the country history class', () => {
+      expect(
+        history.every(
+          (countryHistory) => countryHistory instanceof CountryHistory,
+        ),
+      ).toBeTruthy();
     });
   });
 
@@ -60,7 +69,7 @@ describe('KR Country History (e2e)', () => {
       });
     });
 
-    describe('load a county politics', () => {
+    describe('county politics', () => {
       let politics: CountryPolitics;
 
       beforeAll(() => {
@@ -81,6 +90,55 @@ describe('KR Country History (e2e)', () => {
 
       it('elections allowed variable type should be a boolean', () => {
         expect(typeof politics.electionsAllowed === 'boolean').toBe(true);
+      });
+    });
+
+    describe('political parties', () => {
+      let parties: PoliticalParty[];
+      let ideologies: Ideology[];
+
+      beforeAll(async () => {
+        ideologies = await kr.common.ideologies.load();
+        parties = history.parties;
+      });
+
+      it('every item should be an instance of the political party class', () => {
+        expect(
+          parties.every(
+            (politicalParty) => politicalParty instanceof PoliticalParty,
+          ),
+        ).toBe(true);
+      });
+
+      it('political parties count should be matched with the ideologies count', () => {
+        expect(parties.length).toBe(ideologies.length);
+      });
+
+      it('all political parties rating sum should be equals to 100%', () => {
+        expect(
+          parties.reduce(
+            (previousValue, currentValue) =>
+              previousValue + currentValue.popularity,
+            0,
+          ),
+        ).toBe(100);
+      });
+    });
+
+    describe('load a country ideas', () => {
+      let ideas: Idea[];
+
+      beforeAll(async () => {
+        ideas = await history.getIdeas();
+        // console.log('ideas', ideas); TODO: fix
+      });
+
+      it("array of ideas shouldn't be empty", () => {
+        expect(ideas.length).toBeTruthy();
+      });
+
+      it('every item should be an instance of the idea class', () => {
+        expect(ideas.every((idea) => idea instanceof Idea)).toBe(true);
       });
     });
 

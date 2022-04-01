@@ -3,6 +3,8 @@ import { ProductEntity } from '@shared/';
 import fs from 'fs';
 import path from 'path';
 import { PNG } from 'pngjs';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import TGA from 'tga';
 
 export class Sprite extends ProductEntity {
@@ -23,12 +25,12 @@ export class Sprite extends ProductEntity {
         const tga = new TGA(data);
         const png = new PNG({
           width: tga.width,
-          height: tga.height
+          height: tga.height,
         });
         png.data = tga.pixels;
         return PNG.sync.write(png);
-      }
-    }
+      },
+    };
   }
 
   get tga() {
@@ -37,8 +39,8 @@ export class Sprite extends ProductEntity {
         const data = await this.readFile();
         const tga = new TGA(data);
         return TGA.createTgaBuffer(tga.width, tga.height, tga.pixels);
-      }
-    }
+      },
+    };
   }
 
   readFile() {
