@@ -1,7 +1,11 @@
 import { Mod } from '../../src/core';
-import { CountryHistory, State, CountryPolitics } from '../../src/history';
+import {
+  CountryHistory,
+  State,
+  CountryPolitics,
+  PoliticalParty,
+} from '../../src/history';
 import { Character, Idea, Ideology } from '../../src/common';
-import { PoliticalParty } from '../../src/history/states/classes/political-party.class';
 
 describe('KR Country History (e2e)', () => {
   let kr: Mod;

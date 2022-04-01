@@ -1,4 +1,5 @@
-import { CountryHistoryManager, StateManager } from './states';
+import { StateManager } from './states';
+import { CountryHistoryManager } from './countries';
 import { ProductEntity } from '@shared/';
 
 export class HistoryManager extends ProductEntity {

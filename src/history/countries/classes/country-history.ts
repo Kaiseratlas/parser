@@ -1,6 +1,6 @@
 import { ProductEntity } from '@shared/';
 import { Expose, Transform } from 'class-transformer';
-import type { State } from './state.class';
+import type { State } from '../../states/classes/state.class';
 import { CountryPolitics } from './country-politics.class';
 import type { Character } from '../../../common';
 import type { DiplomaticRelation } from './diplomatic-relation.class';

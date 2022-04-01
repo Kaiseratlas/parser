@@ -4,7 +4,7 @@ import { CountryHistoryEntity } from './country-history-entity.class';
 
 export class CountryPolitics extends CountryHistoryEntity {
   @Expose({ name: 'ruling_party' })
-  protected readonly rulingPartyIdeologyId = 'paternal_autocrat';
+  protected readonly rulingPartyIdeologyId: string;
   @Expose({ name: 'last_election' })
   readonly lastElection: Date;
   @Expose({ name: 'election_frequency' })
