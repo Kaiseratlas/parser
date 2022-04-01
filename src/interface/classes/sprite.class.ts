@@ -2,16 +2,43 @@ import { Expose, Transform } from 'class-transformer';
 import { ProductEntity } from '@shared/';
 import fs from 'fs';
 import path from 'path';
+import { PNG } from 'pngjs';
+import TGA from 'tga';
 
 export class Sprite extends ProductEntity {
   @Expose()
-  name: string;
+  readonly name: string;
   @Expose({ name: 'texturefile' })
   @Transform(({ obj, value }) => value ?? obj['textureFile'])
-  textureFile: string;
+  readonly textureFile: string;
 
   protected get textureFilePath() {
     return path.join(this.product.absolutePath, this.textureFile);
+  }
+
+  get png() {
+    return {
+      toBuffer: async () => {
+        const data = await this.readFile();
+        const tga = new TGA(data);
+        const png = new PNG({
+          width: tga.width,
+          height: tga.height
+        });
+        png.data = tga.pixels;
+        return PNG.sync.write(png);
+      }
+    }
+  }
+
+  get tga() {
+    return {
+      toBuffer: async () => {
+        const data = await this.readFile();
+        const tga = new TGA(data);
+        return TGA.createTgaBuffer(tga.width, tga.height, tga.pixels);
+      }
+    }
   }
 
   readFile() {

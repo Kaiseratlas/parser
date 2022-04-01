@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "build": "tsc",
     "test": "jest",
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
@@ -11,6 +12,7 @@
     "@types/color": "^3.0.3",
     "@types/jest": "^27.4.1",
     "@types/node": "^16.0.0",
+    "@types/pngjs": "^6.0.1",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "eslint": "^8.0.1",
@@ -29,7 +31,9 @@
     "fast-glob": "^3.2.11",
     "file-type": "^17.1.1",
     "jomini": "^0.6.4",
-    "reflect-metadata": "^0.1.13"
+    "pngjs": "^6.0.0",
+    "reflect-metadata": "^0.1.13",
+    "tga": "^1.0.4"
   },
   "jest": {
     "moduleNameMapper": {
