@@ -13,7 +13,6 @@ describe('KR Ideas (e2e)', () => {
 
     beforeAll(async () => {
       ideas = await kr.common.ideas.load();
-      console.log('d', ideas);
     });
 
     it('', () => {

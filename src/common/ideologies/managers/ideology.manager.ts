@@ -18,14 +18,10 @@ export class IdeologyManager extends GenericManager<Ideology> {
     const data = parser.parseText(out);
     return Object.entries<Record<string, unknown>>(data['ideologies']).map(
       ([id, data]) =>
-        plainToClassFromExist(
-          new Ideology(this.product),
-          { id, ...data },
-          {
-            exposeDefaultValues: true,
-            excludeExtraneousValues: true,
-          },
-        ),
+        plainToClassFromExist(new Ideology(this.product, id), data, {
+          exposeDefaultValues: true,
+          excludeExtraneousValues: true,
+        }),
     );
   }
 }

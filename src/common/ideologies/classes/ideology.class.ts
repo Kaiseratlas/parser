@@ -1,13 +1,21 @@
 import { Expose, Transform } from 'class-transformer';
 import { ProductEntity } from '@shared/';
+import type { Product } from '@shared/';
 import type { Sprite } from '../../../interface';
 import Color from 'color';
+import { x } from '../../../interface';
 
 export class Ideology extends ProductEntity {
-  @Expose()
+  constructor(product: Product, id: Ideology['id']) {
+    super(product);
+    this.id = id;
+  }
   readonly id: string;
   @Expose()
   readonly name: string;
+  @Expose({ name: 'dynamic_faction_names' })
+  @Transform(({ value }) => x(value))
+  readonly dynamicFactionNames: string[];
   @Expose()
   readonly grouping: string;
   @Expose()
