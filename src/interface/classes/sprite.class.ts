@@ -28,13 +28,20 @@ export class Sprite extends ProductEntity {
     return {
       toBuffer: async () => {
         const data = await this.readFile();
-        const tga = new TGA(data);
-        const png = new PNG({
-          width: tga.width,
-          height: tga.height,
-        });
-        png.data = tga.pixels;
-        return PNG.sync.write(png);
+        switch (path.parse(this.textureFile).ext) {
+          case '.png': {
+            return data;
+          }
+          case '.tga': {
+            const tga = new TGA(data);
+            const png = new PNG({
+              width: tga.width,
+              height: tga.height,
+            });
+            png.data = tga.pixels;
+            return PNG.sync.write(png);
+          }
+        }
       },
     };
   }

@@ -35,7 +35,7 @@ export class SpriteManager extends GenericManager<Sprite> {
     const sprites = x(data['spriteTypes']?.['spriteType']).map((s) =>
       plainToClassFromExist(this.make(), s, {
         excludeExtraneousValues: true,
-        exposeDefaultValues: true,
+        exposeDefaultValues: false,
       }),
     );
     return sprites as unknown as any[];
