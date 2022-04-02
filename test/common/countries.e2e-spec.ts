@@ -3,6 +3,10 @@ import { Country, CountryColor } from '../../src/common/countries';
 import { CountryHistory } from '../../src/history';
 import { NameBase } from '../../src/common/names';
 import Color from 'color';
+import type { CountryFlag } from '../../src/common/countries';
+import fs from 'fs';
+import path from 'path';
+import { Sprite } from '../../src/interface';
 
 describe('KR Countries (e2e)', () => {
   let kr: Mod;
@@ -18,17 +22,17 @@ describe('KR Countries (e2e)', () => {
       countries = await kr.common.countries.load();
     });
 
-    it('', () => {
+    it("countries array shouldn't be empty", () => {
       expect(countries.length).toBeTruthy();
     });
 
-    it('', () => {
+    it('every countries item should be an instance of the country class', () => {
       expect(countries.every((country) => country instanceof Country)).toBe(
         true,
       );
     });
 
-    it('', () => {
+    it('every country tag should be unique', () => {
       expect(new Set(countries.map((country) => country.tag)).size).toBe(
         countries.length,
       );
@@ -43,24 +47,24 @@ describe('KR Countries (e2e)', () => {
       country = await kr.common.countries.get(countryTag);
     });
 
-    it('should ', () => {
+    it('country should be an instance of the same class', () => {
       expect(country instanceof Country).toBe(true);
     });
 
-    it('should ', () => {
+    it('a country tag should be matched with requested', () => {
       expect(country.tag).toBe(countryTag);
     });
 
-    it('should ', () => {
+    it('Afghanistan should be a NOT dynamic country in the game', () => {
       expect(country.isDynamic).toBe(false);
     });
 
-    it('should ', async () => {
+    it('a country history should be an instance of the same class', async () => {
       const history = await country.getHistory();
       expect(history instanceof CountryHistory).toBe(true);
     });
 
-    it('should ', async () => {
+    it('a country name base should be an instance of the same class', async () => {
       const nameBase = await country.getNames();
       expect(nameBase instanceof NameBase).toBe(true);
     });
@@ -72,24 +76,107 @@ describe('KR Countries (e2e)', () => {
         color = await country.getColor();
       });
 
-      it('', () => {
+      it('color tag should be matched with the country tag', () => {
         expect(color.tag).toBe(countryTag);
       });
 
-      it('', () => {
+      it('main color should be an instance of the color class', () => {
         expect(color.main instanceof Color).toBe(true);
       });
 
-      it('', () => {
+      it('main color HEX should be matched with expected', () => {
         expect(color.main.hex()).toBe(Color.rgb(64, 160, 167).hex());
       });
 
-      it('', () => {
+      it('UI color should be an instance of the color class', () => {
         expect(color.ui instanceof Color).toBe(true);
       });
 
-      it('', () => {
+      it('UI color HEX should be matched with expected', () => {
         expect(color.ui.hex()).toBe(Color.rgb(83, 208, 217).hex());
+      });
+    });
+
+    describe('country flags', () => {
+      describe('load all country flags', () => {
+        let flags: CountryFlag[];
+
+        beforeAll(async () => {
+          flags = await country.flags.load();
+        });
+
+        it("country flags array shouldn't be empty", () => {
+          expect(flags.length).toBeTruthy();
+        });
+
+        it('every array item should be an instance of the country flag class', () => {
+          expect(flags.every((flag) => flag instanceof Country.Flag)).toBe(
+            true,
+          );
+        });
+
+        it('every country flag variant should be unique', () => {
+          expect(new Set(flags.map((flag) => flag.variant)).size).toBe(
+            flags.length,
+          );
+        });
+      });
+
+      describe('', () => {
+        let currentFlag: CountryFlag;
+
+        beforeAll(async () => {
+          currentFlag = await country.flags.getCurrent();
+        });
+
+        it('ruling party flag should be an instance of the country flag class', () => {
+          expect(currentFlag instanceof Country.Flag).toBe(true);
+        });
+
+        it('flag variant should be matched with ruling party ideology id', async () => {
+          const history = await country.getHistory();
+          expect(currentFlag.variant).toBe(
+            history.politics.rulingParty.ideologyId,
+          );
+        });
+      });
+
+      describe('', () => {
+        let flag: CountryFlag;
+        const variant = 'authoritarian_democrat';
+
+        beforeAll(async () => {
+          flag = await country.flags.get(variant);
+        });
+
+        it('flag should be an instance of the same class', () => {
+          expect(flag instanceof Country.Flag).toBe(true);
+        });
+
+        it('flag variant should be matched with requested', () => {
+          expect(flag.variant).toBe(variant);
+        });
+
+        describe('check flag sizes', () => {
+          async function checkFlags(size: string) {
+            const filename = `flag-${size}.png`;
+            const originalFlag = await fs.promises.readFile(
+              path.join(__dirname, 'images', filename),
+            );
+            const pngFlag = await flag[size].png.toBuffer();
+            return Buffer.compare(originalFlag, pngFlag) === 0;
+          }
+
+          ['standard', 'medium', 'small'].forEach((size) => {
+            it(`${size} flag size should be an instance of the sprite class`, () => {
+              expect(flag[size] instanceof Sprite).toBe(true);
+            });
+
+            it(`TGA to PNG conversion (${size}) should be completed successfully`, async () => {
+              expect(await checkFlags(size)).toBe(true);
+            });
+          });
+        });
       });
     });
   });

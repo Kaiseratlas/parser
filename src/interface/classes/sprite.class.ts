@@ -1,5 +1,6 @@
 import { Expose, Transform } from 'class-transformer';
 import { ProductEntity } from '@shared/';
+import type { Product } from '@shared/';
 import fs from 'fs';
 import path from 'path';
 import { PNG } from 'pngjs';
@@ -8,8 +9,13 @@ import { PNG } from 'pngjs';
 import TGA from 'tga';
 
 export class Sprite extends ProductEntity {
+  constructor(product: Product, textureFile?: Sprite['textureFile']) {
+    super(product);
+    this.textureFile = textureFile;
+  }
+
   @Expose()
-  readonly name: string;
+  readonly name: string | null = null;
   @Expose({ name: 'texturefile' })
   @Transform(({ obj, value }) => value ?? obj['textureFile'])
   readonly textureFile: string;
