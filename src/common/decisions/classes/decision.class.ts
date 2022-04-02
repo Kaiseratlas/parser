@@ -1,5 +1,3 @@
-import {ProductEntity} from "@shared/";
+import { ProductEntity } from '@shared/';
 
-export class Decision extends ProductEntity {
-
-}
+export class Decision extends ProductEntity {}

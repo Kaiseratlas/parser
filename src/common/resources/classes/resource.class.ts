@@ -1,6 +1,6 @@
-import {ProductEntity} from "@shared/";
-import type {Product} from "@shared/";
-import {Expose} from "class-transformer";
+import { ProductEntity } from '@shared/';
+import type { Product } from '@shared/';
+import { Expose } from 'class-transformer';
 
 export class Resource extends ProductEntity {
   constructor(product: Product, id: Resource['id']) {

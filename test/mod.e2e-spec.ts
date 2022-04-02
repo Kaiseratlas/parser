@@ -1,4 +1,4 @@
-import { Mod } from '../src/core/classes/mod.class';
+import { Mod } from '../src/core';
 
 describe('', () => {
   let kr: Mod;
@@ -36,7 +36,6 @@ describe('', () => {
     const ideaCategories = await kr.common.ideaCategories.load();
     console.log('ideaCategories', ideaCategories);
   });
-
 
   // it('', async () => {
   //   const characters = await kr.common.characters.load();

@@ -32,7 +32,7 @@ describe('KR Names (e2e)', () => {
 
     beforeAll(async () => {
       nameBase = await kr.common.names.get(countryTag);
-      console.log('nameBase', nameBase)
+      console.log('nameBase', nameBase);
     });
 
     it('should be an instance of the name base class', () => {
