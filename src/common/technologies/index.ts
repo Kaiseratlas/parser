@@ -1,2 +1,2 @@
 export * from './classes';
-export * from './managers';
+export { TechnologyManager } from './managers';

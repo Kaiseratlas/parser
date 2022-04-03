@@ -3,11 +3,9 @@ import type { Product } from '@shared/';
 import { Expose } from 'class-transformer';
 
 export class Technology extends ProductEntity {
-  constructor(product: Product, id: Technology['id']) {
+  constructor(product: Product, readonly id: string) {
     super(product);
-    this.id = id;
   }
-  readonly id: string;
 
   @Expose({ name: 'doctrine' })
   readonly isDoctrine = false;

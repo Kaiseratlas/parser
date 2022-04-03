@@ -2,6 +2,7 @@
   "moduleNameMapper": {
     "@shared": "<rootDir>/../src/shared"
   },
+  "setupFilesAfterEnv": ["./jest.setup.ts"],
   "moduleFileExtensions": ["js", "json", "ts"],
   "rootDir": ".",
   "testEnvironment": "node",
