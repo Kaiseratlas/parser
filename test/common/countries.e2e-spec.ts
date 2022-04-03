@@ -59,6 +59,36 @@ describe('KR Countries (e2e)', () => {
       expect(country.isDynamic).toBe(false);
     });
 
+    describe('localisation', () => {
+      describe('country adjectives', () => {
+        const defaultAdj = 'Afghan';
+
+        it(`a current adjective should be matched with default (${defaultAdj})`, async () => {
+          const currentAdj = await country.getCurrentAdjective();
+          expect(currentAdj.value).toBe(defaultAdj);
+        });
+
+        it(`a radical socialist adjective should be matched with default (${defaultAdj})`, async () => {
+          const radSocAdj = await country.getAdjective('radical_socialist');
+          expect(radSocAdj.value).toBe(defaultAdj);
+        });
+      });
+
+      describe('country names', () => {
+        const defaultName = 'Afghanistan';
+
+        it(`a current name should be matched with default (${defaultName})`, async () => {
+          const currentName = await country.getCurrentName();
+          expect(currentName.value).toBe(defaultName);
+        });
+
+        it('a radical socialist name should be matched with expected (Democratic Republic of Afghanistan)', async () => {
+          const radSocName = await country.getName('radical_socialist');
+          expect(radSocName.value).toBe('Democratic Republic of Afghanistan');
+        });
+      });
+    });
+
     it('a country history should be an instance of the same class', async () => {
       const history = await country.getHistory();
       expect(history instanceof CountryHistory).toBe(true);
