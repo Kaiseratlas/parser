@@ -25,9 +25,8 @@ function x(x) {
 export class CharacterManager extends GenericManager<Character> {
   protected readonly wildcards = ['common/characters/**/*.txt'];
 
-  async get(id: Character['id']) {
-    const characters = await this.load();
-    return characters.find((ch) => ch.id === id);
+  make(): Character {
+    return new Character(this.product);
   }
 
   protected async processFile({ path }: Entry) {
@@ -35,7 +34,7 @@ export class CharacterManager extends GenericManager<Character> {
     const parser = await Jomini.initialize();
     const data = parser.parseText(out);
     return Object.entries(data['characters']).map(([id, data]: any) => {
-      const ch = new Character(this.product);
+      const ch = this.make();
       const leaderRoles = x(data['country_leader']).map((n) => {
         const leader = new CountryLeader(this.product);
         return plainToClassFromExist(leader, n, {

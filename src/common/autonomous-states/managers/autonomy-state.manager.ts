@@ -7,7 +7,7 @@ import { plainToClassFromExist } from 'class-transformer';
 export class AutonomyStateManager extends GenericManager<AutonomyState> {
   protected readonly wildcards = ['common/autonomous_states/**/*.txt'];
 
-  protected make(): AutonomyState {
+  make(): AutonomyState {
     return new AutonomyState(this.product);
   }
 

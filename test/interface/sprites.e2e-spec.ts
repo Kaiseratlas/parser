@@ -19,17 +19,17 @@ describe('KR Sprites (e2e)', () => {
       expect(sprites.every((sprite) => sprite instanceof Sprite)).toBe(true);
     });
 
-    it('every sprite should have a name', () => {
-      expect(sprites.every((sprite) => typeof sprite.name === 'string')).toBe(
+    it('every sprite should have a id', () => {
+      expect(sprites.every((sprite) => typeof sprite.id === 'string')).toBe(
         true,
       );
     });
-    // TODO: !
-    // it('every sprite should have a unique name', () => {
-    //   expect(new Set(sprites.map((sprite) => sprite.name)).size).toBe(
-    //     sprites.length,
-    //   );
-    // });
+
+    it('every sprite should have a unique id', () => {
+      expect(new Set(sprites.map((sprite) => sprite.id)).size).toBe(
+        sprites.length,
+      );
+    });
 
     it('every sprite has a texture file path', () => {
       expect(
@@ -38,15 +38,20 @@ describe('KR Sprites (e2e)', () => {
     });
   });
 
-  describe('get a sprite by name', () => {
+  describe('get a sprite by id', () => {
     let sprite: Sprite;
+    const spriteId = 'GFX_NOR_ace_Helner_Spang';
 
     beforeAll(async () => {
-      sprite = await kr.interface.sprites.get('GFX_NOR_ace_Helner_Spang');
+      sprite = await kr.interface.sprites.get(spriteId);
     });
 
     it('result should be an instance of sprite class', () => {
       expect(sprite instanceof Sprite).toBe(true);
+    });
+
+    it('result should be an instance of the sprite class', () => {
+      expect(sprite.id).toBe(spriteId);
     });
 
     it('texture file should be successfully loaded', async () => {

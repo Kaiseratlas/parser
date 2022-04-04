@@ -15,6 +15,18 @@ export class Character extends ProductEntity {
 
   readonly roles: CharacterRole[] = [];
 
+  // get portraits() {
+  //   return {
+  //     civilian: {},
+  //     army: {
+  //       large:
+  //     },
+  //     navy: {
+  //
+  //     },
+  //   };
+  // }
+
   addRole(...roles: CharacterRole[]): void {
     this.roles.push(...roles);
   }

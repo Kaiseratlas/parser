@@ -8,9 +8,8 @@ import { x } from '../../../interface';
 export class TechnologySharingGroupManager extends GenericManager<TechnologySharingGroup> {
   protected readonly wildcards = ['common/technology_sharing/**/*.txt'];
 
-  async get(id: TechnologySharingGroup['id']) {
-    const technologies = await this.load();
-    return technologies.map((technology) => technology.id === id);
+  make(): TechnologySharingGroup {
+    return new TechnologySharingGroup(this.product);
   }
 
   protected async processFile({ path }): Promise<TechnologySharingGroup[]> {
@@ -18,7 +17,7 @@ export class TechnologySharingGroupManager extends GenericManager<TechnologyShar
     const parser = await Jomini.initialize();
     const data = parser.parseText(out);
     return x(data['technology_sharing_group']).map((data) =>
-      plainToClassFromExist(new TechnologySharingGroup(this.product), data, {
+      plainToClassFromExist(this.make(), data, {
         exposeDefaultValues: true,
         excludeExtraneousValues: true,
       }),

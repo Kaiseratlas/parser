@@ -4,6 +4,8 @@ import type { Sprite } from '../../../interface';
 import { x } from '../../../interface';
 
 export class IntelligenceAgency extends ProductEntity {
+  static readonly Key = 'intelligence_agency';
+
   @Expose()
   readonly names: string[];
   @Expose()
@@ -16,6 +18,7 @@ export class IntelligenceAgency extends ProductEntity {
   // protected readonly available: string;
 
   getEmblem(): Promise<Sprite> {
+    console.log('this.picture', this.picture)
     return this.product.interface.sprites.get(this.picture);
   }
 }

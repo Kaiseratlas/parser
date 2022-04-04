@@ -8,6 +8,10 @@ import { x } from '../../../interface';
 export class CountryHistoryManager extends GenericManager<CountryHistory> {
   protected readonly wildcards = ['history/countries/**/*.txt'];
 
+  make(): CountryHistory {
+    return new CountryHistory(this.product);
+  }
+
   async get(countryTag: string) {
     const [history = null] = await this.load({
       wildcards: [`history/countries/**/${countryTag}*.txt`],
@@ -19,14 +23,10 @@ export class CountryHistoryManager extends GenericManager<CountryHistory> {
     const out = await fs.promises.readFile(path);
     const parser = await Jomini.initialize();
     const data = parser.parseText(out);
-    const countryHistory = plainToClassFromExist(
-      new CountryHistory(this.product),
-      data,
-      {
-        excludeExtraneousValues: true,
-        exposeDefaultValues: true,
-      },
-    );
+    const countryHistory = plainToClassFromExist(this.make(), data, {
+      excludeExtraneousValues: true,
+      exposeDefaultValues: true,
+    });
     const countryPolitics = plainToClassFromExist(
       countryHistory.makePolitics(),
       data['set_politics'],

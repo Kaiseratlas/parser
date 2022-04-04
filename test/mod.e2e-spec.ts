@@ -34,7 +34,7 @@ describe('', () => {
 
   it('', async () => {
     const ideaCategories = await kr.common.ideaCategories.load();
-    console.log('ideaCategories', ideaCategories);
+    //console.log('ideaCategories', ideaCategories);
   });
 
   // it('', async () => {

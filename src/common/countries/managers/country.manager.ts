@@ -7,9 +7,12 @@ import { CountryColorManager } from './country-color.manager';
 export class CountryManager extends GenericManager<Country> {
   protected readonly wildcards = ['common/country_tags/**/*.txt'];
 
-  async get(tag: Country['tag']) {
-    const countries = await this.load();
-    return countries.find((country) => country.tag === tag);
+  make(countryTag: Country['tag'], isDynamic: Country['isDynamic']): Country {
+    return new Country(this.product, countryTag, isDynamic);
+  }
+
+  protected updateCache(entities: Country[]) {
+    entities.forEach((entity) => this.cache.set(entity.tag, entity));
   }
 
   readonly colors = new CountryColorManager(this.product);
@@ -23,7 +26,7 @@ export class CountryManager extends GenericManager<Country> {
       if (countryTag === 'dynamic_tags' && data === true) {
         dynamicTags = true;
       }
-      return new Country(this.product, countryTag, dynamicTags);
+      return this.make(countryTag, dynamicTags);
     });
   }
 }

@@ -33,7 +33,7 @@ export class Country extends ProductEntity {
   async getDefaultAdjective(
     o: Omit<GetLocalisationOptions, 'key' | 'version'> = {},
   ): Promise<Localisation> {
-    return this.product.localisation.get({
+    return this.product.localisation.translate({
       key: `${this.tag}_ADJ`,
       ...o,
     });
@@ -43,7 +43,7 @@ export class Country extends ProductEntity {
     variant: string,
     o: Omit<GetLocalisationOptions, 'key' | 'version'> = {},
   ) {
-    const localisation = await this.product.localisation.get({
+    const localisation = await this.product.localisation.translate({
       key: `${this.tag}_${variant}_ADJ`,
       ...o,
     });
@@ -63,7 +63,7 @@ export class Country extends ProductEntity {
   async getDefaultName(
     o: Omit<GetLocalisationOptions, 'key' | 'version'> = {},
   ): Promise<Localisation> {
-    return this.product.localisation.get({
+    return this.product.localisation.translate({
       key: this.tag,
       ...o,
     });
@@ -73,7 +73,7 @@ export class Country extends ProductEntity {
     variant: string,
     o: Omit<GetLocalisationOptions, 'key' | 'version'> = {},
   ) {
-    const localisation = await this.product.localisation.get({
+    const localisation = await this.product.localisation.translate({
       key: `${this.tag}_${variant}`,
       ...o,
     });

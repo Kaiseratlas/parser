@@ -14,18 +14,25 @@ export class CountryFlagManager extends GenericManager<CountryFlag> {
     super(product);
   }
 
+  make(country: Country, variant: string | null = null): CountryFlag {
+    return new CountryFlag(this.product, country, variant);
+  }
+
   async getCurrent() {
     const history = await this.country.getHistory();
     return this.get(history.politics.rulingParty.ideologyId);
   }
 
-  async get(variant: CountryFlag['variant']) {
-    const flags = await this.load();
-    const flag = flags.find((flag) => flag.variant === variant);
+  async get(variant: CountryFlag['variant']): Promise<CountryFlag> {
+    const flag = await super.get(variant);
     if (!flag) {
-      return flags.find((flag) => !flag.variant);
+      return super.get(null);
     }
     return flag;
+  }
+
+  protected updateCache(flags: CountryFlag[]) {
+    flags.forEach((flag) => this.cache.set(flag.variant, flag));
   }
 
   protected async processFile({ path: fullPath }): Promise<CountryFlag[]> {
@@ -37,12 +44,6 @@ export class CountryFlagManager extends GenericManager<CountryFlag> {
       console.warn('!');
       return [];
     }
-    return [
-      new CountryFlag(
-        this.product,
-        this.country,
-        variant.length ? variant : null,
-      ),
-    ];
+    return [this.make(this.country, variant.length ? variant : null)];
   }
 }

@@ -7,6 +7,10 @@ import { plainToClassFromExist } from 'class-transformer';
 export class ResourceManager extends GenericManager<Resource> {
   protected readonly wildcards = ['common/resources/*_resources.txt'];
 
+  make(id: Resource['id']): Resource {
+    return new Resource(this.product, id);
+  }
+
   async get(id: Resource['id']) {
     const resources = await this.load();
     return resources.find((resource) => resource.id === id);
@@ -18,7 +22,7 @@ export class ResourceManager extends GenericManager<Resource> {
     const data = parser.parseText(out);
     return Object.entries<Record<string, unknown>>(data['resources']).map(
       ([id, data]) =>
-        plainToClassFromExist(new Resource(this.product, id), data, {
+        plainToClassFromExist(this.make(id), data, {
           excludeExtraneousValues: true,
           exposeDefaultValues: true,
         }),

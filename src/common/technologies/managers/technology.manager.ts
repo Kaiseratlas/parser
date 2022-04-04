@@ -11,9 +11,8 @@ export class TechnologyManager extends GenericManager<Technology> {
   readonly categories = new TechnologyCategoryManager(this.product);
   readonly sharingGroups = new TechnologySharingGroupManager(this.product);
 
-  async get(id: Technology['id']) {
-    const technologies = await this.load();
-    return technologies.map((technology) => technology.id === id);
+  make(id: Technology['id']): Technology {
+    return new Technology(this.product, id);
   }
 
   protected async processFile({ path }): Promise<Technology[]> {
@@ -22,7 +21,7 @@ export class TechnologyManager extends GenericManager<Technology> {
     const data = parser.parseText(out);
     return Object.entries<Record<string, unknown>>(data['technologies']).map(
       ([id, data]) =>
-        plainToClassFromExist(new Technology(this.product, id), data, {
+        plainToClassFromExist(this.make(id), data, {
           exposeDefaultValues: true,
           excludeExtraneousValues: true,
         }),

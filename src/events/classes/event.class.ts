@@ -22,13 +22,13 @@ export class Event extends ProductEntity {
   getTitle(
     o: Omit<GetLocalisationOptions, 'key' | 'version'> = {},
   ): Promise<Localisation> {
-    return this.product.localisation.get({ key: this.title, ...o });
+    return this.product.localisation.translate({ key: this.title, ...o });
   }
 
   getDescription(
     o: Omit<GetLocalisationOptions, 'key' | 'version'> = {},
   ): Promise<Localisation> {
-    return this.product.localisation.get({ key: this.description, ...o });
+    return this.product.localisation.translate({ key: this.description, ...o });
   }
 
   @Expose()

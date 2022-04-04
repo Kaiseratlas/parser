@@ -16,7 +16,7 @@ describe('KR Goals (e2e)', () => {
       focusTrees = await kr.common.goals.load();
     });
 
-    it('', () => {
+    it("focus trees array shouldn't be empty", () => {
       expect(focusTrees.length).toBeTruthy();
     });
 
@@ -41,46 +41,44 @@ describe('KR Goals (e2e)', () => {
       focusTree = await kr.common.goals.get(focusTreeId);
     });
 
-    it('', () => {
+    it('focus tree should be matched with the same class', () => {
       expect(focusTree instanceof FocusTree).toBe(true);
     });
 
-    it('', () => {
+    it('focus tree id should be matched with requested', () => {
       expect(focusTree.id).toBe(focusTreeId);
     });
 
     describe('focuses', () => {
-      it('', () => {
+      it("focuses array shouldn't be empty", () => {
         expect(focusTree.focuses.length).toBeTruthy();
       });
 
-      it('', () => {
+      it('every focuses item should be an instance of the focus class', () => {
         expect(focusTree.focuses.every((focus) => focus instanceof Focus)).toBe(
           true,
         );
       });
 
-      // TODO: !
-      // it('', () => {
-      //   expect(new Set(focusTree.focuses.map((focus) => focus.id)).size).toBe(
-      //     focusTree.focuses.length,
-      //   );
-      // });
+      it('every focus should have a unique id', () => {
+        expect(new Set(focusTree.focuses.map((focus) => focus.id)).size).toBe(
+          focusTree.focuses.length,
+        );
+      });
 
       describe('get a focus by id', () => {
         let focus: Focus;
-        const focusId = 'bhu_end_revolution';
+        const focusId = 'bhu_expand_dzongs';
 
         beforeAll(() => {
-          focus = focusTree.getFocus('bhu_end_revolution');
-          //console.log('focus', focus);
+          focus = focusTree.getFocus(focusId);
         });
 
-        it('should ', () => {
+        it('focus should be an instance of the same class', () => {
           expect(focus instanceof Focus).toBe(true);
         });
 
-        it('should ', () => {
+        it('focus id should be matched with requested', () => {
           expect(focus.id).toBe(focusId);
         });
 

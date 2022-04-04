@@ -17,8 +17,22 @@ describe('KR Idea Categories (e2e)', () => {
       ideaCategories = await kr.common.ideaCategories.load();
     });
 
-    it(' ', () => {
+    it("idea categories array shouldn't be empty", () => {
       expect(ideaCategories.length).toBeTruthy();
+    });
+
+    it('every idea categories array item should be an instance of the idea category class', () => {
+      expect(
+        ideaCategories.every(
+          (ideaCategory) => ideaCategory instanceof IdeaCategory,
+        ),
+      ).toBe(true);
+    });
+
+    it('every idea category should have a unique id', () => {
+      expect(
+        new Set(ideaCategories.map((ideaCategory) => ideaCategory.id)).size,
+      ).toBe(ideaCategories.length);
     });
   });
 
@@ -75,8 +89,8 @@ describe('KR Idea Categories (e2e)', () => {
           expect(slotIcon instanceof Sprite).toBe(true);
         });
 
-        it('icon name should contain the slot id', () => {
-          expect(slotIcon.name.includes(ideaCategory.slots[0].id)).toBe(true);
+        it('icon id should contain the slot id', () => {
+          expect(slotIcon.id.includes(ideaCategory.slots[0].id)).toBe(true);
         });
       });
     });

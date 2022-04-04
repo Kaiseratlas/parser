@@ -33,6 +33,9 @@ export abstract class GenericManager<T extends ProductEntity> {
     );
     const result = entities.flat();
     this.updateCache(result);
+    if (o?.nocache) {
+      return result;
+    }
     return [...this.cache.values()];
   }
 

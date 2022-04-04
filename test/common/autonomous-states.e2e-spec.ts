@@ -76,7 +76,7 @@ describe('KR Autonomous States (e2e)', () => {
       });
 
       it('icon should contain the autonomous state id', () => {
-        expect(icon.name.includes(AS.id)).toBe(true);
+        expect(icon.id.includes(AS.id)).toBe(true);
       });
     });
   });

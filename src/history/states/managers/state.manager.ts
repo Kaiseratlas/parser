@@ -9,9 +9,8 @@ import { StateHistory } from '../classes/state-history.class';
 export class StateManager extends GenericManager<State> {
   protected readonly wildcards = ['history/states/**/*.txt'];
 
-  async get(id: number): Promise<State> {
-    const states = await this.load();
-    return states.find((s) => s.id === id);
+  make(history: State['history']): State {
+    return new State(this.product, history);
   }
 
   protected async processFile({ path }): Promise<State[]> {
@@ -27,12 +26,10 @@ export class StateManager extends GenericManager<State> {
           exposeDefaultValues: true,
         },
       );
-      const state = plainToClassFromExist(new State(this.product, history), s, {
+      return plainToClassFromExist(this.make(history), s, {
         excludeExtraneousValues: true,
         exposeDefaultValues: true,
       });
-
-      return state;
     });
   }
 }

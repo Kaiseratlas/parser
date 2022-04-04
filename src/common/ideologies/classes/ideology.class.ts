@@ -41,7 +41,7 @@ export class Ideology extends ProductEntity {
   getName(
     o: Omit<GetLocalisationOptions, 'key' | 'version'> = {},
   ): Promise<Localisation> {
-    return this.product.localisation.get({
+    return this.product.localisation.translate({
       key: this.id,
       ...o,
     });
@@ -50,7 +50,7 @@ export class Ideology extends ProductEntity {
   getNoun(
     o: Omit<GetLocalisationOptions, 'key' | 'version'> = {},
   ): Promise<Localisation> {
-    return this.product.localisation.get({
+    return this.product.localisation.translate({
       key: `${this.id}_noun`,
       ...o,
     });
@@ -59,7 +59,7 @@ export class Ideology extends ProductEntity {
   getGrouping(
     o: Omit<GetLocalisationOptions, 'key' | 'version'> = {},
   ): Promise<Localisation> {
-    return this.product.localisation.get({
+    return this.product.localisation.translate({
       key: `${this.id}_desc`,
       ...o,
     });
@@ -68,7 +68,7 @@ export class Ideology extends ProductEntity {
   getDrift(
     o: Omit<GetLocalisationOptions, 'key' | 'version'> = {},
   ): Promise<Localisation> {
-    return this.product.localisation.get({
+    return this.product.localisation.translate({
       key: `${this.id}_drift`,
       ...o,
     });
@@ -77,7 +77,7 @@ export class Ideology extends ProductEntity {
   getBanned(
     o: Omit<GetLocalisationOptions, 'key' | 'version'> = {},
   ): Promise<Localisation> {
-    return this.product.localisation.get({
+    return this.product.localisation.translate({
       key: `${this.id}_banned`,
       ...o,
     });

@@ -33,7 +33,11 @@ describe('', () => {
     let emblem: Sprite;
 
     beforeAll(async () => {
-      emblem = await agencies[0].getEmblem();
+      const agency = agencies.find((agency) =>
+        agency.names.includes('Secretaría de Inteligencia'),
+      );
+      console.log('agencies', agencies);
+      emblem = await agency.getEmblem();
     });
 
     it('should be an instance of the sprite class', () => {
@@ -41,7 +45,7 @@ describe('', () => {
     });
 
     it('sprite name should contain the picture name', () => {
-      expect(emblem.name.includes(agencies[0]['picture'])).toBe(true);
+      expect(emblem.id.includes(agencies[0]['picture'])).toBe(true);
     });
   });
 });

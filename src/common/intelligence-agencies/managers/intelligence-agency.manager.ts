@@ -8,12 +8,26 @@ import { x } from '../../../interface';
 export class IntelligenceAgencyManager extends GenericManager<IA> {
   protected readonly wildcards = ['common/intelligence_agencies/**/*.txt'];
 
+  make(): IA {
+    return new IA(this.product);
+  }
+
+  async load(o?): Promise<IA[]> {
+    return super.load({ ...o, nocache: true });
+  }
+
+  async get(id: IA['id'], o?): Promise<IA> {
+    return super.get(id, { ...o, nocache: true });
+  }
+
+  protected updateCache() {}
+
   protected async processFile({ path }) {
     const out = await fs.promises.readFile(path);
     const parser = await Jomini.initialize();
     const data = parser.parseText(out);
-    return x(data['intelligence_agency']).map((data) =>
-      plainToClassFromExist(new IA(this.product), data, {
+    return x(data[IA.Key]).map((data) =>
+      plainToClassFromExist(this.make(), data, {
         excludeExtraneousValues: true,
         exposeDefaultValues: true,
       }),

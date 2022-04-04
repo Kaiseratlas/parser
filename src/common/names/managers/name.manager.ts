@@ -7,9 +7,12 @@ import { plainToClassFromExist } from 'class-transformer';
 export class NameManager extends GenericManager<NameBase> {
   protected readonly wildcards = ['common/names/**/*.txt'];
 
-  async get(countryTag: string) {
-    const nameBases = await this.load();
-    return nameBases.find((nameBase) => nameBase.countryTag === countryTag);
+  make(countryTag: NameBase['countryTag']): NameBase {
+    return new NameBase(this.product, countryTag);
+  }
+
+  protected updateCache(entities: NameBase[]) {
+    entities.forEach((entity) => this.cache.set(entity.countryTag, entity));
   }
 
   protected async processFile({ path }): Promise<NameBase[]> {
@@ -17,7 +20,7 @@ export class NameManager extends GenericManager<NameBase> {
     const parser = await Jomini.initialize();
     const data = parser.parseText(out);
     return Object.entries(data).map(([countryTag, data]) =>
-      plainToClassFromExist(new NameBase(this.product, countryTag), data, {
+      plainToClassFromExist(this.make(countryTag), data, {
         excludeExtraneousValues: true,
         exposeDefaultValues: true,
       }),

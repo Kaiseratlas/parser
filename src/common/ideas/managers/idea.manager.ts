@@ -7,9 +7,8 @@ import { plainToClassFromExist } from 'class-transformer';
 export class IdeaManager extends GenericManager<Idea> {
   protected readonly wildcards = ['common/ideas/**/*.txt'];
 
-  async get(id: string) {
-    const ideas = await this.load();
-    return ideas.filter((idea) => idea.id === id);
+  make(...args): Idea {
+    return undefined;
   }
 
   protected async processFile({ path }): Promise<Idea[]> {

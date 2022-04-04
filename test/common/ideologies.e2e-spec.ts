@@ -77,7 +77,7 @@ describe('KR Ideologies (e2e)', () => {
       });
 
       it('icon name should contain the ideology id', () => {
-        expect(icon.name.includes(ideology.id)).toBe(true);
+        expect(icon.id.includes(ideology.id)).toBe(true);
       });
     });
   });
