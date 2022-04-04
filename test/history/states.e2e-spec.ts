@@ -1,6 +1,7 @@
 import { Mod } from '../../src/core';
 import { State } from '../../src/history';
 import { Province } from '../../src/map';
+import { StateCategory } from '../../src/common';
 
 describe('KR Country History (e2e)', () => {
   let kr: Mod;
@@ -46,6 +47,22 @@ describe('KR Country History (e2e)', () => {
 
     it('victory points should be a map', () => {
       expect(state.history.victoryPoints instanceof Map).toBe(true);
+    });
+
+    describe('load a state category', () => {
+      let stateCategory: StateCategory;
+
+      beforeAll(async () => {
+        stateCategory = await state.getCategory();
+      });
+
+      it('category should be an instance of the state category class', () => {
+        expect(stateCategory instanceof StateCategory).toBe(true);
+      });
+
+      it('category id should be matched with the state category id', () => {
+        expect(stateCategory.id).toBe(state['stateCategoryId']);
+      });
     });
 
     describe('load a state provinces', () => {

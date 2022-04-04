@@ -1,5 +1,6 @@
 import { Mod } from '../../src/core';
 import { StateCategory } from '../../src/common';
+import Color from 'color';
 
 describe('KR State Categories (e2e)', () => {
   let kr: Mod;
@@ -36,9 +37,10 @@ describe('KR State Categories (e2e)', () => {
 
   describe('get state category by id', () => {
     let stateCategory: StateCategory;
+    const stateCategoryId = 'one_island';
 
     beforeAll(async () => {
-      stateCategory = await kr.common.stateCategories.get('one_island');
+      stateCategory = await kr.common.stateCategories.get(stateCategoryId);
     });
 
     it('state category should be an instance of the same class', () => {
@@ -46,11 +48,21 @@ describe('KR State Categories (e2e)', () => {
     });
 
     it('state category id should be matched with requested', () => {
-      expect(stateCategory.id).toBe('one_island');
+      expect(stateCategory.id).toBe(stateCategoryId);
     });
 
     it('local building slots count should be numeric', () => {
       expect(typeof stateCategory.localBuildingSlots === 'number').toBe(true);
+    });
+
+    describe('state category color', () => {
+      it('color should be an instance of the color class', () => {
+        expect(stateCategory.color instanceof Color).toBe(true);
+      });
+
+      it('color should be an instance of the color class', () => {
+        expect(stateCategory.color.hex()).toBe(Color.rgb(200, 160, 0).hex());
+      });
     });
   });
 });
