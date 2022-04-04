@@ -5,27 +5,13 @@ import { Jomini } from 'jomini';
 import { x } from '../../interface';
 import { plainToClassFromExist } from 'class-transformer';
 import { EventType } from '../enums';
-
-function tryToFixFile(out: Buffer) {
-  return out
-    .toString()
-    .replace(/\[RULING_PARTY_TAG]/gi, '"[RULING_PARTY_TAG]"')
-    .replace(/\[ALLY]/gi, '"[ALLY]"')
-    .replace(/\[ENEMY]/gi, '"[ENEMY]"')
-    .replace(/\[time_off_var]/gi, '"[time_off_var]"');
-}
+import { tryToFixFile } from '../../shared/utils';
 
 export class EventManager extends GenericManager<Event> {
   protected readonly wildcards = ['events/**/*.txt'];
-  //protected readonly wildcards = ['events/Venice.txt'];
 
   make(type: EventType) {
     return new Event(this.product, type);
-  }
-
-  async get(id: Event['id']) {
-    const events = await this.load();
-    return events.find((event) => event.id === id);
   }
 
   protected async processFile({ path }): Promise<Event[]> {

@@ -14,11 +14,8 @@ export type GetLocalisationOptions = Partial<
 
 export class LocalisationManager extends GenericManager<Localisation> {
   protected readonly wildcards = ['localisation/**/*.yml'];
-  // protected readonly wildcards = [
-  //   'localisation/english/autonomy_l_english.yml',
-  // ];
 
-  protected readonly cache = new Map<
+  protected readonly _cache = new Map<
     Localisation['lang'],
     Map<Localisation['key'], Map<number, Localisation>>
   >();
@@ -29,10 +26,10 @@ export class LocalisationManager extends GenericManager<Localisation> {
 
   protected updateCache(localisations: Localisation[]) {
     localisations.forEach((localisation) => {
-      if (!this.cache.has(localisation.lang)) {
-        this.cache.set(localisation.lang, new Map());
+      if (!this._cache.has(localisation.lang)) {
+        this._cache.set(localisation.lang, new Map());
       }
-      const langDict = this.cache.get(localisation.lang);
+      const langDict = this._cache.get(localisation.lang);
       if (!langDict.has(localisation.key)) {
         langDict.set(localisation.key, new Map());
       }
@@ -43,7 +40,7 @@ export class LocalisationManager extends GenericManager<Localisation> {
     });
   }
 
-  async get(o: GetLocalisationOptions): Promise<Localisation | null> {
+  async translate(o: GetLocalisationOptions): Promise<Localisation | null> {
     if (!o.lang) {
       o.lang = 'english';
     }
@@ -51,10 +48,10 @@ export class LocalisationManager extends GenericManager<Localisation> {
       o.version = 0;
     }
     const localisation =
-      this.cache?.get(o.lang)?.get(o.key)?.get(o.version) ??
-      this.cache?.get(o.lang)?.get(o.key)?.get(0) ??
-      this.cache?.get('english')?.get(o.key)?.get(o.version) ??
-      this.cache?.get('english')?.get(o.key)?.get(0) ??
+      this._cache?.get(o.lang)?.get(o.key)?.get(o.version) ??
+      this._cache?.get(o.lang)?.get(o.key)?.get(0) ??
+      this._cache?.get('english')?.get(o.key)?.get(o.version) ??
+      this._cache?.get('english')?.get(o.key)?.get(0) ??
       null;
 
     if (!localisation) {
@@ -62,10 +59,10 @@ export class LocalisationManager extends GenericManager<Localisation> {
     }
 
     return (
-      this.cache?.get(o.lang)?.get(o.key)?.get(o.version) ??
-      this.cache?.get(o.lang)?.get(o.key)?.get(0) ??
-      this.cache?.get('english')?.get(o.key)?.get(o.version) ??
-      this.cache?.get('english')?.get(o.key)?.get(0) ??
+      this._cache?.get(o.lang)?.get(o.key)?.get(o.version) ??
+      this._cache?.get(o.lang)?.get(o.key)?.get(0) ??
+      this._cache?.get('english')?.get(o.key)?.get(o.version) ??
+      this._cache?.get('english')?.get(o.key)?.get(0) ??
       null
     );
   }

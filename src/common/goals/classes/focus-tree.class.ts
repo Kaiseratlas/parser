@@ -1,26 +1,26 @@
-import { Expose, plainToInstance, Transform } from 'class-transformer';
-import { Focus } from './focus.class';
+import { Expose } from 'class-transformer';
+import type { Focus } from './focus.class';
+import { ProductEntity } from '@shared/';
 
 type FocusMap = Map<Focus['id'], Focus>;
 
-export class FocusTree {
+export class FocusTree extends ProductEntity {
+  static readonly Key = 'focus_tree';
+
   @Expose()
   readonly id: string;
-  @Expose({ name: 'focus' })
-  @Transform(({ value }) =>
-    plainToInstance(Focus, value, {
-      excludeExtraneousValues: true,
-    }),
-  )
-  @Transform(({ value: focuses }) => {
-    const focusMap = new Map();
-    // console.log(focuses);
-    focuses.forEach((focus) => focusMap.set(focus.id, focus));
-    return focusMap;
-  })
-  readonly focuses: FocusMap;
 
-  get(id: Focus['id']): Focus | null {
-    return this.focuses.get(id) ?? null;
+  protected readonly focusMap: FocusMap = new Map();
+
+  get focuses() {
+    return [...this.focusMap.values()];
+  }
+
+  getFocus(id: Focus['id']): Focus | null {
+    return this.focusMap.get(id) ?? null;
+  }
+
+  addFocus(...focuses: Focus[]) {
+    focuses.forEach((focus) => this.focusMap.set(focus.id, focus));
   }
 }

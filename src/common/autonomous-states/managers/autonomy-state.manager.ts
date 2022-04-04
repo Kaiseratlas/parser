@@ -7,9 +7,8 @@ import { plainToClassFromExist } from 'class-transformer';
 export class AutonomyStateManager extends GenericManager<AutonomyState> {
   protected readonly wildcards = ['common/autonomous_states/**/*.txt'];
 
-  async get(id: string) {
-    const as = await this.load();
-    return as.find((s) => s.id === id);
+  protected make(): AutonomyState {
+    return new AutonomyState(this.product);
   }
 
   protected async processFile({ path }) {
@@ -17,14 +16,10 @@ export class AutonomyStateManager extends GenericManager<AutonomyState> {
     const parser = await Jomini.initialize();
     const data = parser.parseText(out);
     return [
-      plainToClassFromExist(
-        new AutonomyState(this.product),
-        data['autonomy_state'],
-        {
-          excludeExtraneousValues: true,
-          exposeDefaultValues: true,
-        },
-      ),
+      plainToClassFromExist(this.make(), data['autonomy_state'], {
+        excludeExtraneousValues: true,
+        exposeDefaultValues: true,
+      }),
     ];
   }
 }

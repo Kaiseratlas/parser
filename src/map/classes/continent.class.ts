@@ -9,4 +9,12 @@ export class Continent extends ProductEntity {
   }
   readonly id: number;
   readonly name: string;
+
+  getName() {
+    return this.product.localisation.translate({ key: this.name });
+  }
+
+  getAdjective() {
+    return this.product.localisation.translate({ key: `${this.name}_adj` });
+  }
 }

@@ -7,31 +7,14 @@ import { LocalisationManager } from '../../localisation';
 import { EventManager } from '../../events';
 
 export class Mod extends Product {
-  get common() {
-    return new CommonManager(this);
-  }
-
-  get events() {
-    return new EventManager(this);
-  }
-
-  get history() {
-    return new HistoryManager(this);
-  }
-
-  get interface() {
-    return new InterfaceManager(this);
-  }
-
-  get localisation() {
-    return new LocalisationManager(this);
-  }
+  readonly common = new CommonManager(this);
+  readonly events = new EventManager(this);
+  readonly history = new HistoryManager(this);
+  readonly interface = new InterfaceManager(this);
+  readonly localisation = new LocalisationManager(this);
+  readonly map = new MapManager(this);
 
   get localization() {
     return this.localisation;
-  }
-
-  get map() {
-    return new MapManager(this);
   }
 }

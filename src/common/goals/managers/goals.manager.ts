@@ -1,46 +1,40 @@
-import { FocusTree } from '../classes/focus-tree.class';
+import { Focus, FocusTree } from '../classes';
 import { GenericManager } from '@shared/';
 import fs from 'fs';
 import { Jomini } from 'jomini';
-import { plainToInstance } from 'class-transformer';
-
-export function convertToArray(out: unknown | unknown[]) {
-  if (!out) {
-    return [];
-  }
-
-  if (Array.isArray(out)) {
-    return out;
-  }
-
-  return [out];
-}
+import { plainToClassFromExist } from 'class-transformer';
+import { x } from '../../../interface';
+import { tryToFixFile } from '../../../shared/utils';
 
 export class GoalsManager extends GenericManager<FocusTree> {
   protected readonly wildcards = ['common/national_focus/**/*.txt'];
 
-  async get(id: string) {
-    const trees = await this.load();
-    return trees.find((t) => t.id === id);
+  make(): FocusTree {
+    return new FocusTree(this.product);
   }
 
-  protected async processFile({ path }) {
+  protected async processFile({ path }): Promise<FocusTree[]> {
     const out = await fs.promises.readFile(path);
     const parser = await Jomini.initialize();
+    let data;
     try {
-      const data = parser.parseText(out);
-      if (!data['focus_tree']) {
-        return [];
-      }
-
-      const tree = plainToInstance(FocusTree, data['focus_tree'], {
-        excludeExtraneousValues: true,
-      });
-
-      return [tree];
+      data = parser.parseText(out);
     } catch (e) {
-      //console.log('e', e);
-      return [];
+      data = parser.parseText(tryToFixFile(out));
     }
+    return x(data[FocusTree.Key]).map((data) => {
+      const tree = this.make();
+      const focuses = x(data[Focus.Key]).map((data) => {
+        return plainToClassFromExist(new Focus(this.product, tree), data, {
+          excludeExtraneousValues: true,
+          exposeDefaultValues: true,
+        });
+      });
+      tree.addFocus(...focuses);
+      return plainToClassFromExist(tree, data, {
+        excludeExtraneousValues: true,
+        exposeDefaultValues: true,
+      });
+    });
   }
 }

@@ -28,4 +28,8 @@ describe('KR Ideas (e2e)', () => {
     //   expect(new Set(ideas.map((idea) => idea.id)).size).toBe(ideas.length);
     // });
   });
+
+  describe('get an idea by id', () => {
+    let idea: Idea;
+  });
 });

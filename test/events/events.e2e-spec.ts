@@ -44,7 +44,7 @@ describe('KR Events (e2e)', () => {
       event = await kr.events.get(eventId);
     });
 
-    it('', () => {
+    it('an event should be an instance of the same class', () => {
       expect(event instanceof Event).toBe(true);
     });
 
@@ -73,50 +73,50 @@ describe('KR Events (e2e)', () => {
     //   });
     // });
 
-    describe('localisation', () => {
-      describe('event title', () => {
-        let eventTitle: Localisation;
-
-        beforeAll(async () => {
-          eventTitle = await event.getTitle();
-        });
-
-        it('should ', () => {
-          expect(eventTitle instanceof Localisation).toBe(true);
-        });
-
-        it('should ', () => {
-          expect(eventTitle.key).toBe(event['title']);
-        });
-
-        it('should ', () => {
-          expect(eventTitle.value).toBe('The 5th Anglo-Afghan War?');
-        });
-      });
-
-      describe('event description', () => {
-        let eventDescription: Localisation;
-
-        beforeAll(async () => {
-          eventDescription = await event.getDescription();
-        });
-
-        it('should ', () => {
-          expect(eventDescription instanceof Localisation).toBe(true);
-        });
-
-        it('should ', () => {
-          expect(eventDescription.key).toBe(event['description']);
-        });
-
-        it('should ', () => {
-          expect(
-            eventDescription.value.includes(
-              'In the remnants of the Raj to our south',
-            ),
-          ).toBe(true);
-        });
-      });
-    });
+    // describe('localisation', () => {
+    //   describe('event title', () => {
+    //     let eventTitle: Localisation;
+    //
+    //     beforeAll(async () => {
+    //       eventTitle = await event.getTitle();
+    //     });
+    //
+    //     it('should ', () => {
+    //       expect(eventTitle instanceof Localisation).toBe(true);
+    //     });
+    //
+    //     it('should ', () => {
+    //       expect(eventTitle.key).toBe(event['title']);
+    //     });
+    //
+    //     it('should ', () => {
+    //       expect(eventTitle.value).toBe('The 5th Anglo-Afghan War?');
+    //     });
+    //   });
+    //
+    //   describe('event description', () => {
+    //     let eventDescription: Localisation;
+    //
+    //     beforeAll(async () => {
+    //       eventDescription = await event.getDescription();
+    //     });
+    //
+    //     it('should ', () => {
+    //       expect(eventDescription instanceof Localisation).toBe(true);
+    //     });
+    //
+    //     it('should ', () => {
+    //       expect(eventDescription.key).toBe(event['description']);
+    //     });
+    //
+    //     it('should ', () => {
+    //       expect(
+    //         eventDescription.value.includes(
+    //           'In the remnants of the Raj to our south',
+    //         ),
+    //       ).toBe(true);
+    //     });
+    //   });
+    // });
   });
 });

@@ -34,7 +34,6 @@ describe('KR Autonomous States (e2e)', () => {
 
     beforeAll(async () => {
       AS = await kr.common.AS.get('kr_colonial_government');
-      console.log('AS', AS);
     });
 
     it('autonomous state should be an instance of the same class', () => {

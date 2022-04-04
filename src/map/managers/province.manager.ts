@@ -3,17 +3,7 @@ import { GenericManager } from '@shared/';
 import fs from 'fs';
 import csv from 'csv-parser';
 import { plainToClassFromExist } from 'class-transformer';
-
-enum ProvinceHeader {
-  ID,
-  RED_VALUE,
-  GREEN_VALUE,
-  BLUE_VALUE,
-  TYPE,
-  IS_COASTAL,
-  TERRAIN,
-  CONTINENT_ID,
-}
+import type { ProvinceHeader } from '../enums';
 
 export class ProvinceManager extends GenericManager<Province> {
   protected readonly wildcards = ['map/definition.csv'];
@@ -23,6 +13,10 @@ export class ProvinceManager extends GenericManager<Province> {
     mapValues: this.transformValues,
   });
 
+  make(): Province {
+    return new Province(this.product);
+  }
+
   protected transformValues({
     index,
     value,
@@ -31,27 +25,22 @@ export class ProvinceManager extends GenericManager<Province> {
     value: unknown;
   }): unknown {
     switch (index) {
-      case ProvinceHeader.ID:
-      case ProvinceHeader.RED_VALUE:
-      case ProvinceHeader.GREEN_VALUE:
-      case ProvinceHeader.BLUE_VALUE:
-      case ProvinceHeader.CONTINENT_ID: {
+      case Province.Header.ID:
+      case Province.Header.RED_VALUE:
+      case Province.Header.GREEN_VALUE:
+      case Province.Header.BLUE_VALUE:
+      case Province.Header.CONTINENT_ID: {
         return Number(value);
       }
-      case ProvinceHeader.IS_COASTAL: {
+      case Province.Header.IS_COASTAL: {
         return value === 'true';
       }
-      case ProvinceHeader.TYPE:
-      case ProvinceHeader.TERRAIN:
+      case Province.Header.TYPE:
+      case Province.Header.TERRAIN:
       default: {
         return value;
       }
     }
-  }
-
-  async get(id: number): Promise<Province> {
-    const provinces = await this.load();
-    return provinces.find((province) => province.id === id);
   }
 
   protected async processFile({ path }): Promise<Province[]> {
@@ -63,7 +52,7 @@ export class ProvinceManager extends GenericManager<Province> {
         .on('end', () => resolve(results));
     });
     return results.map((entry) =>
-      plainToClassFromExist(new Province(this.product), entry, {
+      plainToClassFromExist(this.make(), entry, {
         excludeExtraneousValues: true,
       }),
     );

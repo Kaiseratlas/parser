@@ -9,13 +9,16 @@ import { PNG } from 'pngjs';
 import TGA from 'tga';
 
 export class Sprite extends ProductEntity {
+  static readonly Key = 'spriteType';
+
   constructor(product: Product, textureFile?: Sprite['textureFile']) {
     super(product);
     this.textureFile = textureFile;
   }
 
-  @Expose()
-  readonly name: string | null = null;
+  @Expose({ name: 'name' })
+  readonly id: string | null = null;
+
   @Expose({ name: 'texturefile' })
   @Transform(({ obj, value }) => value ?? obj['textureFile'])
   readonly textureFile: string;

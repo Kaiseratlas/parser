@@ -1,10 +1,11 @@
 import { ProductEntity } from '@shared/';
 import { Expose, Transform } from 'class-transformer';
 import Color from 'color';
-import { ProvinceType } from '../enums';
+import { ProvinceHeader, ProvinceType } from '../enums';
 import type { Continent } from './continent.class';
 
 export class Province extends ProductEntity {
+  static readonly Header = ProvinceHeader;
   static readonly Type = ProvinceType;
 
   @Expose({ name: '0' })
