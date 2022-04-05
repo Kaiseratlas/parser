@@ -45,7 +45,7 @@ describe('KR Autonomous States (e2e)', () => {
     });
 
     it('default value type should be boolean', () => {
-      expect(typeof AS.default === 'boolean').toBe(true);
+      expect(typeof AS.isDefault === 'boolean').toBe(true);
     });
 
     it('is puppet value type should be boolean', () => {
