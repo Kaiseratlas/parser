@@ -1,2 +1,3 @@
+export * from './game.class';
 export * from './product.class';
-export * from './mod.class';
+export * from './parser.class';

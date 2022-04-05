@@ -3,14 +3,15 @@ import type { HistoryManager } from '../../history';
 import type { InterfaceManager } from '../../interface';
 import type { MapManager } from '../../map';
 import type { LocalisationManager } from '../../localisation';
-import { EventManager } from '../../events';
+import type { EventManager } from '../../events';
+import type { Game } from './game.class';
+import type { Mod } from './mod.class';
 
 export abstract class Product {
-  constructor(absolutePath: string) {
-    this.absolutePath = absolutePath;
-  }
-
-  readonly absolutePath: string;
+  protected constructor(
+    protected readonly game: Game,
+    protected readonly mods: Mod[],
+  ) {}
 
   abstract common: CommonManager;
   abstract events: EventManager;
@@ -19,4 +20,6 @@ export abstract class Product {
   abstract localisation: LocalisationManager;
   abstract localization: LocalisationManager;
   abstract map: MapManager;
+  abstract fg(wildcards: string[]): Promise<any>;
+  abstract resolve(...paths: string[]): string;
 }

@@ -1,4 +1,4 @@
-import { GoalsManager } from './goals/managers/goals.manager';
+import { GoalsManager } from './goals';
 import { IdeaManager } from './ideas';
 import { IdeologyManager } from './ideologies';
 import { IntelligenceAgencyManager } from './intelligence-agencies';
@@ -14,8 +14,6 @@ import { ResourceManager } from './resources';
 import { TechnologyManager } from './technologies';
 import { CountryManager } from './countries';
 import { LeaderTraitManager } from './leader-traits';
-
-import 'dotenv/config'; // TODO: move to index
 
 export class CommonManager extends ProductEntity {
   readonly abilities = new AbilityManager(this.product);

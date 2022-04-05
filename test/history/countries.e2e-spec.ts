@@ -1,4 +1,4 @@
-import { Mod } from '../../src/core';
+import { Parser } from '../../src/core';
 import {
   CountryHistory,
   State,
@@ -8,11 +8,11 @@ import {
 import { Character, Idea, Ideology } from '../../src/common';
 
 describe('KR Country History (e2e)', () => {
-  let kr: Mod;
+  let kr: Parser;
   const ideologyId = 'paternal_autocrat';
 
-  beforeAll(() => {
-    kr = new Mod(process.env.MOD_PATH);
+  beforeAll(async () => {
+    kr = await Parser.initialize(hoi4);
   });
 
   describe('load all country history', () => {

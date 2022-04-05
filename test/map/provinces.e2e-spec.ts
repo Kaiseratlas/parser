@@ -1,12 +1,12 @@
 import { Continent, Province } from '../../src/map';
-import { Mod } from '../../src/core';
+import { Parser } from '../../src/core';
 import Color from 'color';
 
 describe('KR Provinces (e2e)', () => {
-  let kr: Mod;
+  let kr: Parser;
 
-  beforeAll(() => {
-    kr = new Mod(process.env.MOD_PATH);
+  beforeAll(async () => {
+    kr = await Parser.initialize(hoi4);
   });
 
   describe('load all provinces', () => {

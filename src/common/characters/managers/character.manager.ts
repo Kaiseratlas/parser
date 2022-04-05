@@ -33,7 +33,7 @@ export class CharacterManager extends GenericManager<Character> {
     const out = await fs.promises.readFile(path);
     const parser = await Jomini.initialize();
     const data = parser.parseText(out);
-    return Object.entries(data['characters']).map(([id, data]: any) => {
+    return Object.entries(data?.['characters'] ?? {}).map(([id, data]: any) => {
       const ch = this.make();
       const leaderRoles = x(data['country_leader']).map((n) => {
         const leader = new CountryLeader(this.product);

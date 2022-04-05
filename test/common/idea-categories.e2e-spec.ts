@@ -1,13 +1,13 @@
-import { Mod } from '../../src/core';
+import { Parser } from '../../src/core';
 import { IdeaCategory } from '../../src/common/ideas/classes/idea-category.class';
 import { Sprite } from '../../src/interface';
 import { Idea } from '../../src/common';
 
 describe('KR Idea Categories (e2e)', () => {
-  let kr: Mod;
+  let kr: Parser;
 
-  beforeAll(() => {
-    kr = new Mod(process.env.MOD_PATH);
+  beforeAll(async () => {
+    kr = await Parser.initialize(hoi4);
   });
 
   describe('load all idea categories', () => {

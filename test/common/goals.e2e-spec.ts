@@ -1,12 +1,12 @@
-import { Mod } from '../../src/core';
+import { Parser } from '../../src/core';
 import { Focus, FocusTree } from '../../src/common/goals';
 import { Sprite } from '../../src/interface';
 
 describe('KR Goals (e2e)', () => {
-  let kr: Mod;
+  let kr: Parser;
 
-  beforeAll(() => {
-    kr = new Mod(process.env.MOD_PATH);
+  beforeAll(async () => {
+    kr = await Parser.initialize(hoi4);
   });
 
   describe('load all focus trees', () => {

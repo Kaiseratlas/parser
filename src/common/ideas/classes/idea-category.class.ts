@@ -1,12 +1,14 @@
 import { Expose, Transform } from 'class-transformer';
 import { ProductEntity } from '@shared/';
+import type { Product } from '@shared/';
 import { x } from '../../../interface';
 import { IdeaSlot } from './idea-slot.class';
 import { Idea } from './idea.class';
 
 export class IdeaCategory extends ProductEntity {
-  @Expose()
-  readonly id: string;
+  constructor(product: Product, readonly id: string) {
+    super(product);
+  }
   @Expose()
   readonly cost: number | null = null;
   @Expose({ name: 'removal_cost' })

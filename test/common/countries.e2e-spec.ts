@@ -1,4 +1,4 @@
-import { Mod } from '../../src/core';
+import { Parser } from '../../src/core';
 import { Country, CountryColor } from '../../src/common/countries';
 import { CountryHistory } from '../../src/history';
 import { NameBase } from '../../src/common/names';
@@ -9,10 +9,10 @@ import path from 'path';
 import { Sprite } from '../../src/interface';
 
 describe('KR Countries (e2e)', () => {
-  let kr: Mod;
+  let kr: Parser;
 
-  beforeAll(() => {
-    kr = new Mod(process.env.MOD_PATH);
+  beforeAll(async () => {
+    kr = await Parser.initialize(hoi4);
   });
 
   describe('load all countries', () => {

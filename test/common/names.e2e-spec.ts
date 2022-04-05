@@ -1,11 +1,11 @@
-import { Mod } from '../../src/core';
+import { Parser } from '../../src/core';
 import { NameBase } from '../../src/common/names';
 
 describe('KR Names (e2e)', () => {
-  let kr: Mod;
+  let kr: Parser;
 
-  beforeAll(() => {
-    kr = new Mod(process.env.MOD_PATH);
+  beforeAll(async () => {
+    kr = await Parser.initialize(hoi4);
   });
 
   describe('load all name bases', () => {

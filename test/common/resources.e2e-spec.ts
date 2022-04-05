@@ -1,12 +1,11 @@
-import { Mod } from '../../src/core';
-import { Country } from '../../src/common/countries';
+import { Parser } from '../../src/core';
 import { Resource } from '../../src/common';
 
 describe('', () => {
-  let kr: Mod;
+  let kr: Parser;
 
-  beforeAll(() => {
-    kr = new Mod(process.env.MOD_PATH);
+  beforeAll(async () => {
+    kr = await Parser.initialize(hoi4);
   });
 
   describe('load all resources', () => {
@@ -14,10 +13,11 @@ describe('', () => {
 
     beforeAll(async () => {
       resources = await kr.common.resources.load();
+      //console.log('resources', resources)
     });
 
     it("resources array shouldn't be empty", () => {
-      //expect(resources.length).toBeTruthy();
+      expect(resources.length).toBeTruthy();
     });
   });
 });

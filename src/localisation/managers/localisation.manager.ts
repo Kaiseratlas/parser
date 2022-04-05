@@ -13,7 +13,10 @@ export type GetLocalisationOptions = Partial<
   Pick<LocalisationOptions, 'key'>;
 
 export class LocalisationManager extends GenericManager<Localisation> {
-  protected readonly wildcards = ['localisation/**/*.yml'];
+  protected readonly wildcards = [
+    'localisation/**/*.yml',
+    '!localisation/languages.yml',
+  ];
 
   protected readonly _cache = new Map<
     Localisation['lang'],
@@ -78,6 +81,9 @@ export class LocalisationManager extends GenericManager<Localisation> {
     // KR_National_Protection_Alliance_l_english
     // KR_l_english
     // tutorial_l_english
+    if (!path.parse(fullPath).name.match(/^.*l_(\S+)$/)) {
+      console.log('fullPath', fullPath);
+    }
     const [, lang] = path.parse(fullPath).name.match(/^.*l_(\S+)$/);
     const out = await fs.promises.readFile(fullPath);
     const data = out.toString();

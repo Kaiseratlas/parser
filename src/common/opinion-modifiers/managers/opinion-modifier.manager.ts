@@ -7,6 +7,10 @@ import { plainToClassFromExist } from 'class-transformer';
 export class OpinionModifierManager extends GenericManager<OpinionModifier> {
   protected readonly wildcards = ['common/opinion_modifiers/**/*.txt'];
 
+  make(id: OpinionModifier['id']): OpinionModifier {
+    return new OpinionModifier(this.product, id);
+  }
+
   async get(id: OpinionModifier['id']) {
     const opinionModifiers = await this.load();
     return opinionModifiers.find(
@@ -24,14 +28,10 @@ export class OpinionModifierManager extends GenericManager<OpinionModifier> {
         Array.isArray(data) ? data[data.length - 1] : data,
       ])
       .map(([id, data]) => {
-        return plainToClassFromExist(
-          new OpinionModifier(this.product, id),
-          data,
-          {
-            excludeExtraneousValues: true,
-            exposeDefaultValues: true,
-          },
-        );
+        return plainToClassFromExist(this.make(id), data, {
+          excludeExtraneousValues: true,
+          exposeDefaultValues: true,
+        });
       });
   }
 }

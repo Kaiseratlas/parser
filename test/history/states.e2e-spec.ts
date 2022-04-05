@@ -1,13 +1,13 @@
-import { Mod } from '../../src/core';
+import { Parser } from '../../src/core';
 import { State } from '../../src/history';
 import { Province } from '../../src/map';
 import { StateCategory } from '../../src/common';
 
 describe('KR Country History (e2e)', () => {
-  let kr: Mod;
+  let kr: Parser;
 
-  beforeAll(() => {
-    kr = new Mod(process.env.MOD_PATH);
+  beforeAll(async () => {
+    kr = await Parser.initialize(hoi4);
   });
 
   describe('load all states', () => {

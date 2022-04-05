@@ -1,11 +1,11 @@
-import { Mod } from '../../src/core';
+import { Parser } from '../../src/core';
 import { Ability } from '../../src/common';
 
 describe('KR Abilities (e2e)', () => {
-  let kr: Mod;
+  let kr: Parser;
 
-  beforeAll(() => {
-    kr = new Mod(process.env.MOD_PATH);
+  beforeAll(async () => {
+    kr = await Parser.initialize(hoi4);
   });
 
   describe('load all abilities', () => {

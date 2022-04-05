@@ -1,13 +1,13 @@
-import { Mod } from '../../src/core';
+import { Parser } from '../../src/core';
 import { Ideology } from '../../src/common';
 import { Sprite } from '../../src/interface';
 import Color from 'color';
 
 describe('KR Ideologies (e2e)', () => {
-  let kr: Mod;
+  let kr: Parser;
 
-  beforeAll(() => {
-    kr = new Mod(process.env.MOD_PATH);
+  beforeAll(async () => {
+    kr = await Parser.initialize(hoi4);
   });
 
   describe('load all ideologies', () => {

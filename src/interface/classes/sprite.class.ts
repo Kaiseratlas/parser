@@ -24,7 +24,7 @@ export class Sprite extends ProductEntity {
   readonly textureFile: string;
 
   protected get textureFilePath() {
-    return path.join(this.product.absolutePath, this.textureFile);
+    return this.product.resolve(this.textureFile);
   }
 
   get png() {

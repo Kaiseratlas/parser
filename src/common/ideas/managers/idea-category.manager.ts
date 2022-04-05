@@ -7,9 +7,8 @@ import { plainToClassFromExist } from 'class-transformer';
 export class IdeaCategoryManager extends GenericManager<IdeaCategory> {
   protected readonly wildcards = ['common/idea_tags/**/*.txt'];
 
-  async get(id: IdeaCategory['id']) {
-    const ideaCategories = await this.load();
-    return ideaCategories.find((ic) => ic.id === id);
+  make(id: IdeaCategory['id']): IdeaCategory {
+    return new IdeaCategory(this.product, id);
   }
 
   protected async processFile({ path }) {
@@ -18,14 +17,10 @@ export class IdeaCategoryManager extends GenericManager<IdeaCategory> {
     const data = parser.parseText(out);
     return Object.entries<Record<string, unknown>>(data['idea_categories']).map(
       ([id, data]) =>
-        plainToClassFromExist(
-          new IdeaCategory(this.product),
-          { id, ...data },
-          {
-            excludeExtraneousValues: true,
-            exposeDefaultValues: true,
-          },
-        ),
+        plainToClassFromExist(this.make(id), data, {
+          excludeExtraneousValues: true,
+          exposeDefaultValues: true,
+        }),
     );
   }
 }
