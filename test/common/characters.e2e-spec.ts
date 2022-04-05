@@ -1,5 +1,6 @@
 import { Parser } from '../../src/core';
 import { Character, CountryLeader, Ideology } from '../../src/common';
+import { Sprite } from '../../src/interface';
 
 describe('KR Characters (e2e)', () => {
   let kr: Parser;
@@ -62,6 +63,22 @@ describe('KR Characters (e2e)', () => {
 
       it('ideology should be an instance of the same class', () => {
         expect(ideology instanceof Ideology).toBe(true);
+      });
+    });
+
+    describe('portraits', () => {
+      describe('civilian portraits', () => {
+        let largePortrait: Sprite;
+
+        beforeAll(() => {
+          largePortrait = character.portraits.civilian.large;
+          console.log('largePortrait', largePortrait);
+        });
+
+        it('', async () => {
+          const buffer = await largePortrait.readFile();
+          expect(Buffer.isBuffer(buffer)).toBe(true);
+        });
       });
     });
   });
