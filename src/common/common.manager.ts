@@ -14,10 +14,12 @@ import { ResourceManager } from './resources';
 import { TechnologyManager } from './technologies';
 import { CountryManager } from './countries';
 import { LeaderTraitManager } from './leader-traits';
+import { BuildingManager } from './buildings';
 
 export class CommonManager extends ProductEntity {
   readonly abilities = new AbilityManager(this.product);
   readonly autonomousStates = new AutonomyStateManager(this.product);
+  readonly buildings = new BuildingManager(this.product);
   readonly characters = new CharacterManager(this.product);
   readonly countries = new CountryManager(this.product);
   readonly goals = new GoalsManager(this.product);

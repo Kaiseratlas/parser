@@ -23,6 +23,9 @@ export class Sprite extends ProductEntity {
   @Transform(({ obj, value }) => value ?? obj['textureFile'])
   readonly textureFile: string;
 
+  @Expose()
+  readonly noOfFrames: number;
+
   protected get textureFilePath() {
     return this.product.resolve(this.textureFile);
   }

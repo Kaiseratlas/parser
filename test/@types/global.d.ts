@@ -1,4 +1,4 @@
-import type { Game } from '../core';
+import type { Game } from '../../src/core';
 
 declare global {
   // eslint-disable-next-line no-var

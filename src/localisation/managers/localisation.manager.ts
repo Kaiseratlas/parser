@@ -43,18 +43,29 @@ export class LocalisationManager extends GenericManager<Localisation> {
     });
   }
 
+  protected getLatestFromCache(
+    key: Localisation['key'],
+    lang = 'english',
+  ): Localisation | null {
+    const versionMap = this._cache?.get(lang)?.get(key);
+    if (!versionMap) {
+      return null;
+    }
+    const latest = Math.max(...versionMap.keys());
+    return this._cache.get(lang).get(key).get(latest);
+  }
+
+  t = this.translate;
+
   async translate(o: GetLocalisationOptions): Promise<Localisation | null> {
     if (!o.lang) {
       o.lang = 'english';
     }
-    if (!o.version) {
-      o.version = 0;
-    }
     const localisation =
       this._cache?.get(o.lang)?.get(o.key)?.get(o.version) ??
-      this._cache?.get(o.lang)?.get(o.key)?.get(0) ??
+      this.getLatestFromCache(o.key, o.lang) ??
       this._cache?.get('english')?.get(o.key)?.get(o.version) ??
-      this._cache?.get('english')?.get(o.key)?.get(0) ??
+      this.getLatestFromCache(o.key) ??
       null;
 
     if (!localisation) {
@@ -63,9 +74,9 @@ export class LocalisationManager extends GenericManager<Localisation> {
 
     return (
       this._cache?.get(o.lang)?.get(o.key)?.get(o.version) ??
-      this._cache?.get(o.lang)?.get(o.key)?.get(0) ??
+      this.getLatestFromCache(o.key, o.lang) ??
       this._cache?.get('english')?.get(o.key)?.get(o.version) ??
-      this._cache?.get('english')?.get(o.key)?.get(0) ??
+      this.getLatestFromCache(o.key) ??
       null
     );
   }

@@ -17,6 +17,7 @@ export abstract class Product {
   abstract events: EventManager;
   abstract history: HistoryManager;
   abstract interface: InterfaceManager;
+  abstract i18n: LocalisationManager;
   abstract localisation: LocalisationManager;
   abstract localization: LocalisationManager;
   abstract map: MapManager;
