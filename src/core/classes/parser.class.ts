@@ -31,7 +31,7 @@ export class Parser extends Product {
   readonly history = new HistoryManager(this);
   readonly interface = new InterfaceManager(this);
   readonly localisation = new LocalisationManager(this);
-  readonly map = new MapManager(this);
+  readonly map: MapManager = new MapManager(this);
 
   get i18n() {
     return this.localisation;
