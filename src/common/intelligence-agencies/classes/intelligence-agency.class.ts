@@ -1,7 +1,6 @@
 import { Expose, Transform } from 'class-transformer';
 import { ProductEntity } from '@shared/';
 import type { Sprite } from '../../../interface';
-import { x } from '../../../interface';
 
 export class IntelligenceAgency extends ProductEntity {
   static readonly Key = 'intelligence_agency';

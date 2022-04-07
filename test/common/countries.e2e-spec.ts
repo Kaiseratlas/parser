@@ -1,4 +1,3 @@
-import { Parser } from '../../src/core';
 import { Country, CountryColor } from '../../src/common/countries';
 import { CountryHistory, State } from '../../src/history';
 import { NameBase } from '../../src/common/names';
@@ -9,12 +8,6 @@ import path from 'path';
 import { Sprite } from '../../src/interface';
 
 describe('KR Countries (e2e)', () => {
-  let kr: Parser;
-
-  beforeAll(async () => {
-    kr = await Parser.initialize(hoi4);
-  });
-
   describe('load all countries', () => {
     let countries: Country[];
 

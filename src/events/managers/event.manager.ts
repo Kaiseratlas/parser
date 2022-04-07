@@ -1,11 +1,10 @@
-import { GenericManager } from '@shared/';
+import { convertToArray, GenericManager } from '@shared/';
 import { Event } from '../classes';
 import fs from 'fs';
 import { Jomini } from 'jomini';
-import { x } from '../../interface';
 import { plainToClassFromExist } from 'class-transformer';
 import { EventType } from '../enums';
-import { tryToFixFile } from '../../shared/utils';
+import { tryToFixFile } from '@shared/';
 
 export class EventManager extends GenericManager<Event> {
   protected readonly wildcards = ['events/**/*.txt'];
@@ -25,7 +24,7 @@ export class EventManager extends GenericManager<Event> {
     }
 
     return Object.values(EventType).flatMap((type) =>
-      x(data[type]).flatMap((data) =>
+      convertToArray(data[type]).flatMap((data) =>
         plainToClassFromExist(this.make(type), data, {
           excludeExtraneousValues: true,
           exposeDefaultValues: true,

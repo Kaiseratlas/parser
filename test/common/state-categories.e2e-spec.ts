@@ -1,14 +1,7 @@
-import { Parser } from '../../src/core';
 import { StateCategory } from '../../src/common';
 import Color from 'color';
 
 describe('KR State Categories (e2e)', () => {
-  let kr: Parser;
-
-  beforeAll(async () => {
-    kr = await Parser.initialize(hoi4);
-  });
-
   describe('load all state categories', () => {
     let stateCategories: StateCategory[];
 

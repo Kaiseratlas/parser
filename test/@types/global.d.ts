@@ -1,7 +1,7 @@
-import type { Game } from '../../src/core';
+import type Parser from '../../src';
 
 declare global {
   // eslint-disable-next-line no-var
-  var hoi4: Game;
+  var kr: Parser;
 }
 export {};

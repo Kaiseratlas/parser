@@ -1,20 +1,8 @@
-import { GenericManager } from '@shared/';
+import { convertToArray, GenericManager } from '@shared/';
 import { Sprite } from '../classes';
 import fs from 'fs';
 import { Jomini } from 'jomini';
 import { plainToClassFromExist } from 'class-transformer';
-
-export function x(x) {
-  if (!x) {
-    return [];
-  }
-
-  if (!Array.isArray(x)) {
-    return [x];
-  }
-
-  return x;
-}
 
 export class SpriteManager extends GenericManager<Sprite> {
   protected readonly wildcards = ['interface/**/*.gfx'];
@@ -28,8 +16,8 @@ export class SpriteManager extends GenericManager<Sprite> {
     const parser = await Jomini.initialize();
     const data = parser.parseText(out);
     const sprites = [
-      ...x(data['spriteTypes']?.[Sprite.Key]),
-      ...x(data['spriteTypes']?.['SpriteType']),
+      ...convertToArray(data['spriteTypes']?.[Sprite.Key]),
+      ...convertToArray(data['spriteTypes']?.['SpriteType']),
     ].map((s) =>
       plainToClassFromExist(this.make(), s, {
         excludeExtraneousValues: true,

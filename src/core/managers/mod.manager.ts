@@ -18,7 +18,6 @@ export class ModManager {
 
   async get(name: Mod['name']) {
     const mod = this.cache.get(name);
-    console.log('mod', mod);
     if (mod) {
       return mod;
     }

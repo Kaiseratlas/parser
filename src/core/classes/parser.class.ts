@@ -26,11 +26,11 @@ export class Parser extends Product {
     return modPath;
   }
 
-  readonly common = new CommonManager(this);
-  readonly events = new EventManager(this);
-  readonly history = new HistoryManager(this);
-  readonly interface = new InterfaceManager(this);
-  readonly localisation = new LocalisationManager(this);
+  readonly common: CommonManager = new CommonManager(this);
+  readonly events: EventManager = new EventManager(this);
+  readonly history: HistoryManager = new HistoryManager(this);
+  readonly interface: InterfaceManager = new InterfaceManager(this);
+  readonly localisation: LocalisationManager = new LocalisationManager(this);
   readonly map: MapManager = new MapManager(this);
 
   get i18n() {

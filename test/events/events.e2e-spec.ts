@@ -1,15 +1,8 @@
-import { Parser } from '../../src/core';
 import { Event } from '../../src/events';
 import { Localisation } from '../../src/localisation';
 import { Sprite } from '../../src/interface';
 
 describe('KR Events (e2e)', () => {
-  let kr: Parser;
-
-  beforeAll(async () => {
-    kr = await Parser.initialize(hoi4);
-  });
-
   describe('load all events', () => {
     let events: Event[];
 
@@ -52,71 +45,71 @@ describe('KR Events (e2e)', () => {
       expect(event.id).toBe(eventId);
     });
 
-    // describe('loan an event picture', () => {
-    //   let eventPicture: Sprite;
-    //
-    //   beforeAll(async () => {
-    //     eventPicture = await event.getPicture();
-    //   });
-    //
-    //   it('should ', () => {
-    //     expect(eventPicture instanceof Sprite).toBe(true);
-    //   });
-    //
-    //   it('should ', () => {
-    //     expect(eventPicture.name).toBe(event['picture']);
-    //   });
-    //
-    //   it('should ', async () => {
-    //     const buffer = await eventPicture.readFile();
-    //     expect(Buffer.isBuffer(buffer)).toBe(true);
-    //   });
-    // });
+    describe('loan an event picture', () => {
+      let eventPicture: Sprite;
 
-    // describe('localisation', () => {
-    //   describe('event title', () => {
-    //     let eventTitle: Localisation;
-    //
-    //     beforeAll(async () => {
-    //       eventTitle = await event.getTitle();
-    //     });
-    //
-    //     it('should ', () => {
-    //       expect(eventTitle instanceof Localisation).toBe(true);
-    //     });
-    //
-    //     it('should ', () => {
-    //       expect(eventTitle.key).toBe(event['title']);
-    //     });
-    //
-    //     it('should ', () => {
-    //       expect(eventTitle.value).toBe('The 5th Anglo-Afghan War?');
-    //     });
-    //   });
-    //
-    //   describe('event description', () => {
-    //     let eventDescription: Localisation;
-    //
-    //     beforeAll(async () => {
-    //       eventDescription = await event.getDescription();
-    //     });
-    //
-    //     it('should ', () => {
-    //       expect(eventDescription instanceof Localisation).toBe(true);
-    //     });
-    //
-    //     it('should ', () => {
-    //       expect(eventDescription.key).toBe(event['description']);
-    //     });
-    //
-    //     it('should ', () => {
-    //       expect(
-    //         eventDescription.value.includes(
-    //           'In the remnants of the Raj to our south',
-    //         ),
-    //       ).toBe(true);
-    //     });
-    //   });
-    // });
+      beforeAll(async () => {
+        eventPicture = await event.getPicture();
+      });
+
+      it('picture should be an instance of the sprite class', () => {
+        expect(eventPicture instanceof Sprite).toBe(true);
+      });
+
+      it('picture id should be matched with picture id', () => {
+        expect(eventPicture.id).toBe(event['picture']);
+      });
+
+      it('picture should be loaded successfully', async () => {
+        const buffer = await eventPicture.readFile();
+        expect(Buffer.isBuffer(buffer)).toBe(true);
+      });
+    });
+
+    describe('localisation', () => {
+      describe('event title', () => {
+        let eventTitle: Localisation;
+
+        beforeAll(async () => {
+          eventTitle = await event.getTitle();
+        });
+
+        it('title should be an instance of the localisation class', () => {
+          expect(eventTitle instanceof Localisation).toBe(true);
+        });
+
+        it('title key should be matched with the event title', () => {
+          expect(eventTitle.key).toBe(event['title']);
+        });
+
+        it('title should be matched with expected', () => {
+          expect(eventTitle.value).toBe('The 5th Anglo-Afghan War?');
+        });
+      });
+
+      describe('event description', () => {
+        let eventDescription: Localisation;
+
+        beforeAll(async () => {
+          eventDescription = await event.getDescription();
+        });
+
+        it('description should be an instance of the localisation class ', () => {
+          expect(eventDescription instanceof Localisation).toBe(true);
+        });
+
+        it('description key should be matched with the event description', () => {
+          expect(eventDescription.key).toBe(event['description']);
+        });
+
+        it('description should contain the expected content', () => {
+          expect(
+            eventDescription.value.includes(
+              'In the remnants of the Raj to our south',
+            ),
+          ).toBe(true);
+        });
+      });
+    });
   });
 });

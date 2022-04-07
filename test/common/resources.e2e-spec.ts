@@ -1,14 +1,7 @@
-import { Parser } from '../../src/core';
 import { Resource } from '../../src/common';
 import { Localisation } from '../../src/localisation';
 
 describe('HOI4 Resources (e2e)', () => {
-  let kr: Parser;
-
-  beforeAll(async () => {
-    kr = await Parser.initialize(hoi4);
-  });
-
   describe('load all resources', () => {
     let resources: Resource[];
 

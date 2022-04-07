@@ -1,4 +1,4 @@
-import { Game } from '../src/core';
+import { Game } from '../src';
 import { Mod } from '../src/core/classes/mod.class';
 
 describe('HOI4 Game (e2e)', () => {

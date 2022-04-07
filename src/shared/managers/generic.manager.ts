@@ -26,7 +26,11 @@ export abstract class GenericManager<T extends ProductEntity> {
   protected abstract processFile({ path }: Entry): Promise<T[]>;
 
   async load(o?: LoadEntitiesOptions): Promise<T[]> {
-    const entries = await this.product.fg(o?.wildcards ?? this.wildcards);
+    if (this.cache.size) {
+      return [...this.cache.values()];
+    }
+
+    const entries = await this.product.fg(this.wildcards);
     const entities = await Promise.all(
       entries.map(this.processFile.bind(this)),
     );

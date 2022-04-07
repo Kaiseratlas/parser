@@ -1,10 +1,9 @@
 import { Focus, FocusTree } from '../classes';
-import { GenericManager } from '@shared/';
+import { convertToArray, GenericManager } from '@shared/';
 import fs from 'fs';
 import { Jomini } from 'jomini';
 import { plainToClassFromExist } from 'class-transformer';
-import { x } from '../../../interface';
-import { tryToFixFile } from '../../../shared/utils';
+import { tryToFixFile } from '@shared/';
 
 export class GoalsManager extends GenericManager<FocusTree> {
   protected readonly wildcards = ['common/national_focus/**/*.txt'];
@@ -22,9 +21,9 @@ export class GoalsManager extends GenericManager<FocusTree> {
     } catch (e) {
       data = parser.parseText(tryToFixFile(out));
     }
-    return x(data[FocusTree.Key]).map((data) => {
+    return convertToArray(data[FocusTree.Key]).map((data) => {
       const tree = this.make();
-      const focuses = x(data[Focus.Key]).map((data) => {
+      const focuses = convertToArray(data[Focus.Key]).map((data) => {
         return plainToClassFromExist(new Focus(this.product, tree), data, {
           excludeExtraneousValues: true,
           exposeDefaultValues: true,

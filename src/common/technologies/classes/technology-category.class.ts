@@ -6,4 +6,8 @@ export class TechnologyCategory extends ProductEntity {
     super(product);
     this.id = id;
   }
+
+  getName() {
+    return this.product.i18n.t({ key: this.id });
+  }
 }

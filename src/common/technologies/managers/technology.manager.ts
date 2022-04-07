@@ -19,12 +19,13 @@ export class TechnologyManager extends GenericManager<Technology> {
     const out = await fs.promises.readFile(path);
     const parser = await Jomini.initialize();
     const data = parser.parseText(out);
-    return Object.entries<Record<string, unknown>>(data['technologies']).map(
-      ([id, data]) =>
+    return Object.entries<Record<string, unknown>>(data['technologies'])
+      .map(([id, data]) =>
         plainToClassFromExist(this.make(id), data, {
           exposeDefaultValues: true,
           excludeExtraneousValues: true,
         }),
-    );
+      )
+      .filter((technology) => technology instanceof Technology);
   }
 }

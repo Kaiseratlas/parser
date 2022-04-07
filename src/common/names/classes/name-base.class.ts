@@ -1,7 +1,6 @@
-import { ProductEntity } from '@shared/';
+import { convertToArray, ProductEntity } from '@shared/';
 import type { Product } from '@shared/';
 import { Expose, Transform } from 'class-transformer';
-import { x } from '../../../interface';
 
 export class NameBase extends ProductEntity {
   constructor(product: Product, countryTag: string) {
@@ -11,15 +10,15 @@ export class NameBase extends ProductEntity {
 
   readonly countryTag: string;
   @Expose()
-  @Transform(({ value }) => x(value['names']))
+  @Transform(({ value }) => convertToArray(value['names']))
   readonly male: string[] = [];
   @Expose()
-  @Transform(({ value }) => x(value['names']))
+  @Transform(({ value }) => convertToArray(value['names']))
   readonly female: string[] = [];
   @Expose()
-  @Transform(({ value }) => x(value))
+  @Transform(({ value }) => convertToArray(value))
   readonly surnames: string[] = [];
   @Expose({ name: 'callsigns' })
-  @Transform(({ value }) => x(value))
+  @Transform(({ value }) => convertToArray(value))
   readonly callSigns: string[] = [];
 }

@@ -1,13 +1,6 @@
-import { Parser } from '../../src/core';
 import { Idea } from '../../src/common';
 
 describe('KR Ideas (e2e)', () => {
-  let kr: Parser;
-
-  beforeAll(async () => {
-    kr = await Parser.initialize(hoi4);
-  });
-
   describe('load all ideas', () => {
     let ideas: Idea[];
 
@@ -31,8 +24,8 @@ describe('KR Ideas (e2e)', () => {
   describe('get an idea by id', () => {
     let idea: Idea;
 
-    it('should ', async () => {
-      expect(Buffer.isBuffer(await idea.getPicture())).toBe(true)
-    });
+    // it('should ', async () => {
+    //   expect(Buffer.isBuffer(await idea.getPicture())).toBe(true)
+    // });
   });
 });

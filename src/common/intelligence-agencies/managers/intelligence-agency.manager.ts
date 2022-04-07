@@ -1,9 +1,8 @@
-import { GenericManager } from '@shared/';
+import { convertToArray, GenericManager } from '@shared/';
 import fs from 'fs';
 import { Jomini } from 'jomini';
 import { plainToClassFromExist } from 'class-transformer';
 import { IntelligenceAgency as IA } from '../classes/intelligence-agency.class';
-import { x } from '../../../interface';
 
 export class IntelligenceAgencyManager extends GenericManager<IA> {
   protected readonly wildcards = ['common/intelligence_agencies/**/*.txt'];
@@ -26,7 +25,7 @@ export class IntelligenceAgencyManager extends GenericManager<IA> {
     const out = await fs.promises.readFile(path);
     const parser = await Jomini.initialize();
     const data = parser.parseText(out);
-    return x(data[IA.Key]).map((data) =>
+    return convertToArray(data[IA.Key]).map((data) =>
       plainToClassFromExist(this.make(), data, {
         excludeExtraneousValues: true,
         exposeDefaultValues: true,

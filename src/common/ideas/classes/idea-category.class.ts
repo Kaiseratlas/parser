@@ -1,7 +1,6 @@
 import { Expose, Transform } from 'class-transformer';
-import { ProductEntity } from '@shared/';
+import { convertToArray, ProductEntity } from '@shared/';
 import type { Product } from '@shared/';
-import { x } from '../../../interface';
 import { IdeaSlot } from './idea-slot.class';
 import { Idea } from './idea.class';
 
@@ -14,7 +13,7 @@ export class IdeaCategory extends ProductEntity {
   @Expose({ name: 'removal_cost' })
   readonly removalCost: number | null = null;
   @Expose({ name: 'slot' })
-  @Transform(({ value }) => x(value))
+  @Transform(({ value }) => convertToArray(value))
   protected readonly _slots: string[];
 
   protected makeSlot(id: IdeaSlot['id']) {

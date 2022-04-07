@@ -1,29 +1,29 @@
-import { GenericManager } from '@shared/';
+import { convertToArray, GenericManager } from '@shared/';
 import { Autonomy, CountryHistory, DiplomaticRelation } from '../classes';
 import fs from 'fs';
 import { Jomini } from 'jomini';
 import { plainToClassFromExist } from 'class-transformer';
-import { x } from '../../../interface';
+import path from 'path';
 
 export class CountryHistoryManager extends GenericManager<CountryHistory> {
   protected readonly wildcards = ['history/countries/**/*.txt'];
 
-  make(): CountryHistory {
-    return new CountryHistory(this.product);
+  make(tag: CountryHistory['tag']): CountryHistory {
+    return new CountryHistory(this.product, tag);
   }
 
-  async get(countryTag: string) {
-    const [history = null] = await this.load({
-      wildcards: [`history/countries/**/${countryTag}*.txt`],
-    });
-    return history;
+  protected updateCache(entities: CountryHistory[]) {
+    entities.forEach((countryHistory) =>
+      this.cache.set(countryHistory.tag, countryHistory),
+    );
   }
 
-  protected async processFile({ path }): Promise<CountryHistory[]> {
-    const out = await fs.promises.readFile(path);
+  protected async processFile({ path: fullPath }): Promise<CountryHistory[]> {
+    const out = await fs.promises.readFile(fullPath);
     const parser = await Jomini.initialize();
     const data = parser.parseText(out);
-    const countryHistory = plainToClassFromExist(this.make(), data, {
+    const [tag] = path.parse(fullPath).name.match(/^\S{3}/);
+    const countryHistory = plainToClassFromExist(this.make(tag), data, {
       excludeExtraneousValues: true,
       exposeDefaultValues: true,
     });
@@ -36,14 +36,15 @@ export class CountryHistoryManager extends GenericManager<CountryHistory> {
       },
     );
     countryHistory.setPolitics(countryPolitics);
-    const diplomaticRelations = x(data['diplomatic_relation']).map((data) =>
-      plainToClassFromExist(new DiplomaticRelation(this.product), data, {
-        excludeExtraneousValues: true,
-        exposeDefaultValues: true,
-      }),
+    const diplomaticRelations = convertToArray(data['diplomatic_relation']).map(
+      (data) =>
+        plainToClassFromExist(new DiplomaticRelation(this.product), data, {
+          excludeExtraneousValues: true,
+          exposeDefaultValues: true,
+        }),
     );
     countryHistory.addDiplomaticRelation(...diplomaticRelations);
-    const autonomies = x(data['set_autonomy']).map((data) =>
+    const autonomies = convertToArray(data['set_autonomy']).map((data) =>
       plainToClassFromExist(new Autonomy(this.product, countryHistory), data, {
         excludeExtraneousValues: true,
         exposeDefaultValues: true,

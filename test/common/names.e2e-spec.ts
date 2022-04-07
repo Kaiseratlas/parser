@@ -1,13 +1,6 @@
-import { Parser } from '../../src/core';
 import { NameBase } from '../../src/common/names';
 
 describe('KR Names (e2e)', () => {
-  let kr: Parser;
-
-  beforeAll(async () => {
-    kr = await Parser.initialize(hoi4);
-  });
-
   describe('load all name bases', () => {
     let nameBases: NameBase[];
 

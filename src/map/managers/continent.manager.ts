@@ -1,8 +1,7 @@
-import { GenericManager } from '@shared/';
+import { convertToArray, GenericManager } from '@shared/';
 import { Continent } from '../classes';
 import fs from 'fs';
 import { Jomini } from 'jomini';
-import { x } from '../../interface';
 
 export class ContinentManager extends GenericManager<Continent> {
   protected readonly wildcards = ['map/continent.txt'];
@@ -15,6 +14,8 @@ export class ContinentManager extends GenericManager<Continent> {
     const out = await fs.promises.readFile(path);
     const parser = await Jomini.initialize();
     const data = parser.parseText(out);
-    return x(data['continents']).map((name, id) => this.make(id, name));
+    return convertToArray(data['continents']).map((name, id) =>
+      this.make(id + 1, name),
+    );
   }
 }

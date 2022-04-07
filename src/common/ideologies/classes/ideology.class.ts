@@ -1,9 +1,8 @@
 import { Expose, Transform } from 'class-transformer';
-import { ProductEntity } from '@shared/';
+import { convertToArray, ProductEntity } from '@shared/';
 import type { Product } from '@shared/';
 import type { Sprite } from '../../../interface';
 import Color from 'color';
-import { x } from '../../../interface';
 import type {
   GetLocalisationOptions,
   Localisation,
@@ -22,7 +21,7 @@ export class Ideology extends ProductEntity {
   @Expose()
   readonly name: string;
   @Expose({ name: 'dynamic_faction_names' })
-  @Transform(({ value }) => x(value))
+  @Transform(({ value }) => convertToArray(value))
   readonly dynamicFactionNames: string[];
   @Expose()
   readonly grouping: string;

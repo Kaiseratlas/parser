@@ -13,13 +13,15 @@ export class Ability extends ProductEntity {
   protected readonly name: string;
 
   getName() {
-    return this.product.localisation.get(`ABILITY_${this.name}`);
+    return this.product.i18n.t({ key: this.name });
   }
 
   @Expose({ name: 'desc' })
   protected readonly description: string;
 
   getDescription() {
-    return this.product.localisation.get(`ABILITY_${this.description}_DESC`);
+    return this.product.i18n.t({
+      key: this.description,
+    });
   }
 }

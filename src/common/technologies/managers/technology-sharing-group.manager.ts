@@ -1,9 +1,8 @@
-import { GenericManager } from '@shared/';
+import { convertToArray, GenericManager } from '@shared/';
 import { TechnologySharingGroup } from '../classes';
 import fs from 'fs';
 import { Jomini } from 'jomini';
 import { plainToClassFromExist } from 'class-transformer';
-import { x } from '../../../interface';
 
 export class TechnologySharingGroupManager extends GenericManager<TechnologySharingGroup> {
   protected readonly wildcards = ['common/technology_sharing/**/*.txt'];
@@ -16,7 +15,7 @@ export class TechnologySharingGroupManager extends GenericManager<TechnologyShar
     const out = await fs.promises.readFile(path);
     const parser = await Jomini.initialize();
     const data = parser.parseText(out);
-    return x(data['technology_sharing_group']).map((data) =>
+    return convertToArray(data['technology_sharing_group']).map((data) =>
       plainToClassFromExist(this.make(), data, {
         exposeDefaultValues: true,
         excludeExtraneousValues: true,

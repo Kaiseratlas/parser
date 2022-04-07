@@ -1,19 +1,23 @@
-import { ProductEntity } from '@shared/';
+import { convertToArray, ProductEntity } from '@shared/';
+import type { Product } from '@shared/';
 import { Expose, Transform } from 'class-transformer';
-import type { State } from '../../states/classes/state.class';
+import type { State } from '../../states';
 import { CountryPolitics } from './country-politics.class';
 import type { Character } from '../../../common';
 import type { DiplomaticRelation } from './diplomatic-relation.class';
 import type { Ideology } from '../../../common';
 import { PoliticalParty } from './political-party.class';
 import type { Idea } from '../../../common';
-import { x } from '../../../interface';
 import type { Technology } from '../../../common/technologies';
 import type { Autonomy } from './autonomy.class';
 import { Faction } from './faction.class';
 import { Country } from '../../../common/countries';
 
 export class CountryHistory extends ProductEntity {
+  constructor(product: Product, readonly tag) {
+    super(product);
+  }
+
   @Expose({ name: 'capital' })
   protected readonly capitalId: number;
 
@@ -121,7 +125,7 @@ export class CountryHistory extends ProductEntity {
   }
 
   @Expose({ name: 'add_ideas' })
-  @Transform(({ value }) => x(value))
+  @Transform(({ value }) => convertToArray(value))
   protected readonly ideas: Idea['id'][];
 
   async getIdeas(): Promise<Idea[]> {

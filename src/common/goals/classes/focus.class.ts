@@ -1,8 +1,7 @@
 import { Expose, Transform } from 'class-transformer';
-import { ProductEntity } from '@shared/';
+import { convertToArray, ProductEntity } from '@shared/';
 import type { Product } from '@shared/';
 import type { FocusTree } from './focus-tree.class';
-import { x } from '../../../interface';
 
 export class Focus extends ProductEntity {
   static readonly Key = 'focus';
@@ -37,7 +36,7 @@ export class Focus extends ProductEntity {
   }
 
   @Expose()
-  @Transform(({ value }) => new Set(x(value?.['focus'])))
+  @Transform(({ value }) => new Set(convertToArray(value?.['focus'])))
   protected readonly prerequisiteFocusIds = new Set<Focus['id']>();
 
   get prerequisite(): Focus[] {

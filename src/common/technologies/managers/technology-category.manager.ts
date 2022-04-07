@@ -14,7 +14,7 @@ export class TechnologyCategoryManager extends GenericManager<TechnologyCategory
     const out = await fs.promises.readFile(path);
     const parser = await Jomini.initialize();
     const data = parser.parseText(out);
-    return Object.keys(data['technology_categories']).map((id) =>
+    return Object.values<string>(data['technology_categories']).map((id) =>
       this.make(id),
     );
   }

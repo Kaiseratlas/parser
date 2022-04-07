@@ -1,14 +1,7 @@
-import { Parser } from '../../src/core';
 import { AutonomyState } from '../../src/common';
 import { Sprite } from '../../src/interface';
 
 describe('KR Autonomous States (e2e)', () => {
-  let kr: Parser;
-
-  beforeAll(async () => {
-    kr = await Parser.initialize(hoi4);
-  });
-
   describe('load all autonomous states', () => {
     let AS: AutonomyState[];
 

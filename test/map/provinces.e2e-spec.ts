@@ -1,14 +1,7 @@
 import { Continent, Province } from '../../src/map';
-import { Parser } from '../../src/core';
 import Color from 'color';
 
 describe('KR Provinces (e2e)', () => {
-  let kr: Parser;
-
-  beforeAll(async () => {
-    kr = await Parser.initialize(hoi4);
-  });
-
   describe('load all provinces', () => {
     let provinces: Province[];
 

@@ -1,8 +1,7 @@
 import { State } from '../classes';
-import { GenericManager } from '@shared/';
+import { convertToArray, GenericManager } from '@shared/';
 import fs from 'fs';
 import { Jomini } from 'jomini';
-import { x } from '../../../interface';
 import { plainToClassFromExist } from 'class-transformer';
 import { StateHistory } from '../classes/state-history.class';
 
@@ -17,7 +16,7 @@ export class StateManager extends GenericManager<State> {
     const out = await fs.promises.readFile(path);
     const parser = await Jomini.initialize();
     const data = parser.parseText(out);
-    return x(data['state']).map((s) => {
+    return convertToArray(data['state']).map((s) => {
       const history = plainToClassFromExist(
         new StateHistory(this.product),
         s['history'],

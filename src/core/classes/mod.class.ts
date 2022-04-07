@@ -1,7 +1,7 @@
 import { Expose, Transform } from 'class-transformer';
-import { x } from '../../interface';
 import type { Game } from './game.class';
 import path from 'path';
+import { convertToArray } from '@shared/';
 
 export class Mod {
   constructor(protected readonly game: Game) {}
@@ -25,7 +25,7 @@ export class Mod {
   @Expose({ name: 'remote_file_id' })
   readonly remoteFileId: number | null = null;
   @Expose({ name: 'replace_path' })
-  @Transform(({ value }) => x(value))
+  @Transform(({ value }) => convertToArray(value))
   readonly replacePaths: string[] = [];
   @Expose({ name: 'user_dir' })
   readonly userDir: string | null = null;

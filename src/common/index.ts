@@ -9,5 +9,6 @@ export * from './intelligence-agencies';
 export * from './state-categories';
 export * from './opinion-modifiers';
 export * from './resources';
+export * from './technologies';
 // shared managers
 export * from './common.manager';

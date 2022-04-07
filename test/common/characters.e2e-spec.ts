@@ -1,14 +1,7 @@
-import { Parser } from '../../src/core';
 import { Character, CountryLeader, Ideology } from '../../src/common';
 import { Sprite } from '../../src/interface';
 
 describe('KR Characters (e2e)', () => {
-  let kr: Parser;
-
-  beforeAll(async () => {
-    kr = await Parser.initialize(hoi4);
-  });
-
   describe('load all characters', () => {
     let characters: Character[];
 

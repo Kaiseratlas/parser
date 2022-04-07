@@ -1,15 +1,9 @@
-import { Parser } from '../../src/core';
 import { State } from '../../src/history';
 import { Province } from '../../src/map';
 import { StateCategory } from '../../src/common';
+import { Country } from '../../src/common/countries';
 
 describe('KR Country History (e2e)', () => {
-  let kr: Parser;
-
-  beforeAll(async () => {
-    kr = await Parser.initialize(hoi4);
-  });
-
   describe('load all states', () => {
     let states: State[];
 
@@ -32,13 +26,18 @@ describe('KR Country History (e2e)', () => {
 
   describe('get a state by id', () => {
     let state: State;
+    const kabulId = 267;
 
     beforeAll(async () => {
-      state = await kr.history.states.get(267);
+      state = await kr.history.states.get(kabulId);
+    });
+
+    it('should be an instance of the state class', () => {
+      expect(state instanceof State).toBe(true);
     });
 
     it('state id should be matched with requested', () => {
-      expect(state.id).toBe(267);
+      expect(state.id).toBe(kabulId);
     });
 
     it('state manpower variable type should be numeric', () => {
@@ -47,6 +46,65 @@ describe('KR Country History (e2e)', () => {
 
     it('victory points should be a map', () => {
       expect(state.history.victoryPoints instanceof Map).toBe(true);
+    });
+
+    describe('state history', () => {
+      let afg: Country;
+
+      beforeAll(async () => {
+        afg = await kr.common.countries.get('AFG');
+      });
+
+      describe('load an country owner', () => {
+        let country: Country;
+
+        beforeAll(async () => {
+          country = await state.history.getOwner();
+        });
+
+        it('country owner should be an instance of the country class', () => {
+          expect(country instanceof Country).toBe(true);
+        });
+
+        it('country owner tag should be matched with the owner tag', () => {
+          expect(country.tag).toBe(state.history['owner']);
+        });
+      });
+
+      describe('load an country controller', () => {
+        let country: Country;
+
+        beforeAll(async () => {
+          country = await state.history.getController();
+        });
+
+        it('country controller should be an instance of the country class', () => {
+          expect(country instanceof Country).toBe(true);
+        });
+
+        it('country tag should be matched with the state controller or owner tags', () => {
+          expect(
+            country.tag === state.history['controller'] ||
+              country.tag === state.history['owner'],
+          ).toBe(true);
+        });
+      });
+
+      it('should be owner by Afghanistan', () => {
+        expect(state.history.isOwnedBy(afg)).toBe(true);
+      });
+
+      it('should be controlled by Afghanistan', () => {
+        expect(state.history.isControlledBy(afg)).toBe(true);
+      });
+
+      it('should be a core state of Afghanistan', () => {
+        expect(state.history.isCoreOf(afg)).toBe(true);
+      });
+
+      it("shouldn't have a claim by Canada", () => {
+        expect(state.history.hasClaimFrom('CAN')).toBe(false);
+      });
     });
 
     describe('load a state category', () => {

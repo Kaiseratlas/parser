@@ -22,7 +22,14 @@ export class Province extends ProductEntity {
   @Expose({ name: '6' })
   readonly terrain: string;
   @Expose({ name: '7' })
-  protected readonly continentId: number;
+  protected readonly continentId: Continent['id'];
+
+  belongsToContinent(continent: Continent | Continent['id']): boolean {
+    if (typeof continent === 'object') {
+      return this.continentId === continent.id;
+    }
+    return this.continentId === continent;
+  }
 
   getContinent(): Promise<Continent> {
     return this.product.map.continents.get(this.continentId);

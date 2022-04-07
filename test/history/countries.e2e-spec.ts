@@ -1,4 +1,3 @@
-import { Parser } from '../../src/core';
 import {
   CountryHistory,
   State,
@@ -8,12 +7,7 @@ import {
 import { Character, Idea, Ideology } from '../../src/common';
 
 describe('KR Country History (e2e)', () => {
-  let kr: Parser;
   const ideologyId = 'paternal_autocrat';
-
-  beforeAll(async () => {
-    kr = await Parser.initialize(hoi4);
-  });
 
   describe('load all country history', () => {
     let history: CountryHistory[];

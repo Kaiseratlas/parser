@@ -68,7 +68,7 @@ export class StateHistory extends ProductEntity {
     if (typeof country === 'string') {
       return this.coreTags.includes(country);
     }
-    return this.coreTags.includes(country.id as string);
+    return this.coreTags.includes(country.tag);
   }
 
   async getCoreCountries(): Promise<Country[]> {
@@ -85,6 +85,11 @@ export class StateHistory extends ProductEntity {
       return this.claimTags.includes(country);
     }
     return this.claimTags.includes(country.id as string);
+  }
+
+  async getClaimantCountries(): Promise<Country[]> {
+    const countries = await this.product.common.countries.load();
+    return countries.filter((country) => this.claimTags.includes(country.tag));
   }
 
   @Expose({ name: 'victory_points' })

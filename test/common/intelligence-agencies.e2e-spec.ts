@@ -1,14 +1,8 @@
-import { Parser } from '../../src/core';
 import { IntelligenceAgency as IA } from '../../src/common';
 import { Sprite } from '../../src/interface';
 
 describe('', () => {
-  let kr: Parser;
   let agencies: IA[];
-
-  beforeAll(async () => {
-    kr = await Parser.initialize(hoi4);
-  });
 
   describe('load all intelligence agencies', () => {
     beforeAll(async () => {

@@ -1,14 +1,7 @@
-import { Parser } from '../../src/core';
 import { Province, StrategicRegion } from '../../src/map';
 import { Localisation } from '../../src/localisation';
 
 describe('KR Strategic Regions (e2e)', () => {
-  let kr: Parser;
-
-  beforeAll(async () => {
-    kr = await Parser.initialize(hoi4);
-  });
-
   describe('load all strategic regions', () => {
     let strategicRegions: StrategicRegion[];
 

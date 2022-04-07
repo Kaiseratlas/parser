@@ -32,6 +32,13 @@ export class State extends ProductEntity {
     return provinces.filter((p) => this.provincesIds.includes(p.id));
   }
 
+  hasProvince(province: Province | Province['id']): boolean {
+    if (typeof province === 'object') {
+      return this.provincesIds.includes(province.id);
+    }
+    return this.provincesIds.includes(province);
+  }
+
   @Expose({ name: 'state_category' })
   protected readonly stateCategoryId: StateCategory['id'];
 

@@ -1,15 +1,8 @@
-import { Parser } from '../../src/core';
 import { Building } from '../../src/common/buildings';
 import { Sprite } from '../../src/interface';
 import { Localisation } from '../../src/localisation';
 
 describe('', () => {
-  let kr: Parser;
-
-  beforeAll(async () => {
-    kr = await Parser.initialize(hoi4);
-  });
-
   describe('load all buildings', () => {
     let buildings: Building[];
     let sprite: Sprite;

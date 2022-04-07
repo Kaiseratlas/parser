@@ -1,14 +1,8 @@
 import { Continent } from '../../src/map';
 import { Localisation } from '../../src/localisation';
-import { Parser } from '../../src/core';
+import { Country } from '../../src/common/countries';
 
 describe('KR Continents (e2e)', () => {
-  let kr: Parser;
-
-  beforeAll(async () => {
-    kr = await Parser.initialize(hoi4);
-  });
-
   describe('load all continents', () => {
     let continents: Continent[];
 
@@ -41,7 +35,7 @@ describe('KR Continents (e2e)', () => {
 
   describe('get a continent by id', () => {
     let continent: Continent;
-    const continentId = 3; // KR Australia
+    const continentId = 4; // KR Australia
 
     beforeAll(async () => {
       continent = await kr.map.continents.get(continentId);
@@ -57,6 +51,18 @@ describe('KR Continents (e2e)', () => {
 
     it('continent name should be matched with expected', () => {
       expect(continent.name).toBe('australia');
+    });
+
+    describe('loading all countries from to the continent', () => {
+      let countries: Country[];
+
+      beforeAll(async () => {
+        countries = await continent.getCountries();
+      });
+
+      it('', () => {
+        expect(countries.length).toBeTruthy();
+      });
     });
 
     describe('localisation', () => {

@@ -1,15 +1,8 @@
-import { Parser } from '../../src/core';
 import { Ideology } from '../../src/common';
 import { Sprite } from '../../src/interface';
 import Color from 'color';
 
 describe('KR Ideologies (e2e)', () => {
-  let kr: Parser;
-
-  beforeAll(async () => {
-    kr = await Parser.initialize(hoi4);
-  });
-
   describe('load all ideologies', () => {
     let ideologies: Ideology[];
 

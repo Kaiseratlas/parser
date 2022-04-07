@@ -1,15 +1,8 @@
-import { Parser } from '../../src/core';
 import { IdeaCategory } from '../../src/common/ideas/classes/idea-category.class';
 import { Sprite } from '../../src/interface';
 import { Idea } from '../../src/common';
 
 describe('KR Idea Categories (e2e)', () => {
-  let kr: Parser;
-
-  beforeAll(async () => {
-    kr = await Parser.initialize(hoi4);
-  });
-
   describe('load all idea categories', () => {
     let ideaCategories: IdeaCategory[];
 

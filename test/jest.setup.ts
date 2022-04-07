@@ -1,6 +1,10 @@
 import 'dotenv/config';
-import { Game } from '../src/core';
+import { Game } from '../src';
+import { Parser } from '../src/core';
 
 jest.setTimeout(30000);
 
-global.hoi4 = Game.fromPath(process.env.GAME_PATH);
+beforeAll(async () => {
+  const hoi4 = Game.fromPath(process.env.GAME_PATH);
+  global.kr = await Parser.initialize(hoi4);
+});
