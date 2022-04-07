@@ -9,6 +9,10 @@ import type {
   Localisation,
 } from '../../../localisation';
 
+/**
+ * Ideologies represent all the different political beliefs or alignments in the selected nation.
+ * An ideology will help to determine the choices and paths that the nation will take.
+ */
 export class Ideology extends ProductEntity {
   constructor(product: Product, id: Ideology['id']) {
     super(product);
@@ -24,11 +28,17 @@ export class Ideology extends ProductEntity {
   readonly grouping: string;
   @Expose()
   readonly description: string;
+  /**
+   * Can you boost this ideology popularity in another country
+   */
   @Expose({ name: 'can_be_boosted' })
   readonly canBeBoosted = true;
   @Expose({ name: 'can_collaborate' })
   readonly canCollaborate = false;
 
+  /**
+   * RGB ideology colour, used in the political pie chart or next to the chart.
+   */
   @Expose()
   @Transform(({ value }) => Color.rgb(...value))
   readonly color: Color | null = null;

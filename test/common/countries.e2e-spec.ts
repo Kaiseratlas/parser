@@ -1,6 +1,6 @@
 import { Parser } from '../../src/core';
 import { Country, CountryColor } from '../../src/common/countries';
-import { CountryHistory } from '../../src/history';
+import { CountryHistory, State } from '../../src/history';
 import { NameBase } from '../../src/common/names';
 import Color from 'color';
 import type { CountryFlag } from '../../src/common/countries';
@@ -207,6 +207,33 @@ describe('KR Countries (e2e)', () => {
             });
           });
         });
+      });
+    });
+
+    it('load a country manpower', async () => {
+      const manpower = await country.getManpower();
+      expect(manpower).toBeGreaterThanOrEqual(10 * 1000 * 1000);
+    });
+
+    describe('load a country states', () => {
+      let states: State[];
+
+      beforeAll(async () => {
+        states = await country.getStates();
+      });
+
+      it("states array shouldn't be empty", () => {
+        expect(states.length).toBeTruthy();
+      });
+
+      it('every states array item should be an instance of the state class', () => {
+        expect(states.every((state) => state instanceof State)).toBe(true);
+      });
+
+      it('every state should be controlled by the country', () => {
+        expect(
+          states.every((state) => state.history.isControlledBy(country)),
+        ).toBe(true);
       });
     });
   });

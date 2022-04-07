@@ -23,13 +23,16 @@ describe('KR Ideas (e2e)', () => {
       expect(ideas.every((idea) => idea instanceof Idea)).toBe(true);
     });
 
-    // TODO: !
-    // it('', () => {
-    //   expect(new Set(ideas.map((idea) => idea.id)).size).toBe(ideas.length);
-    // });
+    it('', () => {
+      expect(new Set(ideas.map((idea) => idea.id)).size).toBe(ideas.length);
+    });
   });
 
   describe('get an idea by id', () => {
     let idea: Idea;
+
+    it('should ', async () => {
+      expect(Buffer.isBuffer(await idea.getPicture())).toBe(true)
+    });
   });
 });

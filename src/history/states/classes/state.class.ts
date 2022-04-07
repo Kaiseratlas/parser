@@ -1,8 +1,7 @@
-import { ProductEntity } from '@shared/';
+import { ProductEntity, convertToArray } from '@shared/';
 import type { Product } from '@shared/';
 import { Expose, Transform } from 'class-transformer';
 import type { Province } from '../../../map';
-import { x } from '../../../interface';
 import type { StateHistory } from './state-history.class';
 import type { StateCategory } from '../../../common';
 
@@ -25,7 +24,7 @@ export class State extends ProductEntity {
   readonly buildingsMaxLevelFactor: number;
 
   @Expose({ name: 'provinces' })
-  @Transform(({ value }) => x(value))
+  @Transform(({ value }) => convertToArray(value))
   protected readonly provincesIds: Province['id'][] = [];
 
   async getProvinces(): Promise<Province[]> {

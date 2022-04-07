@@ -9,6 +9,12 @@ import type {
   GetLocalisationOptions,
   Localisation,
 } from '../../../localisation';
+import type { State } from '../../../history';
+
+interface GetStatesOptions {
+  onlyCore: boolean;
+  withClaims: boolean;
+}
 
 export class Country extends ProductEntity {
   static Flag = CountryFlag;
@@ -100,5 +106,31 @@ export class Country extends ProductEntity {
 
   getHistory(): Promise<CountryHistory> {
     return this.product.history.countries.get(this.tag);
+  }
+
+  async getManpower(): Promise<number> {
+    const states = await this.getStates();
+    return states.reduce(
+      (previousValue, currentValue) => previousValue + currentValue.manpower,
+      0,
+    );
+  }
+
+  async getStates(o?: GetStatesOptions): Promise<State[]> {
+    const states = await this.product.history.states.load();
+    return states.filter((state) => {
+      const conditions = [];
+      if (o?.onlyCore) {
+        conditions.push(state.history.isCoreOf(this));
+      }
+      conditions.push(state.history.isControlledBy(this));
+
+      const isControlled = conditions.every((condition) => !!condition);
+
+      return (
+        isControlled ||
+        (o?.withClaims ? state.history.hasClaimFrom(this) : false)
+      );
+    });
   }
 }

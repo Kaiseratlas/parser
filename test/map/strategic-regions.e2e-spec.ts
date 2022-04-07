@@ -59,15 +59,15 @@ describe('KR Strategic Regions (e2e)', () => {
         name = await strategicRegion.getName();
       });
 
-      it('', () => {
+      it('name should be an instance of the localisation class', () => {
         expect(name instanceof Localisation).toBe(true);
       });
 
-      it('', () => {
+      it('localisation key should be matched with the strategic region name', () => {
         expect(name.key).toBe(strategicRegion['name']);
       });
 
-      it('', () => {
+      it('localisation value should be matched with expected', () => {
         expect(name.value).toBe('English Channel');
       });
     });
@@ -79,21 +79,21 @@ describe('KR Strategic Regions (e2e)', () => {
         provinces = await strategicRegion.getProvinces();
       });
 
-      it('', () => {
+      it("provinces regions array shouldn't be empty", () => {
         expect(provinces.length).toBeTruthy();
       });
 
-      it('', () => {
+      it('provinces ids array length should be matched with the strategic region provinces ids length', () => {
         expect(provinces.length).toBe(strategicRegion['provinceIds'].length);
       });
 
-      it('', () => {
+      it('every provinces item should be an instance of the province class', () => {
         expect(
           provinces.every((province) => province instanceof Province),
         ).toBe(true);
       });
 
-      it('', () => {
+      it('provinces ids array should be matched with the strategic region provinces ids', () => {
         expect(
           provinces.every((province) =>
             strategicRegion['provinceIds'].includes(province.id),
