@@ -7,7 +7,7 @@ describe('KR Idea Categories (e2e)', () => {
     let ideaCategories: IdeaCategory[];
 
     beforeAll(async () => {
-      ideaCategories = await kr.common.ideaCategories.load();
+      ideaCategories = await kr.common.ideas.categories.load();
     });
 
     it("idea categories array shouldn't be empty", () => {
@@ -34,7 +34,7 @@ describe('KR Idea Categories (e2e)', () => {
     const ideaCategoryId = 'research_production';
 
     beforeAll(async () => {
-      ideaCategory = await kr.common.ideaCategories.get(ideaCategoryId);
+      ideaCategory = await kr.common.ideas.categories.get(ideaCategoryId);
     });
 
     it('idea category should be an instance of the same class', () => {

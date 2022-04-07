@@ -6,6 +6,7 @@ import type { CountryFlag } from '../../src/common/countries';
 import fs from 'fs';
 import path from 'path';
 import { Sprite } from '../../src/interface';
+import { FocusTree } from '../../src/common/goals';
 
 describe('KR Countries (e2e)', () => {
   describe('load all countries', () => {
@@ -228,6 +229,28 @@ describe('KR Countries (e2e)', () => {
           states.every((state) => state.history.isControlledBy(country)),
         ).toBe(true);
       });
+    });
+  });
+
+  describe('get a country by tag with focus trees', () => {
+    let country: Country;
+    let trees: FocusTree[];
+
+    beforeAll(async () => {
+      country = await kr.common.countries.get('CAN'); // Canada
+      trees = await country.getFocusTrees();
+    });
+
+    it('', () => {
+      expect(trees.length).toBeTruthy();
+    });
+
+    it('', () => {
+      expect(trees.every((tree) => tree instanceof FocusTree)).toBe(true);
+    });
+
+    it('', () => {
+      expect(new Set(trees.map((tree) => tree.id)).size).toBe(trees.length);
     });
   });
 });

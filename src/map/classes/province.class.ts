@@ -10,7 +10,7 @@ export class Province extends ProductEntity {
 
   @Expose({ name: '0' })
   readonly id: number;
-  @Expose()
+  @Expose({ name: '1' })
   @Transform(({ obj }) => {
     return Color.rgb(obj['1'], obj['2'], obj['3']);
   })

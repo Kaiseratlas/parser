@@ -6,7 +6,6 @@ import { CharacterManager } from './characters';
 import { AbilityManager } from './abilities';
 import { AutonomyStateManager } from './autonomous-states';
 import { ProductEntity } from '@shared/';
-import { IdeaCategoryManager } from './ideas/managers/idea-category.manager';
 import { StateCategoryManager } from './state-categories';
 import { OpinionModifierManager } from './opinion-modifiers';
 import { NameManager } from './names';
@@ -24,7 +23,6 @@ export class CommonManager extends ProductEntity {
   readonly countries = new CountryManager(this.product);
   readonly goals = new GoalsManager(this.product);
   readonly ideas = new IdeaManager(this.product);
-  readonly ideaCategories = new IdeaCategoryManager(this.product);
   readonly ideologies = new IdeologyManager(this.product);
   readonly intelligenceAgencies = new IntelligenceAgencyManager(this.product);
   readonly leaderTraits = new LeaderTraitManager(this.product);

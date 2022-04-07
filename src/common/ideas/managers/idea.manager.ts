@@ -3,9 +3,12 @@ import { GenericManager } from '@shared/';
 import fs from 'fs';
 import { Jomini } from 'jomini';
 import { plainToClassFromExist } from 'class-transformer';
+import { IdeaCategoryManager } from './idea-category.manager';
 
 export class IdeaManager extends GenericManager<Idea> {
   protected readonly wildcards = ['common/ideas/**/*.txt'];
+
+  readonly categories = new IdeaCategoryManager(this.product);
 
   make(...args): Idea {
     return undefined;

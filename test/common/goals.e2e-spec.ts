@@ -1,5 +1,11 @@
-import { Focus, FocusTree } from '../../src/common/goals';
+import {
+  Focus,
+  FocusTree,
+  FocusTreeCountry,
+  FocusTreeCountryModifier as Modifier,
+} from '../../src/common/goals';
 import { Sprite } from '../../src/interface';
+import { Country } from '../../src/common/countries';
 
 describe('KR Goals (e2e)', () => {
   describe('load all focus trees', () => {
@@ -40,6 +46,80 @@ describe('KR Goals (e2e)', () => {
 
     it('focus tree id should be matched with requested', () => {
       expect(focusTree.id).toBe(focusTreeId);
+    });
+
+    describe('countries', () => {
+      it('', () => {
+        expect(focusTree.countries.length).toBeTruthy();
+      });
+
+      it('', () => {
+        expect(
+          focusTree.countries.every(
+            (country) => country instanceof FocusTreeCountry,
+          ),
+        ).toBe(true);
+      });
+
+      it('', () => {
+        expect(typeof focusTree.countries[0].factor === 'number').toBe(true);
+      });
+
+      it('', () => {
+        expect(focusTree.countries[0].modifiers.length).toBeTruthy();
+      });
+
+      it('', () => {
+        expect(
+          focusTree.countries[0].modifiers.every(
+            (modifier) => modifier instanceof Modifier,
+          ),
+        ).toBe(true);
+      });
+
+      it('', () => {
+        expect(
+          typeof focusTree.countries[0].modifiers[0].add === 'number',
+        ).toBe(true);
+      });
+
+      describe('', () => {
+        let countries: Country[];
+
+        beforeAll(async () => {
+          countries = await focusTree.getCountries();
+        });
+
+        it('', () => {
+          expect(countries.length).toBeTruthy();
+        });
+
+        it('', () => {
+          expect(countries.every((country) => country instanceof Country)).toBe(
+            true,
+          );
+        });
+
+        it('', () => {
+          expect(countries.some((country) => country.tag === 'BHU')).toBe(true);
+        });
+      });
+
+      describe('', () => {
+        let country: Country;
+
+        beforeAll(async () => {
+          country = await focusTree.countries[0].modifiers[0].getCountry();
+        });
+
+        it('', () => {
+          expect(country instanceof Country).toBe(true);
+        });
+
+        it('', () => {
+          expect(country.tag).toBe(focusTree.countries[0].modifiers[0]['tag']);
+        });
+      });
     });
 
     describe('focuses', () => {

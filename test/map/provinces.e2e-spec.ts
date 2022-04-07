@@ -37,6 +37,7 @@ describe('KR Provinces (e2e)', () => {
 
     beforeAll(async () => {
       province = await kr.map.provinces.get(5082); // 5082;51;186;138;land;false;hills;6
+      console.log('province', province);
     });
 
     it('province should be an instance of province class', () => {

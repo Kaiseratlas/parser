@@ -10,6 +10,7 @@ import type {
   Localisation,
 } from '../../../localisation';
 import type { State } from '../../../history';
+import { FocusTree } from '../../goals';
 
 interface GetStatesOptions {
   onlyCore: boolean;
@@ -31,6 +32,15 @@ export class Country extends ProductEntity {
 
   readonly tag: string;
   readonly isDynamic: boolean;
+
+  async getFocusTrees(): Promise<FocusTree[]> {
+    const trees = await this.product.common.goals.load();
+    return trees.filter((tree) =>
+      tree.countries.some((country) =>
+        country.modifiers.some((modifier) => modifier['tag'] === this.tag),
+      ),
+    );
+  }
 
   get flags() {
     return new CountryFlagManager(this.product, this);
