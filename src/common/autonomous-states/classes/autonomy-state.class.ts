@@ -40,6 +40,10 @@ export class AutonomyState extends ProductEntity {
   @Expose({ name: 'manpower_influence' })
   readonly manpowerInfluence: number;
 
+  getName() {
+    return this.product.i18n.t({ key: this.id });
+  }
+
   async getIcon(): Promise<Sprite> {
     const icon = await this.product.interface.sprites.get(
       `GFX_${this.id}_icon`,

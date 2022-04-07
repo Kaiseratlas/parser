@@ -1,17 +1,9 @@
 import { Province } from '../classes';
-import { GenericManager } from '@shared/';
-import fs from 'fs';
-import csv from 'csv-parser';
-import { plainToClassFromExist } from 'class-transformer';
+import { CsvEntityManager } from '@shared/';
 import type { ProvinceHeader } from '../enums';
 
-export class ProvinceManager extends GenericManager<Province> {
+export class ProvinceManager extends CsvEntityManager<Province> {
   protected readonly wildcards = ['map/definition.csv'];
-  protected readonly csv = csv({
-    separator: ';',
-    headers: false,
-    mapValues: this.transformValues,
-  });
 
   make(): Province {
     return new Province(this.product);
@@ -41,20 +33,5 @@ export class ProvinceManager extends GenericManager<Province> {
         return value;
       }
     }
-  }
-
-  protected async processFile({ path }): Promise<Province[]> {
-    const results = await new Promise<any[]>((resolve, reject) => {
-      const results = [];
-      fs.createReadStream(path)
-        .pipe(this.csv)
-        .on('data', (data) => results.push(data))
-        .on('end', () => resolve(results));
-    });
-    return results.map((entry) =>
-      plainToClassFromExist(this.make(), entry, {
-        excludeExtraneousValues: true,
-      }),
-    );
   }
 }

@@ -1,5 +1,6 @@
 import { AutonomyState } from '../../src/common';
 import { Sprite } from '../../src/interface';
+import { Localisation } from '../../src/localisation';
 
 describe('KR Autonomous States (e2e)', () => {
   describe('load all autonomous states', () => {
@@ -55,6 +56,26 @@ describe('KR Autonomous States (e2e)', () => {
 
     it('manpower influence level value type should be numeric', () => {
       expect(typeof AS.manpowerInfluence === 'number').toBe(true);
+    });
+
+    describe('load an autonomous state icon', () => {
+      let name: Localisation;
+
+      beforeAll(async () => {
+        name = await AS.getName();
+      });
+
+      it('', () => {
+        expect(name instanceof Localisation).toBe(true);
+      });
+
+      it('', () => {
+        expect(name.key).toBe(AS.id);
+      });
+
+      it('', () => {
+        expect(name.value).toBe('Colonial Government');
+      });
     });
 
     describe('load an autonomous state icon', () => {
