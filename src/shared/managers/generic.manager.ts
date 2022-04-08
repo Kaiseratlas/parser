@@ -32,9 +32,9 @@ export abstract class GenericManager<T extends ProductEntity> {
 
     const entries = await this.product.fg(this.wildcards);
     const entities = await Promise.all(
-      entries.map(this.processFile.bind(this)),
+      entries.map<T>(this.processFile.bind(this)),
     );
-    const result = entities.flat();
+    const result = entities.flat() as T[];
     this.updateCache(result);
     if (o?.nocache) {
       return result;

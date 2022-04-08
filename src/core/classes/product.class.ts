@@ -6,6 +6,7 @@ import type { LocalisationManager } from '../../localisation';
 import type { EventManager } from '../../events';
 import type { Game } from './game.class';
 import type { Mod } from './mod.class';
+import type { Entry } from 'fast-glob';
 
 export abstract class Product {
   protected constructor(
@@ -21,6 +22,6 @@ export abstract class Product {
   abstract localisation: LocalisationManager;
   abstract localization: LocalisationManager;
   abstract map: MapManager;
-  abstract fg(wildcards: string[]): Promise<any>;
+  abstract fg(wildcards: string[]): Promise<Entry[]>;
   abstract resolve(...paths: string[]): string;
 }

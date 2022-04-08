@@ -2,7 +2,7 @@ import { GenericManager } from '@shared/';
 import { StrategicRegion } from '../classes';
 import fs from 'fs';
 import { Jomini } from 'jomini';
-import { convertToArray } from '../../shared/utils';
+import { convertToArray } from '@shared/';
 import { plainToClassFromExist } from 'class-transformer';
 
 export class StrategicRegionManager extends GenericManager<StrategicRegion> {

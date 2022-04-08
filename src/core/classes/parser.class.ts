@@ -5,7 +5,7 @@ import { HistoryManager } from '../../history';
 import { InterfaceManager } from '../../interface';
 import { LocalisationManager } from '../../localisation';
 import { MapManager } from '../../map';
-import fg from 'fast-glob';
+import fg, { Entry } from 'fast-glob';
 import path from 'path';
 import { Game } from './game.class';
 import fs from 'fs';
@@ -41,7 +41,7 @@ export class Parser extends Product {
     return this.localisation;
   }
 
-  async fg(wildcards: string[]): Promise<any> {
+  async fg(wildcards: string[]): Promise<Entry[]> {
     const ignore = this.mods
       .flatMap((mod) => mod.replacePaths)
       .map((p) => path.join(p, '**', '*.*'));
