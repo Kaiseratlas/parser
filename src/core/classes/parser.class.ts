@@ -44,7 +44,8 @@ export class Parser extends Product {
   async fg(wildcards: string[]): Promise<Entry[]> {
     const ignore = this.mods
       .flatMap((mod) => mod.replacePaths)
-      .map((p) => path.join(p, '**', '*.*'));
+      .map((p) => p + '/**/*.*');
+
     const gameEntries = await fg(wildcards, {
       cwd: this.game.path,
       absolute: true,

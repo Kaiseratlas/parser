@@ -2,6 +2,10 @@ import { Expose } from 'class-transformer';
 import { ProductEntity } from '@shared/';
 import type { Product } from '@shared/';
 
+/**
+ * Ability
+ * @category
+ */
 export class Ability extends ProductEntity {
   constructor(product: Product, readonly id: string) {
     super(product);

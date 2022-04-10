@@ -10,7 +10,7 @@ const LOCALISATION_REGEX =
 export type GetLocalisationOptions = Partial<
   Pick<LocalisationOptions, 'version' | 'lang'>
 > &
-  Pick<LocalisationOptions, 'key'>;
+  Pick<LocalisationOptions, 'key'> & { force?: boolean };
 
 export class LocalisationManager extends GenericManager<Localisation> {
   protected readonly wildcards = [
@@ -61,6 +61,9 @@ export class LocalisationManager extends GenericManager<Localisation> {
     if (!o.lang) {
       o.lang = 'english';
     }
+    if (!o.force) {
+      o.force = false;
+    }
     const localisation =
       this._cache?.get(o.lang)?.get(o.key)?.get(o.version) ??
       this.getLatestFromCache(o.key, o.lang) ??
@@ -69,6 +72,9 @@ export class LocalisationManager extends GenericManager<Localisation> {
       null;
 
     if (!localisation) {
+      if (!o.force) {
+        return null;
+      }
       await this.load();
     }
 

@@ -8,7 +8,7 @@ import type { DiplomaticRelation } from './diplomatic-relation.class';
 import type { Ideology } from '../../../common';
 import { PoliticalParty } from './political-party.class';
 import type { Idea } from '../../../common';
-import type { Technology } from '../../../common/technologies';
+import type { Technology } from '../../../common';
 import type { Autonomy } from './autonomy.class';
 import { Faction } from './faction.class';
 import { Country } from '../../../common/countries';
@@ -85,7 +85,8 @@ export class CountryHistory extends ProductEntity {
   }
 
   @Expose({ name: 'recruit_character' })
-  protected readonly charactersIds: Character['id'][];
+  @Transform(({ value }) => convertToArray(value))
+  protected readonly charactersIds: Character['id'][] = [];
 
   protected readonly characters: Character[] | null = null;
 

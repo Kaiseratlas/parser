@@ -1,22 +1,26 @@
-import { Localisation } from '../../src/localisation';
+import { Localisation, LocalisationManager } from '../../src/localisation';
 
 describe('', () => {
   describe('load all sprites', () => {
     let localisations: Localisation[];
     let localisation: Localisation;
+    let spy;
 
     beforeAll(async () => {
-      // localisations = await kr.localisation.load();
-      localisation = await kr.localisation.get({
+      spy = jest.spyOn(kr.i18n, 'load');
+      localisations = await kr.i18n.load();
+      localisation = await kr.i18n.t({
         key: 'ACTIVE_ATTACHES_EFFECT',
-        //lang: 'english',
-        // version: 0,
+        lang: 'english',
+        version: 0,
       });
 
       //console.log('localisations', localisations);
-      console.log('localisation', localisation);
+      // console.log('localisation', localisation);
     });
 
-    it('', () => {});
+    it('', () => {
+      expect(spy).toHaveBeenCalledTimes(1);
+    });
   });
 });
