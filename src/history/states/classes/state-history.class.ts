@@ -47,7 +47,7 @@ export class StateHistory extends ProductEntity {
   }
 
   /**
-   * Get a state owner country
+   * Get a state controller country
    */
   getController(): Promise<Country> {
     if (!this.controller) {

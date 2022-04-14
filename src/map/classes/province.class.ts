@@ -3,6 +3,7 @@ import { Expose, Transform } from 'class-transformer';
 import Color from 'color';
 import { ProvinceHeader, ProvinceType } from '../enums';
 import type { Continent } from './continent.class';
+import type { State } from '../../history';
 
 export class Province extends ProductEntity {
   static readonly Header = ProvinceHeader;
@@ -18,7 +19,7 @@ export class Province extends ProductEntity {
   @Expose({ name: '4' })
   readonly type: ProvinceType;
   @Expose({ name: '5' })
-  readonly isCoastal: number;
+  readonly isCoastal: boolean;
   @Expose({ name: '6' })
   readonly terrain: string;
   @Expose({ name: '7' })
@@ -31,7 +32,16 @@ export class Province extends ProductEntity {
     return this.continentId === continent;
   }
 
-  getContinent(): Promise<Continent> {
+  async getState(): Promise<State | null> {
+    const states = await this.product.history.states.load();
+    return states.find((state) => state.hasProvince(this)) ?? null;
+  }
+
+  getContinent(): Promise<Continent | null> {
+    // if is ocean
+    if (this.continentId === 0) {
+      return null;
+    }
     return this.product.map.continents.get(this.continentId);
   }
 }

@@ -17,9 +17,9 @@ export class State extends ProductEntity {
   readonly id: number;
   readonly name: string;
   @Expose()
-  readonly manpower = 0;
+  readonly manpower: number = 0;
   @Expose()
-  readonly impassable = false;
+  readonly impassable: boolean = false;
   @Expose({ name: 'buildings_max_level_factor' })
   readonly buildingsMaxLevelFactor: number;
 
@@ -30,6 +30,10 @@ export class State extends ProductEntity {
   async getProvinces(): Promise<Province[]> {
     const provinces = await this.product.map.provinces.load();
     return provinces.filter((p) => this.provincesIds.includes(p.id));
+  }
+
+  getName() {
+    return this.product.i18n.t({ key: `STATE_${this.id}` });
   }
 
   hasProvince(province: Province | Province['id']): boolean {

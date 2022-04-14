@@ -16,5 +16,12 @@ export class CountryLeader extends ProductEntity {
 
   @Expose({ name: 'desc' })
   @Transform(({ value }) => value ?? null)
-  readonly description: string | null;
+  protected readonly description: string | null;
+
+  getDescription() {
+    if (!this.description) {
+      return null;
+    }
+    return this.product.i18n.t({ key: this.description });
+  }
 }

@@ -1,5 +1,6 @@
 import { Continent, Province } from '../../src/map';
 import Color from 'color';
+import { State } from '../../src/history';
 
 describe('KR Provinces (e2e)', () => {
   describe('load all provinces', () => {
@@ -81,6 +82,22 @@ describe('KR Provinces (e2e)', () => {
 
       it('continent id should be matched with continent id from the province', () => {
         expect(continent.id).toBe(province['continentId']);
+      });
+    });
+
+    describe('load a continent', () => {
+      let state: State;
+
+      beforeAll(async () => {
+        state = await province.getState();
+      });
+
+      it('state should be an instance of the same class', () => {
+        expect(state instanceof State).toBe(true);
+      });
+
+      it('state should have the province', () => {
+        expect(state.hasProvince(province.id)).toBe(true);
       });
     });
   });

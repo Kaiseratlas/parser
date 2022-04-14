@@ -1,7 +1,4 @@
-import { State } from '../../src/history';
-import { Province } from '../../src/map';
-import { StateCategory } from '../../src/common';
-import { Country } from '../../src/common/countries';
+import { Country, State, StateCategory, Province } from '../../src';
 
 describe('KR Country History (e2e)', () => {
   describe('load all states', () => {

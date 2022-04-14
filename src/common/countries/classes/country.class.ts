@@ -42,8 +42,13 @@ export class Country extends ProductEntity {
     );
   }
 
+  protected flagManager?: CountryFlagManager;
+
   get flags() {
-    return new CountryFlagManager(this.product, this);
+    if (!this.flagManager) {
+      this.flagManager = new CountryFlagManager(this.product, this);
+    }
+    return this.flagManager;
   }
 
   async getDefaultAdjective(

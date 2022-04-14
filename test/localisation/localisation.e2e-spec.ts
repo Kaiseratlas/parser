@@ -10,13 +10,16 @@ describe('', () => {
       spy = jest.spyOn(kr.i18n, 'load');
       localisations = await kr.i18n.load();
       localisation = await kr.i18n.t({
-        key: 'ACTIVE_ATTACHES_EFFECT',
+        key: 'CAN',
         lang: 'english',
         version: 0,
       });
 
+      const x = await kr.common.countries.get('CAN');
+
+
       //console.log('localisations', localisations);
-      // console.log('localisation', localisation);
+      console.log('localisation', await x.getCurrentName());
     });
 
     it('', () => {

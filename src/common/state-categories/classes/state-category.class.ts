@@ -14,4 +14,8 @@ export class StateCategory extends ProductEntity {
   @Expose()
   @Transform(({ value }) => Color.rgb(...value))
   readonly color: Color | null = null;
+
+  getName() {
+    return this.product.i18n.t({ key: this.id });
+  }
 }
