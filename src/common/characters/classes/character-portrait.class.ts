@@ -1,10 +1,21 @@
 import { ProductEntity } from '@shared/';
+import type { Product } from '@shared/';
 import { CharacterPortraitType } from '../enums';
 import { Expose, Transform } from 'class-transformer';
 import type { Sprite } from '../../../interface';
+import type { Character } from './character.class';
 
 export class CharacterPortrait extends ProductEntity {
   static readonly Type = CharacterPortraitType;
+
+  constructor(
+    product: Product,
+    readonly type: CharacterPortraitType,
+    readonly character: Character,
+  ) {
+    super(product);
+    this.character = character;
+  }
 
   @Expose({ name: 'large' })
   @Transform(

@@ -1,6 +1,6 @@
 import { Ideology } from '../../src/common';
+import { Color } from '../../src';
 import { Sprite } from '../../src/interface';
-import Color from 'color';
 
 describe('KR Ideologies (e2e)', () => {
   describe('load all ideologies', () => {

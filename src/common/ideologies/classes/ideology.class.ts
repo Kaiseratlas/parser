@@ -31,9 +31,9 @@ export class Ideology extends ProductEntity {
    * Can you boost this ideology popularity in another country
    */
   @Expose({ name: 'can_be_boosted' })
-  readonly canBeBoosted = true;
+  readonly canBeBoosted: boolean = true;
   @Expose({ name: 'can_collaborate' })
-  readonly canCollaborate = false;
+  readonly canCollaborate: boolean = false;
 
   /**
    * RGB ideology colour, used in the political pie chart or next to the chart.

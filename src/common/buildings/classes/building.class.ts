@@ -1,4 +1,4 @@
-import { ProductEntity } from '@shared/';
+import { ProductEntity, TransformToOne } from '@shared/';
 import type { Product } from '@shared/';
 import { Expose } from 'class-transformer';
 
@@ -16,152 +16,182 @@ export class Building extends ProductEntity {
    * Cost in CIC to build.
    */
   @Expose({ name: 'base_cost' })
+  @TransformToOne()
   readonly baseCost: number;
   /**
    * Cost in CIC to convert to.
    */
   @Expose({ name: 'base_cost_conversion' })
+  @TransformToOne()
   readonly baseCostConversion: number;
   /**
    * Added cost per building level.
    */
   @Expose({ name: 'per_level_extra_cost' })
+  @TransformToOne()
   readonly perLevelExtraCost: number;
   /**
    * The maximum level that can be built.
    */
   @Expose({ name: 'max_level' })
+  @TransformToOne()
   readonly maxLevel: number;
   /**
    * The base health of the building. Is multiplied by the level of the building built.
    */
   @Expose()
-  readonly value: number;
+  @TransformToOne()
+  readonly value: number = 0;
   /**
    * Which icon frame in GFX_buildings_strip to use for the building.
    */
   @Expose({ name: 'icon_frame' })
+  @TransformToOne()
   readonly iconFrame: number;
   /**
    * The amount of <building> models to display on the map when one instance is built.
    */
   @Expose({ name: 'show_on_map' })
+  @TransformToOne()
   readonly showOnMap: number;
   /**
    * Number of models to display.
    */
   @Expose({ name: 'show_on_map_meshes' })
+  @TransformToOne()
   readonly showOnMapMeshes: number;
   /**
    * Whether to always show the <building> model.
    */
   @Expose({ name: 'always_shown' })
-  readonly isAlwaysShown = false;
+  @TransformToOne()
+  readonly isAlwaysShown: boolean = false;
   /**
    * Whether to show destroyed mesh for building.
    */
   @Expose({ name: 'has_destroyed_mesh' })
-  readonly hasDestroyedMesh = false;
+  @TransformToOne()
+  readonly hasDestroyedMesh: boolean = false;
   /**
    * Determines if this building uses building slots.
    */
   @Expose({ name: 'shares_slots' })
-  readonly hasSharesSlots = false;
+  @TransformToOne()
+  readonly hasSharesSlots: boolean = false;
   /**
    * Determines if this building benefits from infrastructure boosting construction speed.
    */
   @Expose({ name: 'infrastructure_construction_effect' })
-  readonly hasInfrastructureConstructionEffect = false;
+  @TransformToOne()
+  readonly hasInfrastructureConstructionEffect: boolean = false;
   /**
    * Determines if this building is a province building.
    */
   @Expose({ name: 'provincial' })
-  readonly isProvincial = false;
+  @TransformToOne()
+  readonly isProvincial: boolean = false;
   /**
    * Modifies damage taken from bombing.
    */
   @Expose({ name: 'damage_factor' })
-  readonly damageFactor = 0;
+  @TransformToOne()
+  readonly damageFactor: number = 0;
   /**
    * Limits this building to only coastal provinces/states.
    */
   @Expose({ name: 'only_costal' })
-  readonly isOnlyCoastal = false;
+  @TransformToOne()
+  readonly isOnlyCoastal: boolean = false;
   /**
    * Limits this building, disabling in a DMZ state.
    */
   @Expose({ name: 'disabled_in_dmz' })
-  readonly isDisabledInDMZ = false;
+  @TransformToOne()
+  readonly isDisabledInDMZ: boolean = false;
   /**
    * Determines if this building is considered infrastructure.
    */
   @Expose({ name: 'infrastructure' })
-  readonly isInfrastructure = false;
+  @TransformToOne()
+  readonly isInfrastructure: boolean = false;
   /**
    * Determines if this building is considered an air base.
    */
   @Expose({ name: 'air_base' })
-  readonly isAirBase = false;
+  @TransformToOne()
+  readonly isAirBase: boolean = false;
   /**
    * Determines if this building is considered a port.
    */
   @Expose({ name: 'is_port' })
-  readonly isPort = false;
+  @TransformToOne()
+  readonly isPort: boolean = false;
   /**
    * Determines if this building is considered an anti-air installation.
    */
   @Expose({ name: 'anti_air' })
-  readonly isAntiAir = false;
+  @TransformToOne()
+  readonly isAntiAir: boolean = false;
   /**
    * Determines if this building is considered a refinery.
    */
   @Expose({ name: 'refinery' })
-  readonly isRefinery = false;
+  @TransformToOne()
+  readonly isRefinery: boolean = false;
   /**
    * Determines if this building is considered a radar station.
    */
   @Expose({ name: 'radar' })
-  readonly isRadar = false;
+  @TransformToOne()
+  readonly isRadar: boolean = false;
   /**
    * Determines if this building is considered a nuclear reactor.
    */
   @Expose({ name: 'nuclear_reactor' })
-  readonly isNuclearReactor = false;
+  @TransformToOne()
+  readonly isNuclearReactor: boolean = false;
   /**
    * Adds X amount of MIC production. <This functions like a boolean, you will get 1 MIC, setting a higher number will not add any more MIC
    */
   @Expose({ name: 'military_production' })
-  readonly militaryProduction = 0;
+  @TransformToOne()
+  readonly militaryProduction: number = 0;
   /**
    * Adds X amount of CIC production. <This functions like a boolean, you will get 1 CIC, setting a higher number will not add any more CIC
    */
   @Expose({ name: 'general_production' })
-  readonly generalProduction = 0;
+  @TransformToOne()
+  readonly generalProduction: number = 0;
   /**
    * Adds X amount of NIC production. <This functions like a boolean, you will get 1 NIC, setting a higher number will not add any more NIC
    */
   @Expose({ name: 'naval_production' })
-  readonly navalProduction = 0;
+  @TransformToOne()
+  readonly navalProduction: number = 0;
   /**
    * Adds X amount of land fort.
    */
   @Expose({ name: 'land_fort' })
-  readonly landFort = 0;
+  @TransformToOne()
+  readonly landFort: number = 0;
   /**
    * Adds X amount of naval fort.
    */
   @Expose({ name: 'naval_fort' })
-  readonly navalFort = 0;
+  @TransformToOne()
+  readonly navalFort: number = 0;
   /**
    * Adds X amount of rocket production.
    */
   @Expose({ name: 'rocket_production' })
-  readonly rocketProduction = 0;
+  @TransformToOne()
+  readonly rocketProduction: number = 0;
   /**
    * Adds X amount of rocket capacity.
    */
   @Expose({ name: 'rocket_launch_capacity' })
-  readonly rocketLaunchCapacity = 0;
+  @TransformToOne()
+  readonly rocketLaunchCapacity: number = 0;
 
   getName() {
     return this.product.i18n.t({ key: this.id });

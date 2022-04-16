@@ -19,12 +19,19 @@ export class Sprite extends ProductEntity {
   @Expose({ name: 'name' })
   readonly id: string | null = null;
 
-  @Expose({ name: 'texturefile' })
-  @Transform(({ obj, value }) => value ?? obj['textureFile'])
+  @Expose({ name: 'textureFile' }) // TODO: !
+  @Transform(({ obj }) => obj['texturefile'] ?? obj['textureFile'])
+  @Transform(({ value }: { value: string }) => value.replace(/\/{2}+/g, '/'))
   readonly textureFile: string;
 
-  @Expose()
-  readonly noOfFrames: number;
+  /**
+   * Is used for images with multiple frames within,
+   * for example GFX_unit_level has five images within for each of the unit level images,
+   * and so would have noOfFrames = 5 set within its asset definition.
+   */
+  @Expose({ name: 'noOfFrames' }) // !
+  @Transform(({ obj }) => obj['noOfFrames'] ?? obj['noofframes'])
+  readonly noOfFrames: number = 0;
 
   protected get textureFilePath() {
     return this.product.resolve(this.textureFile);

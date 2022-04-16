@@ -1,5 +1,4 @@
-import { StateCategory } from '../../src/common';
-import Color from 'color';
+import { StateCategory, Color } from '../../src';
 
 describe('KR State Categories (e2e)', () => {
   describe('load all state categories', () => {

@@ -88,8 +88,6 @@ export class CountryHistory extends ProductEntity {
   @Transform(({ value }) => convertToArray(value))
   protected readonly charactersIds: Character['id'][] = [];
 
-  protected readonly characters: Character[] | null = null;
-
   async getCharacters(): Promise<Character[]> {
     const characters = await this.product.common.characters.load();
     return characters.filter((ch) => this.charactersIds.includes(ch.id));

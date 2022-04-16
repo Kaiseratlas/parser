@@ -4,13 +4,13 @@ import {
   CorpsCommander,
   FieldMarshal,
   CountryLeader,
+  CharacterPortrait,
 } from '../classes';
 import { Jomini } from 'jomini';
 import fs from 'fs';
 import type { Entry } from 'fast-glob';
 import { plainToClassFromExist } from 'class-transformer';
-import { convertToArray } from '../../../shared/utils';
-import { CharacterPortrait } from '../classes/character-portrait.class';
+import { convertToArray } from '@shared/';
 import type { CharacterPortraitType } from '../enums';
 
 export class CharacterManager extends GenericManager<Character> {
@@ -51,7 +51,11 @@ export class CharacterManager extends GenericManager<Character> {
             ch.addPortrait(
               type as CharacterPortraitType,
               plainToClassFromExist(
-                new CharacterPortrait(this.product),
+                new CharacterPortrait(
+                  this.product,
+                  type as CharacterPortraitType,
+                  ch,
+                ),
                 portraitData,
                 {
                   excludeExtraneousValues: true,

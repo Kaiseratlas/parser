@@ -1,5 +1,5 @@
-import { convertToArray, ProductEntity } from '@shared/';
-import { Expose, Transform } from 'class-transformer';
+import { ProductEntity, TransformToArray } from '@shared/';
+import { Expose } from 'class-transformer';
 import { Province } from './province.class';
 
 export class AdjacencyRule extends ProductEntity {
@@ -8,10 +8,10 @@ export class AdjacencyRule extends ProductEntity {
   @Expose()
   protected readonly icon: number;
   @Expose({ name: 'required_provinces' })
-  @Transform(({ value }) => convertToArray(value))
+  @TransformToArray()
   protected readonly requiredProvinces: Province['id'][] = [];
   @Expose()
-  @Transform(({ value }) => convertToArray(value))
+  @TransformToArray()
   protected readonly offset: number[] = [];
 
   getName() {

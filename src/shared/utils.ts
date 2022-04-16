@@ -1,3 +1,5 @@
+import { default as libDebug } from 'debug';
+
 export function convertToArray(out: unknown | unknown[]): unknown[] {
   if (!out) {
     return [];
@@ -18,3 +20,5 @@ export function tryToFixFile(out: Buffer) {
     .replace(/\[ENEMY]/gi, '"[ENEMY]"')
     .replace(/\[time_off_var]/gi, '"[time_off_var]"');
 }
+
+export const debug = libDebug('parser');

@@ -5,7 +5,7 @@ import {
   FocusTreeCountryModifier as Modifier,
 } from '../../src/common/goals';
 import { Sprite } from '../../src/interface';
-import { Country } from '../../src/common/countries';
+import { Country } from '../../src';
 
 describe('KR Goals (e2e)', () => {
   describe('load all focus trees', () => {

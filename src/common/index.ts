@@ -1,5 +1,6 @@
 export * from './abilities';
 export * from './autonomous-states';
+export * from './buildings';
 export * from './characters';
 export * from './characters';
 export * from './countries';

@@ -1,6 +1,5 @@
 import { Continent, Province } from '../../src/map';
-import Color from 'color';
-import { State } from '../../src/history';
+import { State, Color } from '../../src';
 
 describe('KR Provinces (e2e)', () => {
   describe('load all provinces', () => {

@@ -1,8 +1,8 @@
 import { Country, CountryColor } from '../../src/common/countries';
 import { CountryHistory, State } from '../../src/history';
 import { NameBase } from '../../src/common/names';
-import Color from 'color';
-import type { CountryFlag } from '../../src/common/countries';
+import { Color } from '../../src';
+import type { CountryFlag } from '../../src/common';
 import fs from 'fs';
 import path from 'path';
 import { Sprite } from '../../src/interface';

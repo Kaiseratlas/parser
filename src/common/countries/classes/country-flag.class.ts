@@ -2,6 +2,7 @@ import { ProductEntity } from '@shared/';
 import type { Product } from '@shared/';
 import type { Country } from './country.class';
 import path from 'path';
+import type { Localisation } from '../../../localisation';
 
 export class CountryFlag extends ProductEntity {
   constructor(
@@ -10,6 +11,12 @@ export class CountryFlag extends ProductEntity {
     readonly variant: string | null = null,
   ) {
     super(product);
+  }
+
+  getName(): Promise<Localisation> {
+    return this.product.i18n.t({
+      key: `${this.country.tag}${this.variant ? `_${this.variant}` : ''}`,
+    });
   }
 
   get filename() {

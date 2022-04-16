@@ -1,18 +1,11 @@
-import { Game } from '../src';
 import { Mod } from '../src/core/classes/mod.class';
 
 describe('HOI4 Game (e2e)', () => {
-  let game: Game;
-
-  beforeAll(() => {
-    game = Game.fromPath(process.env.GAME_PATH);
-  });
-
   describe('load all mods', () => {
     let mods: Mod[];
 
     beforeAll(async () => {
-      mods = await game.mods.load();
+      mods = await hoi4.mods.load();
       // console.log('mods', mods);
     });
 
@@ -34,15 +27,14 @@ describe('HOI4 Game (e2e)', () => {
     const modName = 'Kaiserreich';
 
     beforeAll(async () => {
-      krMod = await game.mods.get(modName);
-      //console.log('mod', mods);
+      krMod = await hoi4.mods.get(modName);
     });
 
-    it('should ', () => {
+    it('should be an instance of the mod class', () => {
       expect(krMod instanceof Mod).toBe(true);
     });
 
-    it('should ', () => {
+    it('should be matched with the expected name', () => {
       expect(krMod.name).toBe(modName);
     });
 
@@ -57,7 +49,7 @@ describe('HOI4 Game (e2e)', () => {
         expect(submods.length).toBeTruthy();
       });
 
-      it('', () => {
+      it('every item should be an instance of the mod class', () => {
         expect(submods.every((mod) => mod instanceof Mod)).toBe(true);
       });
 

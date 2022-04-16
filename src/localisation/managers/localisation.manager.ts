@@ -62,7 +62,7 @@ export class LocalisationManager extends GenericManager<Localisation> {
       o.lang = 'english';
     }
     if (!o.force) {
-      o.force = false;
+      o.force = process.env.NODE_ENV === 'test' ?? false;
     }
     const localisation =
       this._cache?.get(o.lang)?.get(o.key)?.get(o.version) ??

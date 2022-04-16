@@ -19,12 +19,20 @@ export class Event extends ProductEntity {
   @Expose({ name: 'desc' })
   protected readonly description: string;
 
+  /**
+   * Get an event title
+   * @param o
+   */
   getTitle(
     o: Omit<GetLocalisationOptions, 'key' | 'version'> = {},
   ): Promise<Localisation> {
     return this.product.localisation.translate({ key: this.title, ...o });
   }
 
+  /**
+   * Get an event description
+   * @param o
+   */
   getDescription(
     o: Omit<GetLocalisationOptions, 'key' | 'version'> = {},
   ): Promise<Localisation> {

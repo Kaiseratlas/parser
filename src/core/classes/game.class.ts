@@ -1,12 +1,17 @@
 import os from 'os';
 import path from 'path';
 import { ModManager } from '../managers';
+import type { GameOptions } from '../options';
 
 export class Game {
-  protected constructor(readonly path: string) {}
+  protected constructor(readonly path: string, o?: GameOptions) {
+    this.options = o;
+  }
 
-  static fromPath(path: Game['path']) {
-    return new Game(path);
+  protected readonly options?: GameOptions;
+
+  static fromPath(path: Game['path'], o?: GameOptions) {
+    return new Game(path, o);
   }
 
   resolvePath(...paths: string[]) {
@@ -16,6 +21,9 @@ export class Game {
   readonly mods = new ModManager(this);
 
   get modPath() {
+    if (this.options.modPath) {
+      return this.options.modPath;
+    }
     return path.join(
       os.homedir(),
       'Documents',
