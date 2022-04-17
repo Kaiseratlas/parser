@@ -1,5 +1,5 @@
 import { Continent, Province } from '../../src/map';
-import { State, Color } from '../../src';
+import { State, Color, TerrainCategory } from '../../src';
 
 describe('KR Provinces (e2e)', () => {
   describe('load all provinces', () => {
@@ -64,8 +64,16 @@ describe('KR Provinces (e2e)', () => {
       expect(typeof province.isCoastal === 'boolean').toBe(true);
     });
 
-    it('province is coastal variable type should be string', () => {
-      expect(typeof province.terrain === 'string').toBe(true);
+    describe('load a terrain category', () => {
+      let terrainCategory: TerrainCategory;
+
+      beforeAll(async () => {
+        terrainCategory = await province.getTerrainCategory();
+      });
+
+      it('terrain category should be an instance of the terrain category class', () => {
+        expect(terrainCategory instanceof TerrainCategory).toBe(true);
+      });
     });
 
     describe('load a continent', () => {

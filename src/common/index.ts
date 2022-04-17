@@ -12,5 +12,7 @@ export * from './state-categories';
 export * from './opinion-modifiers';
 export * from './resources';
 export * from './technologies';
+export * from './terrain';
+export * from './resources';
 // shared managers
 export * from './common.manager';

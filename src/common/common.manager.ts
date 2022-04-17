@@ -14,6 +14,7 @@ import { TechnologyManager } from './technologies';
 import { CountryManager } from './countries';
 import { LeaderTraitManager } from './leader-traits';
 import { BuildingManager } from './buildings';
+import { TerrainManager } from './terrain';
 
 export class CommonManager extends ProductEntity {
   readonly abilities = new AbilityManager(this.product);
@@ -31,6 +32,7 @@ export class CommonManager extends ProductEntity {
   readonly resources = new ResourceManager(this.product);
   readonly stateCategories = new StateCategoryManager(this.product);
   readonly technologies = new TechnologyManager(this.product);
+  readonly terrain = new TerrainManager(this.product);
 
   get AS() {
     return this.autonomousStates;

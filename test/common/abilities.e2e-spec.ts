@@ -1,4 +1,4 @@
-import { Ability } from '../../src/common';
+import { Ability } from '../../src';
 import { Localisation } from '../../src/localisation';
 
 describe('KR Abilities (e2e)', () => {

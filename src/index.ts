@@ -13,8 +13,13 @@ export {
   CountryLeader,
   Ideology,
   Idea,
+  IntelligenceAgency,
+  Resource,
   StateCategory,
+  Terrain,
+  TerrainCategory,
 } from './common';
+export { Event } from './events';
 export { State, Faction, PoliticalParty } from './history';
 export { Sprite } from './interface';
 export { Province, ProvinceType } from './map';

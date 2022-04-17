@@ -4,6 +4,7 @@ import Color from 'color';
 import { ProvinceHeader, ProvinceType } from '../enums';
 import type { Continent } from './continent.class';
 import type { State } from '../../history';
+import type { TerrainCategory } from '../../common';
 
 export class Province extends ProductEntity {
   static readonly Header = ProvinceHeader;
@@ -20,10 +21,6 @@ export class Province extends ProductEntity {
   readonly type: ProvinceType;
   @Expose({ name: '5' })
   readonly isCoastal: boolean;
-  @Expose({ name: '6' })
-  readonly terrain: string;
-  @Expose({ name: '7' })
-  protected readonly continentId: Continent['id'];
 
   belongsToContinent(continent: Continent | Continent['id']): boolean {
     if (typeof continent === 'object') {
@@ -36,6 +33,16 @@ export class Province extends ProductEntity {
     const states = await this.product.history.states.load();
     return states.find((state) => state.hasProvince(this)) ?? null;
   }
+
+  @Expose({ name: '6' })
+  protected readonly terrainCategoryId: TerrainCategory['id'];
+
+  getTerrainCategory(): Promise<TerrainCategory> {
+    return this.product.common.terrain.categories.get(this.terrainCategoryId);
+  }
+
+  @Expose({ name: '7' })
+  protected readonly continentId: Continent['id'];
 
   getContinent(): Promise<Continent | null> {
     // if is ocean

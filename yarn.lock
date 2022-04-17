@@ -3468,6 +3468,13 @@ saxes@^5.0.1:
   dependencies:
     xmlchars "^2.2.0"
 
+sdds@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/sdds/-/sdds-0.0.2.tgz#44e6b15f6ee70b5e3f2d7573e66b40534737f150"
+  integrity sha512-XgT4p6A5JzsshVjvoIRU29OAuR1B8mcen+nJebGt/zwkBAKdyNKQQhtKRMv0OzL2SSncTZsOun4UAx7c73Lrqw==
+  dependencies:
+    pngjs "^6.0.0"
+
 semver@7.x, semver@^7.3.2, semver@^7.3.5:
   version "7.3.5"
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.3.5.tgz#0b621c879348d8998e4b0e4be94b3f12e6018ef7"

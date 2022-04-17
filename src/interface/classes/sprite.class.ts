@@ -7,6 +7,7 @@ import { PNG } from 'pngjs';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import TGA from 'tga';
+import sdds from 'sdds';
 
 export class Sprite extends ProductEntity {
   static readonly Key = 'spriteType';
@@ -21,7 +22,7 @@ export class Sprite extends ProductEntity {
 
   @Expose({ name: 'textureFile' }) // TODO: !
   @Transform(({ obj }) => obj['texturefile'] ?? obj['textureFile'])
-  @Transform(({ value }: { value: string }) => value.replace(/\/{2}+/g, '/'))
+  @Transform(({ value }: { value: string }) => value?.replace(/\/{2,}/g, '/'))
   readonly textureFile: string;
 
   /**
@@ -42,6 +43,10 @@ export class Sprite extends ProductEntity {
       toBuffer: async () => {
         const data = await this.readFile();
         switch (path.parse(this.textureFile).ext) {
+          case '.dds': {
+            const png = sdds(data);
+            return PNG.sync.write(png);
+          }
           case '.png': {
             return data;
           }
