@@ -12,7 +12,7 @@ export class AutonomyState extends ProductEntity {
    * If true, the game will attempt to make the 'puppet' option in peace deals as well as the 'puppet' effect use this autonomy state among other default autonomy states
    */
   @Expose()
-  readonly isDefault = false;
+  readonly isDefault: boolean = false;
   /**
    * Decides whether the subject is a puppet or not, making is_puppet and is_puppet_of triggers true in that case.
    */
@@ -22,7 +22,7 @@ export class AutonomyState extends ProductEntity {
    * Makes the subject have the same country color as the overlord.
    */
   @Expose({ name: 'use_overlord_color' })
-  readonly useOverlordColor = false; // TODO: what is default value?
+  readonly useOverlordColor: boolean = false; // TODO: what is default value?
   /**
    * Decides the order in which autonomy states are placed. The autonomy states with lower freedom levels have less autonomy than those with higher when the game places the autonomy states for the subject to lose or gain a level.
    * This also decides how much autonomy points the subject needs to gain or lose a level.
@@ -33,7 +33,7 @@ export class AutonomyState extends ProductEntity {
    * Initial freedom level of the country that gets set to this autonomy after a peace conference on a scale from 0 to 1.
    */
   @Expose({ name: 'peace_conference_initial_freedom' })
-  readonly peaceConferenceInitialFreedom = 0.5;
+  readonly peaceConferenceInitialFreedom: number = 0.5;
   /**
    * Decides how large of a portion of the subject's manpower the overlord can use in colonial divisions.
    */

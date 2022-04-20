@@ -11,6 +11,8 @@ export {
   Country,
   CountryFlag,
   CountryLeader,
+  FocusTree,
+  Focus,
   Ideology,
   Idea,
   IntelligenceAgency,
@@ -20,6 +22,7 @@ export {
   TerrainCategory,
 } from './common';
 export { Event } from './events';
+export type { GenericManager, ProductEntity, CsvEntityManager } from './shared';
 export { State, Faction, PoliticalParty } from './history';
 export { Sprite } from './interface';
-export { Province, ProvinceType } from './map';
+export { Continent, Province, ProvinceType, StrategicRegion } from './map';

@@ -4,7 +4,7 @@ export * from './buildings';
 export * from './characters';
 export * from './characters';
 export * from './countries';
-// export * from './goals';
+export * from './goals';
 export * from './ideas';
 export * from './ideologies';
 export * from './intelligence-agencies';

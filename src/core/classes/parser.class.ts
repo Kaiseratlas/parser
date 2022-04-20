@@ -11,9 +11,13 @@ import { Game } from './game.class';
 import fs from 'fs';
 
 export class Parser extends Product {
-  static async initialize(game: Game) {
+  static async initialize(game: Game, modNames?: string[]) {
     const mods = await game.mods.load();
-    return new Parser(game, mods);
+    if (!modNames) {
+      return new Parser(game, mods);
+    }
+    const filteredMods = mods.filter((mod) => modNames.includes(mod.name));
+    return new Parser(game, filteredMods);
   }
 
   resolve(...paths: string[]): string {
