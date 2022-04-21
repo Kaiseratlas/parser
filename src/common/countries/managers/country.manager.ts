@@ -3,6 +3,8 @@ import { GenericManager } from '@shared/';
 import fs from 'fs';
 import { Jomini } from 'jomini';
 import { CountryColorManager } from './country-color.manager';
+import { CosmeticTagManager } from './cosmetic-tag.manager';
+import { CountryFlagManager } from './country-flag.manager';
 
 export class CountryManager extends GenericManager<Country> {
   protected readonly wildcards = ['common/country_tags/**/*.txt'];
@@ -15,7 +17,9 @@ export class CountryManager extends GenericManager<Country> {
     entities.forEach((entity) => this.cache.set(entity.tag, entity));
   }
 
+  readonly cosmeticTags = new CosmeticTagManager(this.product);
   readonly colors = new CountryColorManager(this.product);
+  readonly flags = new CountryFlagManager(this.product);
 
   protected async processFile({ path }) {
     const out = await fs.promises.readFile(path);

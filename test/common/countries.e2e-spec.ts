@@ -1,12 +1,10 @@
 import { Country, CountryColor } from '../../src/common/countries';
 import { CountryHistory, State } from '../../src/history';
 import { NameBase } from '../../src/common/names';
-import { Color } from '../../src';
-import type { CountryFlag } from '../../src/common';
+import { Color, FocusTree, Sprite } from '../../src';
+import type { CountryFlag } from '../../src';
 import fs from 'fs';
 import path from 'path';
-import { Sprite } from '../../src/interface';
-import { FocusTree } from '../../src/common/goals';
 
 describe('KR Countries (e2e)', () => {
   describe('load all countries', () => {
@@ -126,7 +124,7 @@ describe('KR Countries (e2e)', () => {
         let flags: CountryFlag[];
 
         beforeAll(async () => {
-          flags = await country.flags.load();
+          flags = await country.getFlags();
         });
 
         it("country flags array shouldn't be empty", () => {
@@ -140,9 +138,7 @@ describe('KR Countries (e2e)', () => {
         });
 
         it('every country flag variant should be unique', () => {
-          expect(new Set(flags.map((flag) => flag.variant)).size).toBe(
-            flags.length,
-          );
+          expect(new Set(flags.map((flag) => flag.id)).size).toBe(flags.length);
         });
       });
 
@@ -150,7 +146,7 @@ describe('KR Countries (e2e)', () => {
         let currentFlag: CountryFlag;
 
         beforeAll(async () => {
-          currentFlag = await country.flags.getCurrent();
+          currentFlag = await country.getCurrentFlag();
         });
 
         it('ruling party flag should be an instance of the country flag class', () => {
@@ -159,9 +155,9 @@ describe('KR Countries (e2e)', () => {
 
         it('flag variant should be matched with ruling party ideology id', async () => {
           const history = await country.getHistory();
-          expect(currentFlag.variant).toBe(
-            history.politics.rulingParty.ideologyId,
-          );
+          expect(
+            currentFlag.id.includes(history.politics.rulingParty.ideologyId),
+          ).toBe(true);
         });
       });
 
@@ -170,7 +166,7 @@ describe('KR Countries (e2e)', () => {
         const variant = 'authoritarian_democrat';
 
         beforeAll(async () => {
-          flag = await country.flags.get(variant);
+          flag = await country.getFlag(variant);
         });
 
         it('flag should be an instance of the same class', () => {
@@ -178,7 +174,7 @@ describe('KR Countries (e2e)', () => {
         });
 
         it('flag variant should be matched with requested', () => {
-          expect(flag.variant).toBe(variant);
+          expect(flag.id.includes(variant)).toBe(true);
         });
 
         describe('check flag sizes', () => {

@@ -4,7 +4,6 @@ import type { NameBase } from '../../names';
 import type { CountryHistory } from '../../../history';
 import type { CountryColor } from './country-color.class';
 import { CountryFlag } from './country-flag.class';
-import { CountryFlagManager } from '../managers';
 import type {
   GetLocalisationOptions,
   Localisation,
@@ -40,15 +39,6 @@ export class Country extends ProductEntity {
         country.modifiers.some((modifier) => modifier['tag'] === this.tag),
       ),
     );
-  }
-
-  protected flagManager?: CountryFlagManager;
-
-  get flags() {
-    if (!this.flagManager) {
-      this.flagManager = new CountryFlagManager(this.product, this);
-    }
-    return this.flagManager;
   }
 
   async getDefaultAdjective(
@@ -102,6 +92,43 @@ export class Country extends ProductEntity {
       return this.getDefaultName();
     }
     return localisation;
+  }
+
+  async getFlag(variant?: string) {
+    const flagId = `${this.tag}${variant ? `_${variant}` : ''}`;
+    return this.product.common.countries.flags.get(flagId);
+  }
+
+  async getFlags(): Promise<CountryFlag[]> {
+    const [flags, ideologies, history] = await Promise.all([
+      this.product.common.countries.flags.load(),
+      this.product.common.ideologies.load(),
+      this.getHistory(),
+    ]);
+    const flagIds = ideologies.map((ideology) => `${this.tag}_${ideology.id}`);
+    const cosmeticTag = await history.getCosmeticTag();
+    if (cosmeticTag) {
+      const cosmeticFlagIds = ideologies.map(
+        (ideology) => `${cosmeticTag.tag}_${ideology.id}`,
+      );
+      flagIds.push(...cosmeticFlagIds);
+    }
+    return flags.filter((flag) => flagIds.includes(flag.id));
+  }
+
+  async getCurrentFlag() {
+    const history = await this.getHistory();
+    const cosmeticTag = await history.getCosmeticTag();
+    const flagId = `${cosmeticTag.tag ?? this.tag}_${
+      history.politics.rulingParty.ideologyId
+    }`;
+    const flag = await this.product.common.countries.flags.get(flagId);
+    if (flag) {
+      return flag;
+    }
+    return this.product.common.countries.flags.get(
+      `${cosmeticTag.tag ?? this.tag}`,
+    );
   }
 
   async getCurrentName(

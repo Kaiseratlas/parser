@@ -7,6 +7,7 @@ import type { EventManager } from '../../events';
 import type { Game } from './game.class';
 import type { Mod } from './mod.class';
 import type { Entry } from 'fast-glob';
+import type { ProductEntity, GenericManager } from '../../shared';
 
 export abstract class Product {
   protected constructor(
@@ -24,4 +25,7 @@ export abstract class Product {
   abstract map: MapManager;
   abstract fg(wildcards: string[]): Promise<Entry[]>;
   abstract resolve(...paths: string[]): string;
+  abstract getManager<T extends ProductEntity>(
+    cls: new () => T,
+  ): GenericManager<T>;
 }

@@ -11,7 +11,7 @@ import type { Idea } from '../../../common';
 import type { Technology } from '../../../common';
 import type { Autonomy } from './autonomy.class';
 import { Faction } from './faction.class';
-import { Country } from '../../../common/countries';
+import type { Country, CosmeticTag } from '../../../common';
 
 export class CountryHistory extends ProductEntity {
   constructor(product: Product, readonly tag) {
@@ -28,19 +28,26 @@ export class CountryHistory extends ProductEntity {
   readonly startingTrainBuffer: number | null = null; // TODO: maybe 0?
 
   @Expose({ name: 'set_cosmetic_tag' })
-  readonly cosmeticTag: string | null = null;
+  protected readonly cosmeticTag: string | null = null;
+
+  getCosmeticTag(): Promise<CosmeticTag> {
+    if (!this.cosmeticTag) {
+      return null;
+    }
+    return this.product.common.countries.cosmeticTags.get(this.cosmeticTag);
+  }
 
   @Expose({ name: 'set_research_slots' })
-  readonly researchSlots = 0;
+  readonly researchSlots: number = 0;
 
   @Expose({ name: 'set_stability' })
-  readonly stability = 0;
+  readonly stability: number = 0;
 
   @Expose({ name: 'set_convoys' })
-  readonly convoys = 0;
+  readonly convoys: number = 0;
 
   @Expose({ name: 'set_war_support' })
-  readonly warSupport = 0;
+  readonly warSupport: number = 0;
 
   @Expose({ name: 'set_naval_oob' })
   readonly navalOOB: string | null = null;

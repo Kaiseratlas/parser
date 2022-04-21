@@ -1,5 +1,13 @@
 import { Product } from './product.class';
-import { CommonManager } from '../../common';
+import {
+  Ability,
+  AutonomyState,
+  Building,
+  Character,
+  CommonManager,
+  Focus,
+  FocusTree,
+} from '../../common';
 import { EventManager } from '../../events';
 import { HistoryManager } from '../../history';
 import { InterfaceManager } from '../../interface';
@@ -9,6 +17,8 @@ import fg, { Entry } from 'fast-glob';
 import path from 'path';
 import { Game } from './game.class';
 import fs from 'fs';
+import type { GenericManager, ProductEntity } from '@shared/';
+import { managerSelectors } from '../core.utils';
 
 export class Parser extends Product {
   static async initialize(game: Game, modNames?: string[]) {
@@ -18,6 +28,10 @@ export class Parser extends Product {
     }
     const filteredMods = mods.filter((mod) => modNames.includes(mod.name));
     return new Parser(game, filteredMods);
+  }
+
+  getManager<T extends ProductEntity>(cls: new () => T): GenericManager<T> {
+    return managerSelectors.get(cls.name)(this);
   }
 
   resolve(...paths: string[]): string {
