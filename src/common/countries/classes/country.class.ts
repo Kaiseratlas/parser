@@ -105,13 +105,15 @@ export class Country extends ProductEntity {
       this.product.common.ideologies.load(),
       this.getHistory(),
     ]);
-    const flagIds = ideologies.map((ideology) => `${this.tag}_${ideology.id}`);
+    const flagIds = ideologies
+      .map((ideology) => `${this.tag}_${ideology.id}`)
+      .concat(this.tag);
     const cosmeticTag = await history.getCosmeticTag();
     if (cosmeticTag) {
       const cosmeticFlagIds = ideologies.map(
         (ideology) => `${cosmeticTag.tag}_${ideology.id}`,
       );
-      flagIds.push(...cosmeticFlagIds);
+      flagIds.push(cosmeticTag.tag, ...cosmeticFlagIds);
     }
     return flags.filter((flag) => flagIds.includes(flag.id));
   }
