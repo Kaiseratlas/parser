@@ -1,4 +1,4 @@
-import {GenericManager, tryToFixFile} from '@shared/';
+import { GenericManager, tryToFixFile } from '@shared/';
 import { Decision } from '../classes';
 import type { DecisionCategory } from '../classes';
 import { DecisionCategoryManager } from './decision-category.manager';

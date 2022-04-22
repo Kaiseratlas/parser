@@ -6,12 +6,13 @@ import {
   Character,
   Country,
   Decision,
-  FocusTree,
+  FocusTree, GameRule,
   Ideology,
   IntelligenceAgency,
   OpinionModifier,
   Resource,
   StateCategory,
+  Technology,
   TerrainCategory,
 } from '../common';
 import { Parser } from './classes';
@@ -32,11 +33,18 @@ const entries: Array<[string, (parser: Parser) => GenericManager<any>]> = [
   [Decision.name, (parser) => parser.common.decisions],
   [Decision.Category.name, (parser) => parser.common.decisions.categories],
   [FocusTree.name, (parser) => parser.common.focuses],
+  [GameRule.name, (parser) => parser.common.gameRules],
   [Ideology.name, (parser) => parser.common.ideologies],
   [IntelligenceAgency.name, (parser) => parser.common.IA],
   [OpinionModifier.name, (parser) => parser.common.opinionModifiers],
   [Resource.name, (parser) => parser.common.resources],
   [StateCategory.name, (parser) => parser.common.stateCategories],
+  [Technology.name, (parser) => parser.common.technologies],
+  [Technology.Category.name, (parser) => parser.common.technologies.categories],
+  [
+    Technology.SharingGroup.name,
+    (parser) => parser.common.technologies.sharingGroups,
+  ],
   [TerrainCategory.name, (parser) => parser.common.terrain.categories],
   // Events
   [Event.name, (parser) => parser.events],

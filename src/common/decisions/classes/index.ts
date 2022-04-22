@@ -1,2 +1,2 @@
 export * from './decision.class';
-export * from './decision-category.class';
+export type { DecisionCategory } from './decision-category.class';

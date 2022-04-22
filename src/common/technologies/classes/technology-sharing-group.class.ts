@@ -27,6 +27,11 @@ export class TechnologySharingGroup extends ProductEntity {
    */
   @Expose()
   protected readonly picture: string;
+
+  getPicture(): Promise<Sprite> {
+    return this.product.interface.sprites.get(this.picture);
+  }
+
   /**
    * The bonus in percentage on speed of researching a tech per a country that researched it.
    */

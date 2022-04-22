@@ -16,6 +16,7 @@ import { LeaderTraitManager } from './leader-traits';
 import { BuildingManager } from './buildings';
 import { TerrainManager } from './terrain';
 import { DecisionManager } from './decisions';
+import { GameRuleManager } from './game-rules';
 
 export class CommonManager extends ProductEntity {
   readonly abilities = new AbilityManager(this.product);
@@ -24,6 +25,7 @@ export class CommonManager extends ProductEntity {
   readonly characters = new CharacterManager(this.product);
   readonly countries = new CountryManager(this.product);
   readonly decisions = new DecisionManager(this.product);
+  readonly gameRules = new GameRuleManager(this.product);
   readonly goals = new GoalsManager(this.product);
   readonly ideas = new IdeaManager(this.product);
   readonly ideologies = new IdeologyManager(this.product);

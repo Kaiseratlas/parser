@@ -5,6 +5,7 @@ export * from './characters';
 export * from './characters';
 export * from './countries';
 export * from './decisions';
+export * from './game-rules';
 export * from './goals';
 export * from './ideas';
 export * from './ideologies';

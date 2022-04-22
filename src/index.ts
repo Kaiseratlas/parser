@@ -12,6 +12,7 @@ export {
   CountryFlag,
   CountryLeader,
   Decision,
+  GameRule,
   FocusTree,
   Focus,
   Ideology,
@@ -19,10 +20,16 @@ export {
   IntelligenceAgency,
   Resource,
   StateCategory,
+  Technology,
   Terrain,
   TerrainCategory,
 } from './common';
-export type { DecisionCategory } from './common';
+export type {
+  DecisionCategory,
+  GameRuleOption,
+  TechnologyCategory,
+  TechnologySharingGroup,
+} from './common';
 export { Event } from './events';
 export type { GenericManager, ProductEntity, CsvEntityManager } from './shared';
 export { State, Faction, PoliticalParty } from './history';
