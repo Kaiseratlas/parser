@@ -6,12 +6,14 @@ export {
   Ability,
   AutonomyState,
   Building,
+  Bookmark,
   Character,
   CharacterPortrait,
   Country,
   CountryFlag,
   CountryLeader,
   Decision,
+  DifficultySetting,
   GameRule,
   FocusTree,
   Focus,
@@ -23,12 +25,15 @@ export {
   Technology,
   Terrain,
   TerrainCategory,
+  Unit,
 } from './common';
 export type {
+  BookmarkCountry,
   DecisionCategory,
   GameRuleOption,
   TechnologyCategory,
   TechnologySharingGroup,
+  UnitCategory,
 } from './common';
 export { Event } from './events';
 export type { GenericManager, ProductEntity, CsvEntityManager } from './shared';

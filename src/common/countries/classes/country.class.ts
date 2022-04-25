@@ -32,6 +32,11 @@ export class Country extends ProductEntity {
   readonly tag: string;
   readonly isDynamic: boolean;
 
+  async getCurrentTag() {
+    const history = await this.getHistory();
+    return history.currentTag;
+  }
+
   async getFocusTrees(): Promise<FocusTree[]> {
     const trees = await this.product.common.goals.load();
     return trees.filter((tree) =>
@@ -44,8 +49,9 @@ export class Country extends ProductEntity {
   async getDefaultAdjective(
     o: Omit<GetLocalisationOptions, 'key' | 'version'> = {},
   ): Promise<Localisation> {
+    const tag = await this.getCurrentTag();
     return this.product.localisation.translate({
-      key: `${this.tag}_ADJ`,
+      key: `${tag}_ADJ`,
       ...o,
     });
   }
@@ -54,8 +60,9 @@ export class Country extends ProductEntity {
     variant: string,
     o: Omit<GetLocalisationOptions, 'key' | 'version'> = {},
   ) {
+    const tag = await this.getCurrentTag();
     const localisation = await this.product.localisation.translate({
-      key: `${this.tag}_${variant}_ADJ`,
+      key: `${tag}_${variant}_ADJ`,
       ...o,
     });
     if (!localisation) {
@@ -74,8 +81,9 @@ export class Country extends ProductEntity {
   async getDefaultName(
     o: Omit<GetLocalisationOptions, 'key' | 'version'> = {},
   ): Promise<Localisation> {
+    const tag = await this.getCurrentTag();
     return this.product.localisation.translate({
-      key: this.tag,
+      key: tag,
       ...o,
     });
   }
@@ -84,8 +92,9 @@ export class Country extends ProductEntity {
     variant: string,
     o: Omit<GetLocalisationOptions, 'key' | 'version'> = {},
   ) {
+    const tag = await this.getCurrentTag();
     const localisation = await this.product.localisation.translate({
-      key: `${this.tag}_${variant}`,
+      key: `${tag}_${variant}`,
       ...o,
     });
     if (!localisation) {
@@ -95,7 +104,8 @@ export class Country extends ProductEntity {
   }
 
   async getFlag(variant?: string) {
-    const flagId = `${this.tag}${variant ? `_${variant}` : ''}`;
+    const tag = await this.getCurrentTag();
+    const flagId = `${tag}${variant ? `_${variant}` : ''}`;
     return this.product.common.countries.flags.get(flagId);
   }
 

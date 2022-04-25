@@ -30,6 +30,10 @@ export class CountryHistory extends ProductEntity {
   @Expose({ name: 'set_cosmetic_tag' })
   protected readonly cosmeticTag: string | null = null;
 
+  get currentTag(): string {
+    return this.cosmeticTag ?? this.tag;
+  }
+
   getCosmeticTag(): Promise<CosmeticTag> {
     if (!this.cosmeticTag) {
       return null;

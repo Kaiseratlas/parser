@@ -1,5 +1,4 @@
-import { Building } from '../../src/common/buildings';
-import { Sprite } from '../../src/interface';
+import { Building, Sprite } from '../../src';
 import { Localisation } from '../../src/localisation';
 
 describe('', () => {

@@ -13,9 +13,13 @@ export class CountryHistoryManager extends GenericManager<CountryHistory> {
   }
 
   protected updateCache(entities: CountryHistory[]) {
-    entities.forEach((countryHistory) =>
-      this.cache.set(countryHistory.tag, countryHistory),
-    );
+    entities.forEach((countryHistory) => {
+      this.cache.set(countryHistory.tag, countryHistory);
+      // duplicate for cosmetic tags
+      if (!this.cache.has(countryHistory.currentTag)) {
+        this.cache.set(countryHistory.currentTag, countryHistory);
+      }
+    });
   }
 
   protected async processFile({ path: fullPath }): Promise<CountryHistory[]> {

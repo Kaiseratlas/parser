@@ -1,10 +1,12 @@
 export * from './abilities';
 export * from './autonomous-states';
 export * from './buildings';
+export * from './bookmarks';
 export * from './characters';
 export * from './characters';
 export * from './countries';
 export * from './decisions';
+export * from './difficulty-settings';
 export * from './game-rules';
 export * from './goals';
 export * from './ideas';
@@ -16,5 +18,6 @@ export * from './resources';
 export * from './technologies';
 export * from './terrain';
 export * from './resources';
+export * from './units';
 // shared managers
 export * from './common.manager';

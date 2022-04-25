@@ -13,6 +13,15 @@ export class CountryManager extends GenericManager<Country> {
     return new Country(this.product, countryTag, isDynamic);
   }
 
+  async get(tag: Country['tag']) {
+    const country = await super.get(tag);
+    if (country) {
+      return country;
+    }
+    const countryHistory = await this.product.history.countries.get(tag);
+    return super.get(countryHistory.tag);
+  }
+
   protected updateCache(entities: Country[]) {
     entities.forEach((entity) => this.cache.set(entity.tag, entity));
   }

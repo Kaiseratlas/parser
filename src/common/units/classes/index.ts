@@ -1,2 +1,4 @@
 export * from './unit.class';
-export * from './unit-category.class';
+export { Equipment } from './equipment.class';
+export { UnitGroup } from './unit-group.class';
+export { UnitCategory } from './unit-category.class';
