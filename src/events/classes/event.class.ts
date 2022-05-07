@@ -11,7 +11,9 @@ export class Event extends ProductEntity {
   constructor(product: Product, readonly type: EventType) {
     super(product);
   }
-
+  /**
+   * A unique identifier for the event.
+   */
   @Expose()
   readonly id: string;
   @Expose()
@@ -38,9 +40,12 @@ export class Event extends ProductEntity {
   ): Promise<Localisation> {
     return this.product.localisation.translate({ key: this.description, ...o });
   }
-
+  /**
+   * The picture to use in the event popup.
+   * @protected
+   */
   @Expose()
-  protected readonly picture: string | null = null;
+  protected readonly picture: string = null;
 
   getPicture(): Promise<Sprite | null> {
     if (!this.picture) {
@@ -48,13 +53,45 @@ export class Event extends ProductEntity {
     }
     return this.product.interface.sprites.get(this.picture);
   }
-
+  /**
+   * If false, the event can fire multiple times.
+   */
   @Expose({ name: 'fire_only_once' })
-  readonly fireOnlyOnce = false;
+  readonly fireOnlyOnce: boolean = false;
+  /**
+   *  If true, the event cannot randomly happen through mean_time_to_happen,
+   *  it must be triggered explicitly in an effect. Also, if set to no, the event can not happen through a trigger
+   */
   @Expose({ name: 'is_triggered_only' })
-  readonly isTriggeredOnly = false;
+  readonly isTriggeredOnly: boolean = false;
   @Expose({ name: 'timeout_days' })
+  /**
+   * Number of days for the recipient to respond. After the timeout, the first option gets selected.
+   */
   readonly timeoutDays = 13;
   @Expose({ name: 'fire_for_sender' })
-  readonly fireForSender = true;
+  /**
+   * If false, the event will not be shown to the sending country, even if it is a major event.
+   */
+  readonly fireForSender: boolean = true;
+  /**
+   * The event will not be shown but can still cause other side effects, like triggering different events.
+   */
+  @Expose({ name: 'hidden' })
+  readonly isHidden: boolean = false;
+  /**
+   * TODO: !
+   */
+  @Expose({ name: 'exclusive' })
+  readonly isExclusive: boolean = false;
+  /**
+   * If true, the event will be shown to all countries.
+   */
+  @Expose({ name: 'major' })
+  readonly isMajor: boolean = false;
+  /**
+   * Limits which countries a major event is shown to.
+   */
+  @Expose({ name: 'show_major' })
+  readonly showMajor: any; // TODO: !
 }

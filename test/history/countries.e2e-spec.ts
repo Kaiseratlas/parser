@@ -4,7 +4,7 @@ import {
   CountryPolitics,
   PoliticalParty,
 } from '../../src/history';
-import { Character, Idea, Ideology } from '../../src/common';
+import { Character, Idea, Ideology } from '../../src';
 
 describe('KR Country History (e2e)', () => {
   const ideologyId = 'paternal_autocrat';

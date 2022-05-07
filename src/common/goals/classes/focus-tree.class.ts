@@ -12,6 +12,10 @@ export class FocusTree extends ProductEntity {
   @Expose()
   readonly id: string;
 
+  getName() {
+    return this.product.i18n.t({ key: this.id });
+  }
+
   protected readonly focusMap: FocusMap = new Map();
 
   get focuses() {
@@ -29,12 +33,17 @@ export class FocusTree extends ProductEntity {
     return this;
   }
 
-  async getCountries(): Promise<Country[]> {
-    const countries = await this.product.common.countries.load();
-    const tags = this.countries
+  protected get countryTags() {
+    return this.countries
       .map((country) => country.modifiers.map((modifier) => modifier['tag']))
       .flat();
-    return countries.filter((country) => tags.includes(country.tag));
+  }
+
+  async getCountries(): Promise<Country[]> {
+    const countries = await this.product.common.countries.load();
+    return countries.filter((country) =>
+      this.countryTags.includes(country.tag),
+    );
   }
 
   addFocus(...focuses: Focus[]) {

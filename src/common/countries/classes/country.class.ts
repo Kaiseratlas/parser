@@ -37,14 +37,14 @@ export class Country extends ProductEntity {
     return history.currentTag;
   }
 
-  async getFocusTrees(): Promise<FocusTree[]> {
-    const trees = await this.product.common.goals.load();
-    return trees.filter((tree) =>
-      tree.countries.some((country) =>
-        country.modifiers.some((modifier) => modifier['tag'] === this.tag),
-      ),
-    );
-  }
+  // async getFocusTrees(): Promise<FocusTree[]> {
+  //   const trees = await this.product.common.goals.load();
+  //   return trees.filter((tree) =>
+  //     tree.countries.some((country) =>
+  //       country.modifiers.some((modifier) => modifier['tag'] === this.tag),
+  //     ),
+  //   );
+  // }
 
   async getDefaultAdjective(
     o: Omit<GetLocalisationOptions, 'key' | 'version'> = {},
@@ -78,14 +78,41 @@ export class Country extends ProductEntity {
     return this.getAdjective(history.politics.rulingParty.ideologyId, o);
   }
 
+  async getOriginalDefaultName() {
+    return await this.product.i18n.t({
+      key: this.tag,
+    });
+  }
+
   async getDefaultName(
     o: Omit<GetLocalisationOptions, 'key' | 'version'> = {},
   ): Promise<Localisation> {
     const tag = await this.getCurrentTag();
-    return this.product.localisation.translate({
+    const localisation = await this.product.i18n.t({
       key: tag,
       ...o,
     });
+
+    if (localisation) {
+      return localisation;
+    }
+
+    return this.getOriginalDefaultName();
+  }
+
+  async getOriginalName(
+    variant: string,
+    o: Omit<GetLocalisationOptions, 'key' | 'version'> = {},
+  ) {
+    const localisation = await this.product.localisation.translate({
+      key: `${this.tag}_${variant}`,
+      ...o,
+    });
+
+    if (!localisation) {
+      return this.getDefaultName();
+    }
+    return localisation;
   }
 
   async getName(
@@ -97,6 +124,7 @@ export class Country extends ProductEntity {
       key: `${tag}_${variant}`,
       ...o,
     });
+
     if (!localisation) {
       return this.getDefaultName();
     }
@@ -148,6 +176,16 @@ export class Country extends ProductEntity {
   ): Promise<Localisation> {
     const history = await this.getHistory();
     return this.getName(history.politics.rulingParty.ideologyId, o);
+  }
+
+  async getOriginalCurrentName(
+    o: Omit<GetLocalisationOptions, 'key' | 'version'> = {},
+  ): Promise<Localisation> {
+    const history = await this.getHistory();
+    if (this.tag === 'GRE') {
+      console.log(history.politics.rulingParty.ideologyId);
+    }
+    return this.getOriginalName(history.politics.rulingParty.ideologyId, o);
   }
 
   getColor(): Promise<CountryColor> {

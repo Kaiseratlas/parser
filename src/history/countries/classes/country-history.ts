@@ -158,4 +158,9 @@ export class CountryHistory extends ProductEntity {
       this.technologies.includes(technology.id),
     );
   }
+
+  async getDivisions() {
+    const divisions = await this.product.history.divisions.load();
+    return divisions.filter((division) => division.OOB === this.OOB);
+  }
 }

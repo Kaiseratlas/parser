@@ -1,63 +1,27 @@
-import {
-  Focus,
-  FocusTree,
-  FocusTreeCountryModifier as Modifier,
-  FocusTreeCountry,
-} from '../classes';
-import { convertToArray, GenericManager } from '@shared/';
-import fs from 'fs';
-import { Jomini } from 'jomini';
-import { plainToClassFromExist } from 'class-transformer';
-import { tryToFixFile } from '@shared/';
+import { Focus } from '../classes';
+import { GenericManager } from '@shared/';
+import { FocusTreeManager } from './focus-tree.manager';
 
-export class GoalsManager extends GenericManager<FocusTree> {
-  protected readonly wildcards = ['common/national_focus/**/*.txt'];
+export class GoalsManager extends GenericManager<Focus> {
+  readonly trees = new FocusTreeManager(this.product);
 
-  make(): FocusTree {
-    return new FocusTree(this.product);
+  // TODO:
+  make(): Focus {
+    return undefined;
   }
 
-  protected serializeFocus(data: unknown, tree: FocusTree): Focus {
-    return plainToClassFromExist(new Focus(this.product, tree), data, {
-      excludeExtraneousValues: true,
-      exposeDefaultValues: true,
-    });
+  async get(id: Focus['id']): Promise<Focus> {
+    const trees = await this.trees.load();
+    const tree = trees.find((tree) => tree.getFocus(id));
+    return tree.getFocus(id);
   }
 
-  protected async processFile({ path }): Promise<FocusTree[]> {
-    const out = await fs.promises.readFile(path);
-    const parser = await Jomini.initialize();
-    let data;
-    try {
-      data = parser.parseText(out);
-    } catch (e) {
-      data = parser.parseText(tryToFixFile(out));
-    }
-    return convertToArray(data[FocusTree.Key]).map((data) => {
-      const tree = this.make();
-      const countries = convertToArray(data['country']).map((data) => {
-        const country = new FocusTreeCountry(this.product, tree);
-        const modifiers = convertToArray(data['modifier']).map((data) =>
-          plainToClassFromExist(new Modifier(this.product, country), data, {
-            excludeExtraneousValues: true,
-            exposeDefaultValues: true,
-          }),
-        );
-        country.addModifier(...modifiers);
-        return plainToClassFromExist(country, data, {
-          excludeExtraneousValues: true,
-          exposeDefaultValues: true,
-        });
-      });
-      tree.addCountry(...countries);
-      const focuses = convertToArray(data[Focus.Key]).map((data) =>
-        this.serializeFocus(data, tree),
-      );
-      tree.addFocus(...focuses);
-      return plainToClassFromExist(tree, data, {
-        excludeExtraneousValues: true,
-        exposeDefaultValues: true,
-      });
-    });
+  async load(o?): Promise<Focus[]> {
+    const trees = await this.trees.load(o);
+    return trees.flatMap((tree) => tree.focuses);
+  }
+
+  protected async processFile(): Promise<Focus[]> {
+    return [];
   }
 }

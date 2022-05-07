@@ -3,6 +3,7 @@ import { Localisation } from '../classes';
 import type { LocalisationOptions } from '../options';
 import fs from 'fs';
 import path from 'path';
+import {nanoid} from "nanoid";
 
 const LOCALISATION_REGEX =
   /^\s*(?<key>\S+):(?<version>\d+)?\s*"(?<value>.*)"$/gm;
@@ -55,15 +56,18 @@ export class LocalisationManager extends GenericManager<Localisation> {
     return this._cache.get(lang).get(key).get(latest);
   }
 
-  t = this.translate;
+  readonly t = this.translate;
 
   async translate(o: GetLocalisationOptions): Promise<Localisation | null> {
+    const debug = this.debug.extend(nanoid(5));
     if (!o.lang) {
       o.lang = 'english';
+      debug('no language was specified, %s used as default', o.lang);
     }
     if (!o.force) {
       o.force = process.env.NODE_ENV === 'test' ?? false;
     }
+    debug('force loading is %s', o.force ? 'enabled' : 'disabled');
     const localisation =
       this._cache?.get(o.lang)?.get(o.key)?.get(o.version) ??
       this.getLatestFromCache(o.key, o.lang) ??
@@ -73,8 +77,10 @@ export class LocalisationManager extends GenericManager<Localisation> {
 
     if (!localisation) {
       if (!o.force) {
+        debug('localisation %s has not found, refused', o.key);
         return null;
       }
+      debug('localisation %s has not found, reloading...', o.key);
       await this.load();
     }
 

@@ -19,5 +19,7 @@ export * from './technologies';
 export * from './terrain';
 export * from './resources';
 export * from './units';
+export * from './occupation-laws';
+export * from './war-goals';
 // shared managers
 export * from './common.manager';

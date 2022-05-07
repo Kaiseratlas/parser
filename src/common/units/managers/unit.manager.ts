@@ -7,7 +7,7 @@ import { UnitCategoryManager } from './unit-category.manager';
 import { EquipmentManager } from './equipment.manager';
 
 export class UnitManager extends GenericManager<Unit> {
-  protected readonly wildcards = ['common/units/**/*.txt'];
+  protected readonly wildcards = ['common/units/*.txt'];
 
   readonly categories = new UnitCategoryManager(this.product);
   readonly equipments = new EquipmentManager(this.product);

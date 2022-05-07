@@ -58,6 +58,7 @@ export abstract class GenericManager<T extends ProductEntity> {
       debug('a cache was disabled, retuning %d results...', result.length);
       return result;
     }
+
     debug('loading from the cache again...');
     return [...this.cache.values()];
   }

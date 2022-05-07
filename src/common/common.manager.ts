@@ -20,6 +20,8 @@ import { GameRuleManager } from './game-rules';
 import { DifficultySettingManager } from './difficulty-settings';
 import { BookmarkManager } from './bookmarks';
 import { UnitManager } from './units';
+import { OccupationLawManager } from './occupation-laws';
+import { WarGoalManager } from './war-goals';
 
 export class CommonManager extends ProductEntity {
   readonly abilities = new AbilityManager(this.product);
@@ -37,12 +39,14 @@ export class CommonManager extends ProductEntity {
   readonly intelligenceAgencies = new IntelligenceAgencyManager(this.product);
   readonly leaderTraits = new LeaderTraitManager(this.product);
   readonly names = new NameManager(this.product);
+  readonly occupationLaws = new OccupationLawManager(this.product);
   readonly opinionModifiers = new OpinionModifierManager(this.product);
   readonly resources = new ResourceManager(this.product);
   readonly stateCategories = new StateCategoryManager(this.product);
   readonly technologies = new TechnologyManager(this.product);
   readonly terrain = new TerrainManager(this.product);
   readonly units = new UnitManager(this.product);
+  readonly warGoals = new WarGoalManager(this.product);
 
   get AS() {
     return this.autonomousStates;

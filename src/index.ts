@@ -20,12 +20,14 @@ export {
   Ideology,
   Idea,
   IntelligenceAgency,
+  OccupationLaw,
   Resource,
   StateCategory,
   Technology,
   Terrain,
   TerrainCategory,
   Unit,
+  WarGoal,
 } from './common';
 export type {
   BookmarkCountry,
@@ -37,6 +39,7 @@ export type {
 } from './common';
 export { Event } from './events';
 export type { GenericManager, ProductEntity, CsvEntityManager } from './shared';
-export { State, Faction, PoliticalParty } from './history';
+export { Division, State, Faction, PoliticalParty } from './history';
+export type { DivisionTemplate, DivisionTemplateUnit } from './history';
 export { Sprite } from './interface';
 export { Continent, Province, ProvinceType, StrategicRegion } from './map';
