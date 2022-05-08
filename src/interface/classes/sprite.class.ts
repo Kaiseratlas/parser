@@ -7,7 +7,9 @@ import { PNG } from 'pngjs';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import TGA from 'tga';
-import sdds from 'sdds';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { convert } from 'imagemagick-convert';
 
 export class Sprite extends ProductEntity {
   static readonly Key = 'spriteType';
@@ -44,8 +46,11 @@ export class Sprite extends ProductEntity {
         const data = await this.readFile();
         switch (path.parse(this.textureFile).ext) {
           case '.dds': {
-            const png = sdds(data);
-            return PNG.sync.write(png);
+            return convert({
+              srcData: data,
+              srcFormat: 'DDS',
+              format: 'PNG',
+            });
           }
           case '.png': {
             return data;

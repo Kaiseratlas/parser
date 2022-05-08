@@ -2090,6 +2090,11 @@ ignore@^5.1.8, ignore@^5.2.0:
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-5.2.0.tgz#6d3bac8fa7fe0d45d9f9be7bac2fc279577e345a"
   integrity sha512-CmxgYGiEPCLhfLnpPp1MoRmifwEIOgjcHXxOBjv7mY96c+eWScsOP9c112ZyLdWHi0FxHjI+4uVhKYp/gcdRmQ==
 
+imagemagick-convert@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/imagemagick-convert/-/imagemagick-convert-1.0.3.tgz#428bf3715aa3666928de1b2045bc1a2ee7eaeabc"
+  integrity sha512-xkRM1qak1IiOmuNT00kQkWIISMR/MsvOYJBIiUVPBR0ucmvk1s0w44v3OL5QeObIkMA/tPCWUkrQnZD6EYBhCg==
+
 import-fresh@^3.0.0, import-fresh@^3.2.1:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/import-fresh/-/import-fresh-3.3.0.tgz#37162c25fcb9ebaa2e6e53d5b4d88ce17d9e0c2b"
@@ -3472,13 +3477,6 @@ saxes@^5.0.1:
   integrity sha512-5LBh1Tls8c9xgGjw3QrMwETmTMVk0oFgvrFSvWx62llR2hcEInrKNZ2GZCCuuy2lvWrdl5jhbpeqc5hRYKFOcw==
   dependencies:
     xmlchars "^2.2.0"
-
-sdds@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/sdds/-/sdds-0.0.2.tgz#44e6b15f6ee70b5e3f2d7573e66b40534737f150"
-  integrity sha512-XgT4p6A5JzsshVjvoIRU29OAuR1B8mcen+nJebGt/zwkBAKdyNKQQhtKRMv0OzL2SSncTZsOun4UAx7c73Lrqw==
-  dependencies:
-    pngjs "^6.0.0"
 
 semver@7.x, semver@^7.3.2, semver@^7.3.5:
   version "7.3.5"

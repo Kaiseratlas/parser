@@ -1,11 +1,12 @@
 {
   "name": "@kaiseratlas/parser",
+  "description": "A Hearts of Iron IV resource parser",
   "author": {
     "name": "Vitaly Pereslavtsev",
     "email": "dev@pereslavtsev.com",
     "url": "https://www.pereslavtsev.com/"
   },
-  "version": "1.0.0",
+  "version": "0.1.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "license": "MIT",
@@ -45,11 +46,11 @@
     "debug": "^4.3.4",
     "dotenv": "^16.0.0",
     "fast-glob": "^3.2.11",
+    "imagemagick-convert": "^1.0.3",
     "jomini": "^0.6.4",
     "nanoid": "^3.3.2",
     "pngjs": "^6.0.0",
     "reflect-metadata": "^0.1.13",
-    "sdds": "^0.0.2",
     "tga": "^1.0.4"
   },
   "jest": {
