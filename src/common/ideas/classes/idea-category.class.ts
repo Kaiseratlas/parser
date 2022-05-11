@@ -1,5 +1,5 @@
-import { Expose, Transform } from 'class-transformer';
-import { convertToArray, ProductEntity } from '@shared/';
+import { Expose } from 'class-transformer';
+import { ProductEntity, TransformToArray } from '@shared/';
 import type { Product } from '@shared/';
 import { IdeaSlot } from './idea-slot.class';
 import { Idea } from './idea.class';
@@ -9,11 +9,11 @@ export class IdeaCategory extends ProductEntity {
     super(product);
   }
   @Expose()
-  readonly cost: number | null = null;
+  readonly cost: number = null;
   @Expose({ name: 'removal_cost' })
-  readonly removalCost: number | null = null;
+  readonly removalCost: number = null;
   @Expose({ name: 'slot' })
-  @Transform(({ value }) => convertToArray(value))
+  @TransformToArray()
   protected readonly _slots: string[];
 
   protected makeSlot(id: IdeaSlot['id']) {

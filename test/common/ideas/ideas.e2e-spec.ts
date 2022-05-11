@@ -1,4 +1,4 @@
-import { Idea } from '../../src/common';
+import { Idea } from '../../../src/common';
 
 describe('KR Ideas (e2e)', () => {
   describe('load all ideas', () => {

@@ -1,14 +1,15 @@
 import { GenericManager } from '@shared/';
-import { IdeaCategory } from '../classes/idea-category.class';
+import type { IdeaCategory } from '../classes';
 import fs from 'fs';
 import { Jomini } from 'jomini';
 import { plainToClassFromExist } from 'class-transformer';
+import { Idea } from '../classes';
 
 export class IdeaCategoryManager extends GenericManager<IdeaCategory> {
   protected readonly wildcards = ['common/idea_tags/**/*.txt'];
 
   make(id: IdeaCategory['id']): IdeaCategory {
-    return new IdeaCategory(this.product, id);
+    return new Idea.Category(this.product, id);
   }
 
   protected async processFile({ path }) {

@@ -1,13 +1,14 @@
 import { convertToArray, GenericManager } from '@shared/';
-import { UnitCategory } from '../classes';
+import type { UnitCategory } from '../classes';
 import fs from 'fs';
 import { Jomini } from 'jomini';
+import { Unit } from '../classes';
 
 export class UnitCategoryManager extends GenericManager<UnitCategory> {
   protected readonly wildcards = ['common/unit_tags/**/*.txt'];
 
   make(id: UnitCategory['id']): UnitCategory {
-    return new UnitCategory(this.product, id);
+    return new Unit.Category(this.product, id);
   }
 
   protected async processFile({ path }): Promise<UnitCategory[]> {

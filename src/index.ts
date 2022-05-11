@@ -35,11 +35,22 @@ export type {
   GameRuleOption,
   TechnologyCategory,
   TechnologySharingGroup,
+  // unit types
+  UnitGroup,
+  Equipment,
   UnitCategory,
 } from './common';
 export { Event } from './events';
+export { Localisation } from './localisation';
 export type { GenericManager, ProductEntity, CsvEntityManager } from './shared';
-export { Division, State, Faction, PoliticalParty } from './history';
+export {
+  CountryHistory,
+  Division,
+  State,
+  Faction,
+  PoliticalParty,
+} from './history';
 export type { DivisionTemplate, DivisionTemplateUnit } from './history';
 export { Sprite } from './interface';
 export { Continent, Province, ProvinceType, StrategicRegion } from './map';
+export { ENTITIES } from './core';

@@ -11,6 +11,7 @@ import {
   Focus,
   FocusTree,
   GameRule,
+  Idea,
   Ideology,
   IntelligenceAgency,
   OccupationLaw,
@@ -23,11 +24,56 @@ import {
   WarGoal,
 } from '../common';
 import { Parser } from './classes';
-import { Division, State } from '../history';
+import { CountryHistory, Division, State } from '../history';
 import { Sprite } from '../interface';
 import { Continent, Province, StrategicRegion } from '../map';
 import { Localisation } from '../localisation';
 import { Event } from '../events';
+
+export const ENTITIES = [
+  // Common
+  Ability,
+  AutonomyState,
+  Bookmark,
+  Building,
+  Character,
+  Country,
+  Country.Flag,
+  Decision,
+  Decision.Category,
+  DifficultySetting,
+  Focus,
+  FocusTree,
+  GameRule,
+  Idea,
+  Ideology,
+  IntelligenceAgency,
+  OccupationLaw,
+  OpinionModifier,
+  Resource,
+  StateCategory,
+  Technology,
+  Technology.Category,
+  Unit,
+  Unit.Category,
+  Unit.Equipment,
+  WarGoal,
+  // Events
+  Event,
+  // History
+  CountryHistory,
+  Division,
+  Division.Template,
+  State,
+  // Interface
+  Sprite,
+  // Localisations
+  Localisation,
+  // Map
+  Continent,
+  Province,
+  StrategicRegion,
+];
 
 const entries: Array<[string, (parser: Parser) => GenericManager<any>]> = [
   // Common
@@ -44,6 +90,7 @@ const entries: Array<[string, (parser: Parser) => GenericManager<any>]> = [
   [Focus.name, (parser) => parser.common.focuses],
   [FocusTree.name, (parser) => parser.common.focuses.trees],
   [GameRule.name, (parser) => parser.common.gameRules],
+  [Idea.name, (parser) => parser.common.ideas],
   [Ideology.name, (parser) => parser.common.ideologies],
   [IntelligenceAgency.name, (parser) => parser.common.IA],
   [OccupationLaw.name, (parser) => parser.common.occupationLaws],
@@ -64,6 +111,7 @@ const entries: Array<[string, (parser: Parser) => GenericManager<any>]> = [
   // Events
   [Event.name, (parser) => parser.events],
   // History
+  [CountryHistory.name, (parser) => parser.history.countries],
   [Division.name, (parser) => parser.history.divisions],
   [Division.Template.name, (parser) => parser.history.divisions.templates],
   [State.name, (parser) => parser.history.states],

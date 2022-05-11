@@ -1,6 +1,5 @@
-import { IdeaCategory } from '../../src/common/ideas/classes/idea-category.class';
-import { Sprite } from '../../src/interface';
-import { Idea } from '../../src/common';
+import type { IdeaCategory } from '../../../src/common';
+import { Idea, Sprite } from '../../../src';
 
 describe('KR Idea Categories (e2e)', () => {
   describe('load all idea categories', () => {
@@ -17,7 +16,7 @@ describe('KR Idea Categories (e2e)', () => {
     it('every idea categories array item should be an instance of the idea category class', () => {
       expect(
         ideaCategories.every(
-          (ideaCategory) => ideaCategory instanceof IdeaCategory,
+          (ideaCategory) => ideaCategory instanceof Idea.Category,
         ),
       ).toBe(true);
     });
@@ -38,7 +37,7 @@ describe('KR Idea Categories (e2e)', () => {
     });
 
     it('idea category should be an instance of the same class', () => {
-      expect(ideaCategory instanceof IdeaCategory).toBe(true);
+      expect(ideaCategory instanceof Idea.Category).toBe(true);
     });
 
     it('idea category id should be matched with requested', () => {
