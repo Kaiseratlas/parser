@@ -149,9 +149,9 @@ export class Country extends ProductEntity {
     const cosmeticTag = await history.getCosmeticTag();
     if (cosmeticTag) {
       const cosmeticFlagIds = ideologies.map(
-        (ideology) => `${cosmeticTag.tag}_${ideology.id}`,
+        (ideology) => `${cosmeticTag?.tag}_${ideology.id}`,
       );
-      flagIds.push(cosmeticTag.tag, ...cosmeticFlagIds);
+      flagIds.push(cosmeticTag?.tag, ...cosmeticFlagIds);
     }
     return flags.filter((flag) => flagIds.includes(flag.id));
   }
@@ -159,7 +159,7 @@ export class Country extends ProductEntity {
   async getCurrentFlag() {
     const history = await this.getHistory();
     const cosmeticTag = await history.getCosmeticTag();
-    const flagId = `${cosmeticTag.tag ?? this.tag}_${
+    const flagId = `${cosmeticTag?.tag ?? this.tag}_${
       history.politics.rulingParty.ideologyId
     }`;
     const flag = await this.product.common.countries.flags.get(flagId);
@@ -167,7 +167,7 @@ export class Country extends ProductEntity {
       return flag;
     }
     return this.product.common.countries.flags.get(
-      `${cosmeticTag.tag ?? this.tag}`,
+      `${cosmeticTag?.tag ?? this.tag}`,
     );
   }
 
