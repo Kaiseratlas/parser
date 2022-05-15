@@ -1,11 +1,11 @@
 import { ProductEntity } from '@shared/';
 import { Expose } from 'class-transformer';
 
-export class Commander extends ProductEntity {
+export abstract class Commander extends ProductEntity {
   @Expose()
-  readonly skill = 0;
+  readonly skill: number = 0;
   @Expose({ name: 'attack_skill' })
-  readonly attackSkill = 0;
+  readonly attackSkill: number = 0;
   @Expose({ name: 'defense_skill' })
-  readonly defenseSkill = 0;
+  readonly defenseSkill: number = 0;
 }

@@ -1,4 +1,4 @@
-import { convertToArray, ProductEntity } from '@shared/';
+import { convertToArray, ProductEntity, TransformToArray } from '@shared/';
 import type { Product } from '@shared/';
 import { Expose, Transform } from 'class-transformer';
 import type { State } from '../../states';
@@ -134,13 +134,14 @@ export class CountryHistory extends ProductEntity {
     );
   }
 
+  // Ideas
   @Expose({ name: 'add_ideas' })
-  @Transform(({ value }) => convertToArray(value))
-  protected readonly ideas: Idea['id'][];
+  @TransformToArray()
+  protected readonly ideasIds: Idea['id'][] = [];
 
   async getIdeas(): Promise<Idea[]> {
     const ideas = await this.product.common.ideas.load();
-    return ideas.filter((idea) => this.ideas.includes(idea.id));
+    return ideas.filter((idea) => this.ideasIds.includes(idea.id));
   }
 
   // Technologies

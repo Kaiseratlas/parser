@@ -5,6 +5,7 @@ import {
   FieldMarshal,
   CountryLeader,
   CharacterPortrait,
+  NavyLeader,
 } from '../classes';
 import { Jomini } from 'jomini';
 import fs from 'fs';
@@ -28,10 +29,11 @@ export class CharacterManager extends GenericManager<Character> {
     return convertToArray(data?.['characters']).flatMap((d) =>
       Object.entries(d).map(([id, charData]) => {
         const ch = this.make(id);
-        const [leaderRoles, fmRoles, corpsCommanders] = [
+        const [leaderRoles, fmRoles, corpsCommanders, navyRoles] = [
           CountryLeader,
           FieldMarshal,
           CorpsCommander,
+          NavyLeader,
         ].map((cls) =>
           convertToArray(charData[cls.Key]).map((n) =>
             plainToClassFromExist(new cls(this.product), n, {
@@ -65,7 +67,12 @@ export class CharacterManager extends GenericManager<Character> {
             ),
         );
 
-        ch.addRole(...leaderRoles, ...fmRoles, ...corpsCommanders);
+        ch.addRole(
+          ...leaderRoles,
+          ...fmRoles,
+          ...corpsCommanders,
+          ...navyRoles,
+        );
         return plainToClassFromExist(ch, charData, {
           excludeExtraneousValues: true,
           exposeDefaultValues: true,

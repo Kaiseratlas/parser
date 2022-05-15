@@ -1,11 +1,11 @@
-import { ProductEntity } from '@shared/';
 import { Expose } from 'class-transformer';
+import { Commander } from './commander.class';
 
-export class FieldMarshal extends ProductEntity {
+export class FieldMarshal extends Commander {
   static readonly Key = 'field_marshal';
 
   @Expose({ name: 'planning_skill' })
-  readonly planningSkill = 0;
+  readonly planningSkill: number = 0;
   @Expose({ name: 'logistics_skill' })
-  readonly logisticsSkill = 0;
+  readonly logisticsSkill: number = 0;
 }
